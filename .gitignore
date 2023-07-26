@@ -1,0 +1,14 @@
+*
+!**/
+
+# ignore
+
+# include
+!.gitignore
+!Makefile
+!*.c
+!*.h
+!.github/**
+!test
+!playground
+!.gitkeep
