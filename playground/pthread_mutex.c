@@ -9,24 +9,24 @@
 #define NUM_INCREMENT	100000
 
 static int				g_shared_num = 0;
-static pthread_mutex_t	mutex;
+static pthread_mutex_t	mutex = PTHREAD_MUTEX_INITIALIZER;
 
-static int	init_mutexes(void)
-{
-	size_t	i;
+// static int	init_mutexes(void)
+// {
+// 	size_t	i;
 
-	i = 0;
-	while (i < NUM_THREADS)
-	{
-		if (pthread_mutex_init(&mutex, NULL) != THREAD_SUCCESS)
-		{
-			perror("pthread_mutex_init");
-			return (THREAD_FAILURE);
-		}
-		i++;
-	}
-	return (THREAD_SUCCESS);
-}
+// 	i = 0;
+// 	while (i < NUM_THREADS)
+// 	{
+// 		if (pthread_mutex_init(&mutex, NULL) != THREAD_SUCCESS)
+// 		{
+// 			perror("pthread_mutex_init");
+// 			return (THREAD_FAILURE);
+// 		}
+// 		i++;
+// 	}
+// 	return (THREAD_SUCCESS);
+// }
 
 static void	*thread_func(void *arg)
 {
@@ -92,13 +92,13 @@ int	main(void)
 {
 	pthread_t	threads[NUM_THREADS];
 
-	if (init_mutexes() != THREAD_SUCCESS)
-		exit(EXIT_FAILURE);
+	// if (init_mutexes() != THREAD_SUCCESS)
+	// 	exit(EXIT_FAILURE);
 	if (create_threads(threads) != THREAD_SUCCESS)
 		exit(EXIT_FAILURE);
 	if (join_threads(threads) != THREAD_SUCCESS)
 		exit(EXIT_FAILURE);
-	pthread_mutex_destroy(&mutex);
+	// pthread_mutex_destroy(&mutex);
 	printf("all threads done! shared_num... [%d]\n", g_shared_num);
 	return (EXIT_SUCCESS);
 }
