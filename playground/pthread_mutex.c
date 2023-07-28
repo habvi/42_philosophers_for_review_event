@@ -7,10 +7,10 @@
 #define THREAD_FAILURE	1
 #define NUM_THREADS		3
 
-int				g_shared_num = 0;
-pthread_mutex_t	mutex;
+static int				g_shared_num = 0;
+static pthread_mutex_t	mutex;
 
-int	init_mutexes(void)
+static int	init_mutexes(void)
 {
 	size_t	i;
 
@@ -27,7 +27,7 @@ int	init_mutexes(void)
 	return (THREAD_SUCCESS);
 }
 
-void	*thread_func(void *arg)
+static void	*thread_func(void *arg)
 {
 	size_t	i;
 
@@ -42,7 +42,7 @@ void	*thread_func(void *arg)
 	return (NULL);
 }
 
-int	create_threads(pthread_t *threads)
+static int	create_threads(pthread_t *threads)
 {
 	size_t	i;
 
@@ -59,7 +59,7 @@ int	create_threads(pthread_t *threads)
 	return (THREAD_SUCCESS);
 }
 
-int	join_threads(pthread_t *threads)
+static int	join_threads(pthread_t *threads)
 {
 	size_t	i;
 

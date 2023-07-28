@@ -20,7 +20,7 @@ int pthread_mutex_unlock(pthread_mutex_t *mutex);
 
 #define THREAD_SUCCESS	0
 
-void	*thread_func(void *arg)
+static void	*thread_func(void *arg)
 {
 	const char	*str = (const char *)arg;
 

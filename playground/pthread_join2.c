@@ -5,7 +5,7 @@
 
 #define THREAD_SUCCESS	0
 
-void	*thread_func(void *arg)
+static void	*thread_func(void *arg)
 {
 	const int	thread_id = *(int *)arg;
 

@@ -7,9 +7,9 @@
 #define THREAD_FAILURE	1
 #define NUM_THREADS		5
 
-int	g_shared_num = 0;
+static int	g_shared_num = 0;
 
-void	*thread_func(void *arg)
+static void	*thread_func(void *arg)
 {
 	size_t	i;
 	int		tmp;
@@ -25,7 +25,7 @@ void	*thread_func(void *arg)
 	return (NULL);
 }
 
-int	create_threads(pthread_t *threads)
+static int	create_threads(pthread_t *threads)
 {
 	size_t	i;
 
@@ -42,7 +42,7 @@ int	create_threads(pthread_t *threads)
 	return (THREAD_SUCCESS);
 }
 
-int	join_threads(pthread_t *threads)
+static int	join_threads(pthread_t *threads)
 {
 	size_t	i;
 
