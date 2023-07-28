@@ -6,6 +6,7 @@
 #define THREAD_SUCCESS	0
 #define THREAD_FAILURE	1
 #define NUM_THREADS		3
+#define NUM_INCREMENT	100000
 
 static int				g_shared_num = 0;
 static pthread_mutex_t	mutex;
@@ -32,11 +33,19 @@ static void	*thread_func(void *arg)
 	size_t	i;
 
 	i = 0;
-	while (i < 100000)
+	while (i < NUM_INCREMENT)
 	{
-		pthread_mutex_lock(&mutex);
+		if (pthread_mutex_lock(&mutex) != THREAD_SUCCESS)
+		{
+			perror("pthread_mutex_lock");
+			exit(EXIT_FAILURE);
+		}
 		g_shared_num++;
-		pthread_mutex_unlock(&mutex);
+		if (pthread_mutex_unlock(&mutex) != THREAD_SUCCESS)
+		{
+			perror("pthread_mutex_unlock");
+			exit(EXIT_FAILURE);
+		}
 		i++;
 	}
 	return (NULL);
