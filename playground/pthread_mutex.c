@@ -31,6 +31,7 @@ static int	init_mutexes(void)
 static void	*thread_func(void *arg)
 {
 	size_t	i;
+	int		tmp;
 
 	i = 0;
 	while (i < NUM_INCREMENT)
@@ -40,7 +41,9 @@ static void	*thread_func(void *arg)
 			perror("pthread_mutex_lock");
 			exit(EXIT_FAILURE);
 		}
-		g_shared_num++;
+		tmp = g_shared_num;
+		tmp++;
+		g_shared_num = tmp;
 		if (pthread_mutex_unlock(&mutex) != THREAD_SUCCESS)
 		{
 			perror("pthread_mutex_unlock");
