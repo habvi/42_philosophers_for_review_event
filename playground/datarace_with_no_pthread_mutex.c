@@ -12,11 +12,14 @@ int	g_shared_num = 0;
 void	*thread_func(void *arg)
 {
 	size_t	i;
+	int		tmp;
 
 	i = 0;
 	while (i < 100000)
 	{
-		g_shared_num++;
+		tmp = g_shared_num;
+		tmp++;
+		g_shared_num = tmp;
 		i++;
 	}
 	return (NULL);
