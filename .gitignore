@@ -9,6 +9,6 @@
 !*.c
 !*.h
 !.github/**
-!test
+!test/norm.py
 !playground
 !.gitkeep

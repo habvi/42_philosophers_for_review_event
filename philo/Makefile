@@ -66,7 +66,7 @@ sani	:
 
 .PHONY	: norm
 norm	:
-	python3 ./test/norm.py
+	python3 ../test/norm.py
 
 #--------------------------------------------
 
