@@ -3,7 +3,7 @@ NAME		:=	philo
 
 CC			:=	cc
 CFLAGS		:=	-Wall -Wextra -Werror -MMD -MP
-THREAD_FLAG :=	-lpthread
+THREAD_FLAG :=	-pthread
 
 UNAME 		:= $(shell uname)
 ifeq ($(UNAME), Linux)
@@ -38,11 +38,11 @@ all		: $(NAME)
 # bonus	:
 
 $(NAME)	: $(OBJS)
-	$(CC) $(CFLAGS) $(THREAD_FLAG) -o $@ $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(THREAD_FLAG)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
 	@$(MKDIR) $(dir $@)
-	$(CC) $(CFLAGS) $(THREAD_FLAG) $(INCLUDES) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@ $(THREAD_FLAG)
 
 .PHONY	: clean
 clean	:
