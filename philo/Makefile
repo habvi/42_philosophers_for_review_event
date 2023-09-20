@@ -19,7 +19,8 @@ SRCS_DIR	:=	srcs
 UTILS_DIR	:=	utils
 SRCS		:=	$(UTILS_DIR)/ft_atoi.c \
 				$(UTILS_DIR)/ft_isdigit.c
-SRCS		+=	main.c
+SRCS		+=	args.c \
+				main.c
 
 OBJS_DIR	:=	objs
 OBJS		:=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
