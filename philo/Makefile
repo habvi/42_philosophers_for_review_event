@@ -17,7 +17,8 @@ endif
 
 SRCS_DIR	:=	srcs
 UTILS_DIR	:=	utils
-SRCS		:=	$(UTILS_DIR)/ft_atoi.c \
+SRCS		:=	$(UTILS_DIR)/debug.c \
+				$(UTILS_DIR)/ft_atoi.c \
 				$(UTILS_DIR)/ft_isdigit.c
 SRCS		+=	args.c \
 				main.c
