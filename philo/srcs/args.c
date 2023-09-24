@@ -3,7 +3,7 @@
 
 bool	is_valid_argc(int argc)
 {
-	return (argc >= 5);
+	return (argc == 5 || argc == 6);
 }
 
 static void	init_t_args(t_args *args)
