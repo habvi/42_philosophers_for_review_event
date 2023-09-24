@@ -34,8 +34,7 @@ static pthread_t	*create_threads(t_args *args)
 	return (threads);
 }
 
-// todo: join all if error? / exit -> return error
-static void	wait_thread(const t_args *args, pthread_t *threads)
+static void	wait_threads(const t_args *args, pthread_t *threads)
 {
 	int	i;
 
@@ -43,10 +42,7 @@ static void	wait_thread(const t_args *args, pthread_t *threads)
 	while (i < args->number_of_philosophers)
 	{
 		if (pthread_join(threads[i], NULL) != THREAD_SUCCESS)
-		{
 			perror("pthread_join");
-			exit(EXIT_FAILURE);
-		}
 		i++;
 	}
 }
@@ -64,7 +60,7 @@ static void	run_philosophers(t_args *args)
 	threads = create_threads(args);
 	// if (threads == NULL)
 	// return error
-	wait_thread(args, threads);
+	wait_threads(args, threads);
 	destroy_threads(&threads);
 }
 
