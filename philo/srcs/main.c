@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "philo.h"
+#include "result.h"
 #include "utils.h"
 
 static void	*thread_func(void *args)
@@ -53,27 +54,29 @@ static void	destroy_threads(pthread_t **threads)
 	threads = NULL;
 }
 
-static void	run_philosophers(t_args *args)
+static t_result	run_philosophers(t_args *args)
 {
 	pthread_t	*threads;
 
 	threads = create_threads(args);
-	// if (threads == NULL)
-	// return error
+	if (threads == NULL)
+		return (FAILURE);
 	wait_threads(args, threads);
 	destroy_threads(&threads);
+	return (SUCCESS);
 }
 
 int	main(int argc, char *argv[])
 {
-	t_args	args;
+	t_args		args;
+	t_result	result;
 
 	if (!is_valid_argc(argc))
 	{
 		printf("Error: invalid arguments.\n");
-		return (EXIT_FAILURE);
+		return (FAILURE);
 	}
 	args = set_args(argc, (const char **)argv);
-	run_philosophers(&args);
-	return (EXIT_SUCCESS);
+	result = run_philosophers(&args);
+	return (result);
 }
