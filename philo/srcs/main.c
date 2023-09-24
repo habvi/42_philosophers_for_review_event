@@ -73,7 +73,7 @@ int	main(int argc, char *argv[])
 		printf("Error: invalid arguments.\n");
 		return (EXIT_FAILURE);
 	}
-	set_args(argc, argv, &args);
+	args = set_args(argc, (const char **)argv);
 	run_philosophers(&args);
 	return (EXIT_SUCCESS);
 }

@@ -15,7 +15,7 @@ typedef struct s_args {
 }	t_args;
 
 /* args */
-bool	is_valid_argc(int argc);
-void	set_args(int argc, char *argv[], t_args *args);
+bool	is_valid_argc(const int argc);
+t_args	set_args(const int argc, const char **argv);
 
 #endif

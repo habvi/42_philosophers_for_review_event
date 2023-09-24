@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "philo.h"
 
-void	put_args(t_args *args)
+void	put_args(const t_args *args)
 {
 	printf("num of philo  : %d\n", args->number_of_philosophers);
 	printf("time to die   : %d\n", args->time_to_die);
