@@ -13,34 +13,59 @@ static void	*thread_func(void *args)
 }
 
 // todo: exit -> return error
-static pthread_t	create_thread(t_args *args)
+static pthread_t	*create_threads(t_args *args)
 {
-	pthread_t	thread;
+	pthread_t	*threads;
+	int			i;
 
-	if (pthread_create(&thread, NULL, thread_func, args) != THREAD_SUCCESS)
+	threads = (pthread_t *)malloc(sizeof(pthread_t) * args->number_of_philosophers);
+	if (threads == NULL)
+		return (NULL);
+	i = 0;
+	while (i < args->number_of_philosophers)
 	{
-		perror("pthread_create");
-		exit(EXIT_FAILURE);
+		if (pthread_create(&threads[i], NULL, thread_func, args) != THREAD_SUCCESS)
+		{
+			perror("pthread_create");
+			exit(EXIT_FAILURE);
+		}
+		i++;
 	}
-	return (thread);
+	return (threads);
 }
 
-// todo: exit -> return error
-static void	wait_thread(pthread_t thread)
+// todo: join all if error? / exit -> return error
+static void	wait_thread(const t_args *args, pthread_t *threads)
 {
-	if (pthread_join(thread, NULL) != THREAD_SUCCESS)
+	int	i;
+
+	i = 0;
+	while (i < args->number_of_philosophers)
 	{
-		perror("pthread_join");
-		exit(EXIT_FAILURE);
+		if (pthread_join(threads[i], NULL) != THREAD_SUCCESS)
+		{
+			perror("pthread_join");
+			exit(EXIT_FAILURE);
+		}
+		i++;
 	}
 }
 
-static void	run_philosophers(t_args args)
+static void	destroy_threads(pthread_t **threads)
 {
-	pthread_t	thread;
+	free(*threads);
+	threads = NULL;
+}
 
-	thread = create_thread(&args);
-	wait_thread(thread);
+static void	run_philosophers(t_args *args)
+{
+	pthread_t	*threads;
+
+	threads = create_threads(args);
+	// if (threads == NULL)
+	// return error
+	wait_thread(args, threads);
+	destroy_threads(&threads);
 }
 
 int	main(int argc, char *argv[])
@@ -53,6 +78,6 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	}
 	set_args(argc, argv, &args);
-	run_philosophers(args);
+	run_philosophers(&args);
 	return (EXIT_SUCCESS);
 }
