@@ -21,7 +21,8 @@ SRCS		:=	$(UTILS_DIR)/debug.c \
 				$(UTILS_DIR)/ft_atoi.c \
 				$(UTILS_DIR)/ft_isdigit.c
 SRCS		+=	args.c \
-				main.c
+				main.c \
+				mutex.c
 
 OBJS_DIR	:=	objs
 OBJS		:=	$(SRCS:%.c=$(OBJS_DIR)/%.o)

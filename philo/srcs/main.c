@@ -58,11 +58,14 @@ static t_result	run_philosophers(t_args *args)
 {
 	pthread_t	*threads;
 
+	if (init_mutex(args) == FAILURE)
+		return (FAILURE);
 	threads = create_threads(args);
 	if (threads == NULL)
 		return (FAILURE);
 	wait_threads(args, threads);
 	destroy_threads(&threads);
+	destroy_mutex(args);
 	return (SUCCESS);
 }
 
