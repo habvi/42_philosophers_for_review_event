@@ -3,7 +3,8 @@
 
 # include <stdbool.h>
 
-typedef struct s_args  t_args;
+# define TIME_ERROR (-1)
+
 
 /* utils */
 bool	ft_atoi(const char *str, int *num);
@@ -11,5 +12,6 @@ bool	ft_isdigit(int c);
 
 /* debug */
 void	put_args(const t_args *args);
+void	put_current_time(void);
 
 #endif

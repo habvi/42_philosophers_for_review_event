@@ -18,6 +18,7 @@ static void	*thread_func(void *thread_args)
 		perror("pthread_mutex_lock");
 		return (NULL);
 	}
+	put_current_time();
 	printf("%d has taken a left fork\n", thread_info->philo_id);
 
 	if (pthread_mutex_lock(&args->right_fork) != MUTEX_SUCCESS)
@@ -25,8 +26,10 @@ static void	*thread_func(void *thread_args)
 		perror("pthread_mutex_lock");
 		return (NULL);
 	}
+	put_current_time();
 	printf("%d has taken a right fork\n", thread_info->philo_id);
 
+	put_current_time();
 	printf("%d is eating\n", thread_info->philo_id);
 	usleep(args->time_to_eat * 1000);
 
@@ -40,6 +43,7 @@ static void	*thread_func(void *thread_args)
 		perror("pthread_mutex_unlock");
 		return (NULL);
 	}
+	put_current_time();
 	printf("%d is thinking\n", thread_info->philo_id);
 	free(thread_info);
 	return (NULL);
