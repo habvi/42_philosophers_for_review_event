@@ -10,24 +10,24 @@
 
 // todo: types
 typedef struct s_args {
-	int	number_of_philosophers;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	number_of_times_each_philosopher_must_eat;
+	int				number_of_philos;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				number_of_times_each_philo_must_eat;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	right_fork;
 }	t_args;
 
 // todo: struct name...
-typedef struct	s_thread_info {
+typedef struct s_thread_info {
 	int		philo_id;
 	t_args	*args;
 }	t_thread_info;
 
 /* args */
-bool	is_valid_argc(const int argc);
-t_args	set_args(const int argc, const char **argv);
+bool		is_valid_argc(const int argc);
+t_args		set_args(const int argc, const char **argv);
 
 /* mutex */
 t_result	init_mutex(t_args *args);

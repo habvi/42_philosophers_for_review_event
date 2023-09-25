@@ -6,15 +6,17 @@
 
 void	put_args(const t_args *args)
 {
-	printf("num of philo  : %d\n", args->number_of_philosophers);
+	printf("num of philo  : %d\n", args->number_of_philos);
 	printf("time to die   : %d\n", args->time_to_die);
 	printf("time to eat   : %d\n", args->time_to_eat);
 	printf("time to sleep : %d\n", args->time_to_sleep);
-	printf("each philo must eat : %d\n", args->number_of_times_each_philosopher_must_eat);
+	printf("each philo must eat : %d\n", \
+							args->number_of_times_each_philo_must_eat);
 }
 
-void    put_current_time(void) {
-	struct timeval  current_time;
+void	put_current_time(void)
+{
+	struct timeval	current_time;
 	long			sec;
 	long			micro_sec;
 	long			milli_sec;

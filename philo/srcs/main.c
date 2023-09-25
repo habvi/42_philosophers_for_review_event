@@ -65,15 +65,15 @@ static t_thread_info	*set_thread_info(int i, t_args *args)
 // todo: exit -> return error
 static pthread_t	*create_threads(t_args *args)
 {
-	pthread_t	*threads;
-	int			i;
+	pthread_t		*threads;
+	int				i;
 	t_thread_info	*thread_info;
 
-	threads = (pthread_t *)malloc(sizeof(pthread_t) * args->number_of_philosophers);
+	threads = (pthread_t *)malloc(sizeof(pthread_t) * args->number_of_philos);
 	if (threads == NULL)
 		return (NULL);
 	i = 0;
-	while (i < args->number_of_philosophers)
+	while (i < args->number_of_philos)
 	{
 		thread_info = set_thread_info(i, args);
 		if (pthread_create(&threads[i], NULL, thread_func, thread_info) != THREAD_SUCCESS)
@@ -86,12 +86,13 @@ static pthread_t	*create_threads(t_args *args)
 	return (threads);
 }
 
+// Wait all threads, even if any one of them an error.
 static void	wait_threads(const t_args *args, pthread_t *threads)
 {
 	int	i;
 
 	i = 0;
-	while (i < args->number_of_philosophers)
+	while (i < args->number_of_philos)
 	{
 		if (pthread_join(threads[i], NULL) != THREAD_SUCCESS)
 			perror("pthread_join");

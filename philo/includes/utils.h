@@ -5,6 +5,7 @@
 
 # define TIME_ERROR (-1)
 
+typedef struct s_args	t_args;
 
 /* utils */
 bool	ft_atoi(const char *str, int *num);
