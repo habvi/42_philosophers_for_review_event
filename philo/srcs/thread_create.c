@@ -42,6 +42,11 @@ static void	*thread_func(void *thread_args)
 		perror("pthread_mutex_unlock");
 		return (NULL);
 	}
+
+	put_current_time();
+	printf("%d is sleeping\n", thread_info->philo_id);
+	usleep(args->time_to_sleep * 1000);
+
 	put_current_time();
 	printf("%d is thinking\n", thread_info->philo_id);
 	free(thread_info);
