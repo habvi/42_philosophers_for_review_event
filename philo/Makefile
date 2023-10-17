@@ -22,7 +22,9 @@ SRCS		:=	$(UTILS_DIR)/debug.c \
 				$(UTILS_DIR)/ft_isdigit.c
 SRCS		+=	args.c \
 				main.c \
-				mutex.c
+				mutex.c \
+				thread_create.c \
+				threads.c
 
 OBJS_DIR	:=	objs
 OBJS		:=	$(SRCS:%.c=$(OBJS_DIR)/%.o)

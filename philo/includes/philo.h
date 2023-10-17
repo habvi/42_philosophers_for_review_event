@@ -33,4 +33,11 @@ t_args		set_args(const int argc, const char **argv);
 t_result	init_mutex(t_args *args);
 void		destroy_mutex(t_args *args);
 
+/* thread_create */
+pthread_t	*create_threads(t_args *args);
+
+/* threads */
+void		wait_threads(const t_args *args, pthread_t *threads);
+void		destroy_threads(pthread_t **threads);
+
 #endif
