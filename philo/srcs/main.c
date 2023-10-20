@@ -1,5 +1,12 @@
 #include <stdio.h>
 #include "philo.h"
+#include "utils.h"
+
+// todo: error
+static void	set_start_time(t_args *args)
+{
+	args->start_time = get_current_time();
+}
 
 static t_result	run_philosophers(t_args *args)
 {
@@ -7,6 +14,7 @@ static t_result	run_philosophers(t_args *args)
 
 	if (init_mutex(args) == FAILURE)
 		return (FAILURE);
+	set_start_time(args);
 	threads = create_threads(args);
 	if (threads == NULL)
 		return (FAILURE);

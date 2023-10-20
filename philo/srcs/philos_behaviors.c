@@ -4,10 +4,11 @@
 #include "utils.h"
 
 // todo: usleep
-t_result	eating(t_philo *philo, long start_time, long *current_time)
+t_result	eating(const t_philo *philo, long *current_time)
 {
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	right_fork;
+	const long		start_time = philo->args->start_time;
 	const long		time_to_eat = philo->args->time_to_eat;
 
 	left_fork = philo->args->left_fork;
@@ -46,8 +47,9 @@ t_result	eating(t_philo *philo, long start_time, long *current_time)
 }
 
 // todo: usleep, return t_result
-void	sleeping(t_philo *philo, long start_time, long *current_time)
+void	sleeping(const t_philo *philo, long *current_time)
 {
+	const long	start_time = philo->args->start_time;
 	const long	time_to_sleep = philo->args->time_to_sleep;
 
 	*current_time = get_current_time();
@@ -56,8 +58,10 @@ void	sleeping(t_philo *philo, long start_time, long *current_time)
 }
 
 // todo: return t_result
-void	thinking(t_philo *philo, long start_time, long *current_time)
+void	thinking(const t_philo *philo, long *current_time)
 {
+	const long	start_time = philo->args->start_time;
+
 	*current_time = get_current_time();
 	printf("%ld  %d is thinking\n", *current_time - start_time, philo->id);
 }

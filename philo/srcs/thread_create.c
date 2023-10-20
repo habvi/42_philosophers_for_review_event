@@ -10,14 +10,14 @@ static void	*philo_cycle(void *thread_args)
 	long	current_time;
 
 	philo = (t_philo *)thread_args;
-	start_time = get_current_time();
+	start_time = philo->args->start_time;
 	current_time = start_time;
 	while ((current_time - start_time) < philo->args->time_to_die)
 	{
-		// todo: error
-		eating(philo, start_time, &current_time);
-		sleeping(philo, start_time, &current_time);
-		thinking(philo, start_time, &current_time);
+		// todo: error(free)
+		eating(philo, &current_time);
+		sleeping(philo, &current_time);
+		thinking(philo, &current_time);
 	}
 	free(philo);
 	return (NULL);
