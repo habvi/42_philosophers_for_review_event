@@ -4,7 +4,7 @@
 #include "utils.h"
 
 // todo: usleep
-t_result	eating(t_thread_info *thread_info, t_args *args, long start_time, long *current_time)
+t_result	eating(t_philo *philo, t_args *args, long start_time, long *current_time)
 {
 	if (pthread_mutex_lock(&args->left_fork) != MUTEX_SUCCESS)
 	{
@@ -12,7 +12,7 @@ t_result	eating(t_thread_info *thread_info, t_args *args, long start_time, long 
 		return (FAILURE);
 	}
 	*current_time = get_current_time();
-	printf("%ld   %d has taken a left fork\n", *current_time - start_time, thread_info->philo_id);
+	printf("%ld   %d has taken a left fork\n", *current_time - start_time, philo->id);
 
 	if (pthread_mutex_lock(&args->right_fork) != MUTEX_SUCCESS)
 	{
@@ -20,10 +20,10 @@ t_result	eating(t_thread_info *thread_info, t_args *args, long start_time, long 
 		return (FAILURE);
 	}
 	*current_time = get_current_time();
-	printf("%ld  %d has taken a right fork\n", *current_time - start_time, thread_info->philo_id);
+	printf("%ld  %d has taken a right fork\n", *current_time - start_time, philo->id);
 
 	*current_time = get_current_time();
-	printf("%ld  %d is eating\n", *current_time - start_time, thread_info->philo_id);
+	printf("%ld  %d is eating\n", *current_time - start_time, philo->id);
 	usleep(args->time_to_eat * 1000);
 
 	if (pthread_mutex_unlock(&args->left_fork) != MUTEX_SUCCESS)
@@ -40,16 +40,16 @@ t_result	eating(t_thread_info *thread_info, t_args *args, long start_time, long 
 }
 
 // todo: usleep, return t_result
-void	sleeping(t_thread_info *thread_info, t_args *args, long start_time, long *current_time)
+void	sleeping(t_philo *philo, t_args *args, long start_time, long *current_time)
 {
 	*current_time = get_current_time();
-	printf("%ld  %d is sleeping\n", *current_time - start_time, thread_info->philo_id);
+	printf("%ld  %d is sleeping\n", *current_time - start_time, philo->id);
 	usleep(args->time_to_sleep * 1000);
 }
 
 // todo: return t_result
-void	thinking(t_thread_info *thread_info, long start_time, long *current_time)
+void	thinking(t_philo *philo, long start_time, long *current_time)
 {
 	*current_time = get_current_time();
-	printf("%ld  %d is thinking\n", *current_time - start_time, thread_info->philo_id);
+	printf("%ld  %d is thinking\n", *current_time - start_time, philo->id);
 }

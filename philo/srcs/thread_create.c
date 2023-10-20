@@ -3,49 +3,48 @@
 #include "philo.h"
 #include "utils.h"
 
-// todo: return
-static void	*thread_func(void *thread_args)
+static void	*philo_cycle(void *thread_args)
 {
-	t_thread_info	*thread_info;
-	t_args			*args;
-	long			start_time;
-	long			current_time;
+	t_philo	*philo;
+	t_args	*args;
+	long	start_time;
+	long	current_time;
 
-	thread_info = (t_thread_info *)thread_args;
-	args = thread_info->args;
+	philo = (t_philo *)thread_args;
+	args = philo->args;
 
 	start_time = get_current_time();
 	current_time = start_time;
 	while ((current_time - start_time) < args->time_to_die)
 	{
 		// todo: error
-		eating(thread_info, args, start_time, &current_time);
-		sleeping(thread_info, args, start_time, &current_time);
-		thinking(thread_info, start_time, &current_time);
+		eating(philo, args, start_time, &current_time);
+		sleeping(philo, args, start_time, &current_time);
+		thinking(philo, start_time, &current_time);
 	}
-	free(thread_info);
+	free(philo);
 	return (NULL);
 }
 
-static t_thread_info	*set_thread_info(int i, t_args *args)
+static t_philo	*set_thread_info(int i, t_args *args)
 {
-	t_thread_info	*thread_info;
+	t_philo	*philo;
 
-	thread_info = (t_thread_info *)malloc(sizeof(t_thread_info) * 1);
+	philo = (t_philo *)malloc(sizeof(t_philo) * 1);
 	// todo: error
-	if (thread_info == NULL)
+	if (philo == NULL)
 		return (NULL);
-	thread_info->philo_id = i;
-	thread_info->args = args;
-	return (thread_info);
+	philo->id = i;
+	philo->args = args;
+	return (philo);
 }
 
 // todo: exit -> return error
 pthread_t	*create_threads(t_args *args)
 {
-	pthread_t		*threads;
-	int				i;
-	t_thread_info	*thread_info;
+	pthread_t	*threads;
+	int			i;
+	t_philo		*philo;
 
 	threads = (pthread_t *)malloc(sizeof(pthread_t) * args->number_of_philos);
 	if (threads == NULL)
@@ -53,8 +52,8 @@ pthread_t	*create_threads(t_args *args)
 	i = 0;
 	while (i < args->number_of_philos)
 	{
-		thread_info = set_thread_info(i, args);
-		if (pthread_create(&threads[i], NULL, thread_func, thread_info) != THREAD_SUCCESS)
+		philo = set_thread_info(i, args);
+		if (pthread_create(&threads[i], NULL, philo_cycle, philo) != THREAD_SUCCESS)
 		{
 			perror("pthread_create");
 			exit(EXIT_FAILURE);

@@ -20,10 +20,10 @@ typedef struct s_args {
 }	t_args;
 
 // todo: struct name...
-typedef struct s_thread_info {
-	int		philo_id;
+typedef struct s_philo {
+	int		id;
 	t_args	*args;
-}	t_thread_info;
+}	t_philo;
 
 /* args */
 bool		is_valid_argc(const int argc);
@@ -41,8 +41,8 @@ void		wait_threads(const t_args *args, pthread_t *threads);
 void		destroy_threads(pthread_t **threads);
 
 /* philos_behaviors */
-t_result	eating(t_thread_info *thread_info, t_args *args, long start_time, long *current_time);
-void		sleeping(t_thread_info *thread_info, t_args *args, long start_time, long *current_time);
-void		thinking(t_thread_info *thread_info, long start_time, long *current_time);
+t_result	eating(t_philo *philo, t_args *args, long start_time, long *current_time);
+void		sleeping(t_philo *philo, t_args *args, long start_time, long *current_time);
+void		thinking(t_philo *philo, long start_time, long *current_time);
 
 #endif
