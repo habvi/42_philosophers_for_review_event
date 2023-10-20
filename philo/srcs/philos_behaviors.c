@@ -4,9 +4,15 @@
 #include "utils.h"
 
 // todo: usleep
-t_result	eating(t_philo *philo, t_args *args, long start_time, long *current_time)
+t_result	eating(t_philo *philo, long start_time, long *current_time)
 {
-	if (pthread_mutex_lock(&args->left_fork) != MUTEX_SUCCESS)
+	pthread_mutex_t	left_fork;
+	pthread_mutex_t	right_fork;
+	const long		time_to_eat = philo->args->time_to_eat;
+
+	left_fork = philo->args->left_fork;
+	right_fork = philo->args->right_fork;
+	if (pthread_mutex_lock(&left_fork) != MUTEX_SUCCESS)
 	{
 		perror("pthread_mutex_lock");
 		return (FAILURE);
@@ -14,7 +20,7 @@ t_result	eating(t_philo *philo, t_args *args, long start_time, long *current_tim
 	*current_time = get_current_time();
 	printf("%ld   %d has taken a left fork\n", *current_time - start_time, philo->id);
 
-	if (pthread_mutex_lock(&args->right_fork) != MUTEX_SUCCESS)
+	if (pthread_mutex_lock(&right_fork) != MUTEX_SUCCESS)
 	{
 		perror("pthread_mutex_lock");
 		return (FAILURE);
@@ -24,14 +30,14 @@ t_result	eating(t_philo *philo, t_args *args, long start_time, long *current_tim
 
 	*current_time = get_current_time();
 	printf("%ld  %d is eating\n", *current_time - start_time, philo->id);
-	usleep(args->time_to_eat * 1000);
+	usleep(time_to_eat * 1000);
 
-	if (pthread_mutex_unlock(&args->left_fork) != MUTEX_SUCCESS)
+	if (pthread_mutex_unlock(&left_fork) != MUTEX_SUCCESS)
 	{
 		perror("pthread_mutex_unlock");
 		return (FAILURE);
 	}
-	if (pthread_mutex_unlock(&args->right_fork) != MUTEX_SUCCESS)
+	if (pthread_mutex_unlock(&right_fork) != MUTEX_SUCCESS)
 	{
 		perror("pthread_mutex_unlock");
 		return (FAILURE);
@@ -40,11 +46,13 @@ t_result	eating(t_philo *philo, t_args *args, long start_time, long *current_tim
 }
 
 // todo: usleep, return t_result
-void	sleeping(t_philo *philo, t_args *args, long start_time, long *current_time)
+void	sleeping(t_philo *philo, long start_time, long *current_time)
 {
+	const long	time_to_sleep = philo->args->time_to_sleep;
+
 	*current_time = get_current_time();
 	printf("%ld  %d is sleeping\n", *current_time - start_time, philo->id);
-	usleep(args->time_to_sleep * 1000);
+	usleep(time_to_sleep * 1000);
 }
 
 // todo: return t_result

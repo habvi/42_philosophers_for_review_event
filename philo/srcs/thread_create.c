@@ -6,20 +6,17 @@
 static void	*philo_cycle(void *thread_args)
 {
 	t_philo	*philo;
-	t_args	*args;
 	long	start_time;
 	long	current_time;
 
 	philo = (t_philo *)thread_args;
-	args = philo->args;
-
 	start_time = get_current_time();
 	current_time = start_time;
-	while ((current_time - start_time) < args->time_to_die)
+	while ((current_time - start_time) < philo->args->time_to_die)
 	{
 		// todo: error
-		eating(philo, args, start_time, &current_time);
-		sleeping(philo, args, start_time, &current_time);
+		eating(philo, start_time, &current_time);
+		sleeping(philo, start_time, &current_time);
 		thinking(philo, start_time, &current_time);
 	}
 	free(philo);
