@@ -13,6 +13,8 @@ bool	ft_isdigit(int c);
 
 /* debug */
 void	put_args(const t_args *args);
-void	put_current_time(void);
+
+/* time */
+long	get_current_time(void);
 
 #endif

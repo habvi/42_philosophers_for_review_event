@@ -24,7 +24,8 @@ SRCS		+=	args.c \
 				main.c \
 				mutex.c \
 				thread_create.c \
-				threads.c
+				threads.c \
+				time.c
 
 OBJS_DIR	:=	objs
 OBJS		:=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
