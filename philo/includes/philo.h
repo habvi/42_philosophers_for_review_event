@@ -40,4 +40,9 @@ pthread_t	*create_threads(t_args *args);
 void		wait_threads(const t_args *args, pthread_t *threads);
 void		destroy_threads(pthread_t **threads);
 
+/* philos_behaviors */
+t_result	eating(t_thread_info *thread_info, t_args *args, long start_time, long *current_time);
+void		sleeping(t_thread_info *thread_info, t_args *args, long start_time, long *current_time);
+void		thinking(t_thread_info *thread_info, long start_time, long *current_time);
+
 #endif

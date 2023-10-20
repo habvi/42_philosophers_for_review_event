@@ -23,6 +23,7 @@ SRCS		:=	$(UTILS_DIR)/debug.c \
 SRCS		+=	args.c \
 				main.c \
 				mutex.c \
+				philos_behaviors.c \
 				thread_create.c \
 				threads.c \
 				time.c
