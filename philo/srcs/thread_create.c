@@ -12,6 +12,7 @@ static void	*philo_cycle(void *thread_args)
 	philo = (t_philo *)thread_args;
 	start_time = philo->args->start_time;
 	current_time = start_time;
+	// todo: temp
 	while ((current_time - start_time) < philo->args->time_to_die)
 	{
 		// todo: error(free)

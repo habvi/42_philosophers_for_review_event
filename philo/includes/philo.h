@@ -18,6 +18,7 @@ typedef struct s_args {
 	long			start_time;
 	pthread_mutex_t	left_fork;
 	pthread_mutex_t	right_fork;
+	pthread_mutex_t	for_log;
 }	t_args;
 
 typedef struct s_philo {

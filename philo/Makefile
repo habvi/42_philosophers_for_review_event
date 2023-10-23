@@ -14,13 +14,11 @@ ifdef SANI
 	CFLAGS += -g -fsanitize=thread 
 endif
 
-
+#--------------------------------------------
+# srcs
+#--------------------------------------------
 SRCS_DIR	:=	srcs
-UTILS_DIR	:=	utils
-SRCS		:=	$(UTILS_DIR)/debug.c \
-				$(UTILS_DIR)/ft_atoi.c \
-				$(UTILS_DIR)/ft_isdigit.c
-SRCS		+=	args.c \
+SRCS		:=	args.c \
 				main.c \
 				mutex.c \
 				philos_behaviors.c \
@@ -28,6 +26,15 @@ SRCS		+=	args.c \
 				threads.c \
 				time.c
 
+#--------------------------------------------
+# utils
+#--------------------------------------------
+UTILS_DIR	:=	utils
+SRCS		+=	$(UTILS_DIR)/debug.c \
+				$(UTILS_DIR)/ft_atoi.c \
+				$(UTILS_DIR)/ft_isdigit.c
+
+#--------------------------------------------
 OBJS_DIR	:=	objs
 OBJS		:=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
 

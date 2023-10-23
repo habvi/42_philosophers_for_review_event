@@ -16,5 +16,6 @@ void	put_args(const t_args *args);
 
 /* time */
 long	get_current_time(void);
+long	get_elapsed_time(const long start_time, long *current_time);
 
 #endif
