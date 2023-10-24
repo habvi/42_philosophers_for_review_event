@@ -9,6 +9,7 @@ typedef struct s_args	t_args;
 
 /* utils */
 bool	ft_atoi(const char *str, int *num);
+void	*ft_free(void **ptr);
 bool	ft_isdigit(int c);
 
 /* debug */
