@@ -3,22 +3,27 @@
 #include "philo.h"
 #include "utils.h"
 
+static bool	is_within_time_to_die(const t_philo *philo)
+{
+	const long	start_time = philo->args->start_time;
+	const long	current_time = get_current_time();
+	const long	elapsed_time = current_time - start_time;
+
+	return (elapsed_time < philo->args->time_to_die);
+}
+
 static void	*philo_cycle(void *thread_args)
 {
 	t_philo	*philo;
-	long	start_time;
-	long	current_time;
 
 	philo = (t_philo *)thread_args;
-	start_time = philo->args->start_time;
-	current_time = start_time;
 	// todo: temp
-	while ((current_time - start_time) < philo->args->time_to_die)
+	while (is_within_time_to_die(philo))
 	{
 		// todo: error(free)
-		eating(philo, &current_time);
-		sleeping(philo, &current_time);
-		thinking(philo, &current_time);
+		eating(philo);
+		sleeping(philo);
+		thinking(philo);
 	}
 	free(philo);
 	return (NULL);

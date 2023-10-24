@@ -42,8 +42,8 @@ void		wait_threads(const t_args *args, pthread_t *threads);
 void		destroy_threads(pthread_t **threads);
 
 /* philos_behaviors */
-t_result	eating(const t_philo *philo, long *current_time);
-void		sleeping(const t_philo *philo, long *current_time);
-void		thinking(const t_philo *philo, long *current_time);
+t_result	eating(const t_philo *philo);
+void		sleeping(const t_philo *philo);
+void		thinking(const t_philo *philo);
 
 #endif

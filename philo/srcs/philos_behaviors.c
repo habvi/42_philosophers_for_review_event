@@ -4,10 +4,11 @@
 #include "utils.h"
 
 // todo: return t_result
-static void	put_log(const t_philo *philo, long *current_time, const char *message)
+static void	put_log(const t_philo *philo, const char *message)
 {
 	const long		start_time = philo->args->start_time;
-	const long		elapsed_time = get_elapsed_time(start_time, current_time);
+	const long		current_time = get_current_time();
+	const long		elapsed_time = current_time - start_time;
 	pthread_mutex_t	*for_log;
 
 	for_log = &philo->args->for_log;
@@ -25,7 +26,7 @@ static void	put_log(const t_philo *philo, long *current_time, const char *messag
 }
 
 // todo: usleep
-t_result	eating(const t_philo *philo, long *current_time)
+t_result	eating(const t_philo *philo)
 {
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
@@ -37,7 +38,7 @@ t_result	eating(const t_philo *philo, long *current_time)
 		perror("pthread_mutex_lock");
 		return (FAILURE);
 	}
-	put_log(philo, current_time, "has taken a fork");
+	put_log(philo, "has taken a fork");
 
 	right_fork = &philo->args->right_fork;
 	if (pthread_mutex_lock(right_fork) != MUTEX_SUCCESS)
@@ -45,9 +46,9 @@ t_result	eating(const t_philo *philo, long *current_time)
 		perror("pthread_mutex_lock");
 		return (FAILURE);
 	}
-	put_log(philo, current_time, "has taken a fork");
+	put_log(philo, "has taken a fork");
 
-	put_log(philo, current_time, "is eating");
+	put_log(philo, "is eating");
 	usleep(time_to_eat * 1000);
 
 	if (pthread_mutex_unlock(left_fork) != MUTEX_SUCCESS)
@@ -64,16 +65,16 @@ t_result	eating(const t_philo *philo, long *current_time)
 }
 
 // todo: usleep, return t_result
-void	sleeping(const t_philo *philo, long *current_time)
+void	sleeping(const t_philo *philo)
 {
 	const long	time_to_sleep = philo->args->time_to_sleep;
 
-	put_log(philo, current_time, "is sleeping");
+	put_log(philo, "is sleeping");
 	usleep(time_to_sleep * 1000);
 }
 
 // todo: return t_result
-void	thinking(const t_philo *philo, long *current_time)
+void	thinking(const t_philo *philo)
 {
-	put_log(philo, current_time, "is thinking");
+	put_log(philo, "is thinking");
 }

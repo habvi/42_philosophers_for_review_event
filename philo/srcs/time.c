@@ -21,12 +21,3 @@ long	get_current_time(void)
 	// printf("%ld ", milli_sec);
 	return (milli_sec);
 }
-
-long	get_elapsed_time(const long start_time, long *current_time)
-{
-	long	elapsed_time;
-
-	*current_time = get_current_time();
-	elapsed_time = *current_time - start_time;
-	return (elapsed_time);
-}
