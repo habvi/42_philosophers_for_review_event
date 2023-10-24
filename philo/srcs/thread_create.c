@@ -29,10 +29,11 @@ static void	*philo_cycle(void *thread_args)
 	return (NULL);
 }
 
+// left: smaller number, right: larger number
 static void	set_two_forks_for_eash_philo(\
 					t_philo *philo, const int i, const t_args *args)
 {
-	if (i + 1 < args->number_of_philos)
+	if (i + 1 < args->num_of_philos)
 	{
 		philo->left_fork = &args->forks[i];
 		philo->right_fork = &args->forks[i + 1];
@@ -40,7 +41,7 @@ static void	set_two_forks_for_eash_philo(\
 	else
 	{
 		philo->left_fork = &args->forks[0];
-		philo->right_fork = &args->forks[args->number_of_philos - 1];
+		philo->right_fork = &args->forks[args->num_of_philos - 1];
 	}
 }
 
@@ -65,11 +66,11 @@ pthread_t	*create_threads(t_args *args)
 	int			i;
 	t_philo		*philo;
 
-	threads = (pthread_t *)malloc(sizeof(pthread_t) * args->number_of_philos);
+	threads = (pthread_t *)malloc(sizeof(pthread_t) * args->num_of_philos);
 	if (threads == NULL)
 		return (NULL);
 	i = 0;
-	while (i < args->number_of_philos)
+	while (i < args->num_of_philos)
 	{
 		philo = set_thread_info(i, args);
 		if (pthread_create(&threads[i], NULL, philo_cycle, (void *)philo) != THREAD_SUCCESS)

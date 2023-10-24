@@ -7,7 +7,7 @@ static void	destroy_forks(t_args *args)
 	int	i;
 
 	i = 0;
-	while (i < args->number_of_philos)
+	while (i < args->num_of_philos)
 	{
 		pthread_mutex_destroy(&args->forks[i]);
 		i++;
@@ -24,14 +24,14 @@ void	destroy_mutex(t_args *args)
 static t_result	init_forks(t_args *args)
 {
 	pthread_mutex_t	*forks;
-	const int		number_of_forks = args->number_of_philos;
+	const int		num_of_forks = args->num_of_philos;
 	int				i;
 
-	forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * number_of_forks);
+	forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * num_of_forks);
 	if (forks == NULL)
 		return (FAILURE);
 	i = 0;
-	while (i < number_of_forks)
+	while (i < num_of_forks)
 	{
 		if (pthread_mutex_init(&forks[i], NULL) != MUTEX_SUCCESS)
 		{

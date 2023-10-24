@@ -10,11 +10,11 @@
 
 // todo: types
 typedef struct s_args {
-	int				number_of_philos;
+	int				num_of_philos;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
-	int				number_of_times_each_philo_must_eat;
+	int				num_of_times_each_philo_must_eat;
 	// common data
 	long			start_time;
 	pthread_mutex_t	*forks;

@@ -7,7 +7,7 @@ void	wait_threads(const t_args *args, pthread_t *threads)
 	int	i;
 
 	i = 0;
-	while (i < args->number_of_philos)
+	while (i < args->num_of_philos)
 	{
 		if (pthread_join(threads[i], NULL) != THREAD_SUCCESS)
 			perror("pthread_join");
