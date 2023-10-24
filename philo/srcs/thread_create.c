@@ -25,11 +25,26 @@ static void	*philo_cycle(void *thread_args)
 		sleeping(philo);
 		thinking(philo);
 	}
-	free(philo);
+	ft_free((void **)&philo);
 	return (NULL);
 }
 
-static t_philo	*set_thread_info(int i, t_args *args)
+static void	set_two_forks_for_eash_philo(\
+					t_philo *philo, const int i, const t_args *args)
+{
+	if (i + 1 < args->number_of_philos)
+	{
+		philo->left_fork = &args->forks[i];
+		philo->right_fork = &args->forks[i + 1];
+	}
+	else
+	{
+		philo->left_fork = &args->forks[0];
+		philo->right_fork = &args->forks[args->number_of_philos - 1];
+	}
+}
+
+static t_philo	*set_thread_info(const int i, t_args *args)
 {
 	t_philo	*philo;
 
@@ -39,6 +54,7 @@ static t_philo	*set_thread_info(int i, t_args *args)
 		return (NULL);
 	philo->id = i;
 	philo->args = args;
+	set_two_forks_for_eash_philo(philo, i, args);
 	return (philo);
 }
 
