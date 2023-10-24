@@ -14,11 +14,22 @@ static void	init_t_args(t_args *args)
 	args->time_to_sleep = 0;
 	args->num_of_times_each_philo_must_eat = 0;
 	args->start_time = 0;
+	args->philos = NULL;
 	args->forks = NULL;
 }
 
+static t_philo	**allocate_philos(const int num_of_philos)
+{
+	t_philo	**philos;
+
+	philos = (t_philo **)malloc(sizeof(t_philo *) * num_of_philos);
+	if (philos == NULL)
+		return (NULL);
+	return (philos);
+}
+
 // todo: change ft_atoi's type, check error
-t_args	set_args(const int argc, const char **argv)
+t_args	set_args(const int argc, const char **argv, t_result *result)
 {
 	t_args	args;
 
@@ -29,5 +40,9 @@ t_args	set_args(const int argc, const char **argv)
 	ft_atoi(argv[4], &args.time_to_sleep);
 	if (argc == 6)
 		ft_atoi(argv[5], &args.num_of_times_each_philo_must_eat);
+	args.philos = allocate_philos(args.num_of_philos);
+	if (args.philos == NULL)
+		*result = FAILURE;
+	*result = SUCCESS;
 	return (args);
 }

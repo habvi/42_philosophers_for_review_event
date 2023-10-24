@@ -75,9 +75,11 @@ pthread_t	*create_threads(t_args *args)
 		philo = set_thread_info(i, args);
 		if (pthread_create(&threads[i], NULL, philo_cycle, (void *)philo) != THREAD_SUCCESS)
 		{
+			// free
 			perror("pthread_create");
 			exit(EXIT_FAILURE);
 		}
+		args->philos[i] = philo;
 		i++;
 	}
 	return (threads);

@@ -8,6 +8,8 @@
 # define MUTEX_SUCCESS	0
 # define THREAD_SUCCESS	0
 
+typedef struct s_philo	t_philo;
+
 // todo: types
 typedef struct s_args {
 	int				num_of_philos;
@@ -17,6 +19,7 @@ typedef struct s_args {
 	int				num_of_times_each_philo_must_eat;
 	// common data
 	long			start_time;
+	t_philo			**philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	for_log;
 }	t_args;
@@ -30,7 +33,7 @@ typedef struct s_philo {
 
 /* args */
 bool		is_valid_argc(const int argc);
-t_args		set_args(const int argc, const char **argv);
+t_args		set_args(const int argc, const char **argv, t_result *result);
 
 /* mutex */
 t_result	init_mutex(t_args *args);

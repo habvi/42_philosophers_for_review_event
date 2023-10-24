@@ -8,6 +8,13 @@ static void	set_start_time(t_args *args)
 	args->start_time = get_current_time();
 }
 
+static void	destroy(t_args *args, pthread_t **threads)
+{
+	ft_free((void **)threads);
+	ft_free((void **)&args->philos);
+	destroy_mutex(args);
+}
+
 static t_result	run_philosophers(t_args *args)
 {
 	pthread_t	*threads;
@@ -19,8 +26,7 @@ static t_result	run_philosophers(t_args *args)
 	if (threads == NULL)
 		return (FAILURE);
 	wait_threads(args, threads);
-	destroy_threads(&threads);
-	destroy_mutex(args);
+	destroy(args, &threads);
 	return (SUCCESS);
 }
 
@@ -32,9 +38,11 @@ int	main(int argc, char *argv[])
 	if (!is_valid_argc(argc))
 	{
 		printf("Error: invalid arguments.\n");
-		return (FAILURE);
+		return (EXIT_FAILURE);
 	}
-	args = set_args(argc, (const char **)argv);
+	args = set_args(argc, (const char **)argv, &result);
+	if (result == FAILURE)
+		return (EXIT_FAILURE);
 	result = run_philosophers(&args);
 	return (result);
 }

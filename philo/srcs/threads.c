@@ -14,9 +14,3 @@ void	wait_threads(const t_args *args, pthread_t *threads)
 		i++;
 	}
 }
-
-void	destroy_threads(pthread_t **threads)
-{
-	free(*threads);
-	threads = NULL;
-}
