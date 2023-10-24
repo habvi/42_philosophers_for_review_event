@@ -13,6 +13,8 @@ static void	init_t_args(t_args *args)
 	args->time_to_eat = 0;
 	args->time_to_sleep = 0;
 	args->number_of_times_each_philo_must_eat = 0;
+	args->start_time = 0;
+	args->forks = NULL;
 }
 
 // todo: change ft_atoi's type, check error

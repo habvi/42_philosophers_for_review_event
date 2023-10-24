@@ -15,9 +15,9 @@ typedef struct s_args {
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				number_of_times_each_philo_must_eat;
+	// common data
 	long			start_time;
-	pthread_mutex_t	left_fork;
-	pthread_mutex_t	right_fork;
+	pthread_mutex_t	*forks;
 	pthread_mutex_t	for_log;
 }	t_args;
 
