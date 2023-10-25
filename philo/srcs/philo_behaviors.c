@@ -20,16 +20,6 @@ t_result	take_two_forks(const t_philo *philo)
 	return (SUCCESS);
 }
 
-// todo: usleep, return t_result
-void	eating(const t_philo *philo)
-{
-	const long	time_to_eat = philo->args->time_to_eat;
-
-	philo->var->start_time_of_cycle = get_current_time(); // use put_log
-	put_log(philo, MSG_EAT);
-	usleep(time_to_eat * 1000);
-}
-
 t_result	put_two_forks(const t_philo *philo)
 {
 	if (pthread_mutex_unlock(philo->left_fork) != MUTEX_SUCCESS)
@@ -40,16 +30,35 @@ t_result	put_two_forks(const t_philo *philo)
 }
 
 // todo: usleep, return t_result
-void	sleeping(const t_philo *philo)
+t_result	eating(const t_philo *philo)
+{
+	const long	time_to_eat = philo->args->time_to_eat;
+
+	if (take_two_forks(philo) == FAILURE)
+		return (FAILURE);
+
+	philo->var->start_time_of_cycle = get_current_time(); // use put_log
+	put_log(philo, MSG_EAT);
+	usleep(time_to_eat * 1000);
+
+	if (put_two_forks(philo) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
+// todo: usleep, return t_result
+t_result	sleeping(const t_philo *philo)
 {
 	const long	time_to_sleep = philo->args->time_to_sleep;
 
 	put_log(philo, MSG_SLEEP);
 	usleep(time_to_sleep * 1000);
+	return (SUCCESS);
 }
 
 // todo: return t_result
-void	thinking(const t_philo *philo)
+t_result	thinking(const t_philo *philo)
 {
 	put_log(philo, MSG_THINK);
+	return (SUCCESS);
 }
