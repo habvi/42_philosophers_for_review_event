@@ -51,6 +51,7 @@ t_result	eating(const t_philo *philo)
 	}
 	put_log(philo, "has taken a fork");
 
+	philo->var->start_time_of_cycle = get_current_time();
 	put_log(philo, "is eating");
 	usleep(time_to_eat * 1000);
 
