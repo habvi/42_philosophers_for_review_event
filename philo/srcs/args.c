@@ -16,6 +16,7 @@ static void	init_t_args(t_args *args)
 	args->start_time = 0;
 	args->philos = NULL;
 	args->forks = NULL;
+	args->is_any_philo_died = false;
 }
 
 static t_philo	**allocate_philos(const int num_of_philos)

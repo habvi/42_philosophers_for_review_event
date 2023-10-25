@@ -27,6 +27,8 @@ typedef struct s_args {
 	t_philo			**philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	for_log;
+	bool			is_any_philo_died;
+	pthread_mutex_t	for_death;
 }	t_args;
 
 typedef struct s_philo_var {
@@ -63,10 +65,10 @@ void		destroy_threads(pthread_t **threads);
 
 /* philo_behaviors */
 t_result	take_two_forks(const t_philo *philo);
-void		eating(const t_philo *philo);
+t_result	eating(const t_philo *philo);
 t_result	put_two_forks(const t_philo *philo);
-void		sleeping(const t_philo *philo);
-void		thinking(const t_philo *philo);
+t_result	sleeping(const t_philo *philo);
+t_result	thinking(const t_philo *philo);
 
 /* philo_cycle */
 void		*philo_cycle(void *thread_args);
