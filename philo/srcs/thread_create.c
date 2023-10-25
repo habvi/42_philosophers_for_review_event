@@ -83,12 +83,10 @@ pthread_t	*create_threads(t_args *args)
 	while (i < args->num_of_philos)
 	{
 		philo = set_thread_info(i, args);
+		if (philo == NULL)
+			return (ft_free((void **)&threads));
 		if (pthread_create(&threads[i], NULL, philo_cycle, (void *)philo) != THREAD_SUCCESS)
-		{
-			// free
-			perror("pthread_create");
-			exit(EXIT_FAILURE);
-		}
+			return (ft_free((void **)&threads));
 		args->philos[i] = philo;
 		i++;
 	}
