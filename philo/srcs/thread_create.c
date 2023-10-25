@@ -45,17 +45,28 @@ static void	set_two_forks_for_eash_philo(\
 	}
 }
 
+// static void	init_philo_var(t_philo_var *var)
+// {
+// 	var->start_time_of_cycle = 0;
+// }
+
 static t_philo	*set_thread_info(const int i, t_args *args)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)malloc(sizeof(t_philo) * 1);
-	// todo: error
 	if (philo == NULL)
 		return (NULL);
 	philo->id = i;
 	philo->args = args;
 	set_two_forks_for_eash_philo(philo, i, args);
+	philo->var = (t_philo_var *)malloc(sizeof(t_philo_var) * 1);
+	if (philo->var == NULL)
+	{
+		ft_free((void **)&philo);
+		return (NULL);
+	}
+	// init_philo_var(philo->var);
 	return (philo);
 }
 

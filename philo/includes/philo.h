@@ -24,11 +24,17 @@ typedef struct s_args {
 	pthread_mutex_t	for_log;
 }	t_args;
 
+typedef struct s_philo_var {
+	long	start_time_of_cycle;
+}	t_philo_var;
+
 typedef struct s_philo {
 	int				id;
 	t_args			*args;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	// not const
+	t_philo_var		*var;
 }	t_philo;
 
 /* args */
