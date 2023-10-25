@@ -24,8 +24,8 @@ static t_philo_var	*init_philo_var(void)
 	var = (t_philo_var *)malloc(sizeof(t_philo_var) * 1);
 	if (var == NULL)
 		return (NULL);
-	// todo: get_current_time()?
-	var->start_time_of_cycle = 0;
+	// todo: error?
+	var->start_time_of_cycle = get_current_time();
 	return (var);
 }
 
