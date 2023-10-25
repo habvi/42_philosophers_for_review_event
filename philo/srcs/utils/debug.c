@@ -10,3 +10,15 @@ void	put_args(const t_args *args)
 	printf("each philo must eat : %d\n", \
 							args->num_of_times_each_philo_must_eat);
 }
+
+void	put(const t_philo *philo, const char *message)
+{
+	pthread_mutex_t	*for_log;
+
+	for_log = &philo->args->for_log;
+	if (pthread_mutex_lock(for_log) != MUTEX_SUCCESS)
+		return ;
+	printf("%s\n", message);
+	if (pthread_mutex_unlock(for_log) != MUTEX_SUCCESS)
+		return ;
+}

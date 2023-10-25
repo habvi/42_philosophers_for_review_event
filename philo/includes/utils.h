@@ -15,6 +15,7 @@ bool	ft_isdigit(int c);
 
 /* debug */
 void	put_args(const t_args *args);
+void	put(const t_philo *philo, const char *message);
 
 /* time */
 long	get_current_time(void);
