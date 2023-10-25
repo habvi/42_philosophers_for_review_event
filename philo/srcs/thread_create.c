@@ -3,8 +3,7 @@
 #include "utils.h"
 
 // left: smaller number, right: larger number
-static void	set_two_forks_for_eash_philo(\
-					t_philo *philo, const int i, const t_args *args)
+static void	set_two_forks(t_philo *philo, const int i, const t_args *args)
 {
 	if (i + 1 < args->num_of_philos)
 	{
@@ -32,7 +31,7 @@ static t_philo	*set_thread_info(const int i, t_args *args)
 		return (NULL);
 	philo->id = i;
 	philo->args = args;
-	set_two_forks_for_eash_philo(philo, i, args);
+	set_two_forks(philo, i, args);
 	philo->var = (t_philo_var *)malloc(sizeof(t_philo_var) * 1);
 	if (philo->var == NULL)
 	{
