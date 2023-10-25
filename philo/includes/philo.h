@@ -12,6 +12,7 @@
 # define MSG_EAT	"is eating"
 # define MSG_SLEEP	"is sleeping"
 # define MSG_THINK	"is thinking"
+# define MSG_DIED	"died"
 
 typedef struct s_philo	t_philo;
 
