@@ -8,6 +8,11 @@
 # define MUTEX_SUCCESS	0
 # define THREAD_SUCCESS	0
 
+# define MSG_FORK	"has taken a fork"
+# define MSG_EAT	"is eating"
+# define MSG_SLEEP	"is sleeping"
+# define MSG_THINK	"is thinking"
+
 typedef struct s_philo	t_philo;
 
 // todo: types

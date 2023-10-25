@@ -32,14 +32,14 @@ t_result	eating(const t_philo *philo)
 	// interval(philo->id);
 	if (pthread_mutex_lock(philo->left_fork) != MUTEX_SUCCESS)
 		return (FAILURE);
-	put_log(philo, "has taken a fork");
+	put_log(philo, MSG_FORK);
 
 	if (pthread_mutex_lock(philo->right_fork) != MUTEX_SUCCESS)
 		return (FAILURE);
-	put_log(philo, "has taken a fork");
+	put_log(philo, MSG_FORK);
 
 	philo->var->start_time_of_cycle = get_current_time();
-	put_log(philo, "is eating");
+	put_log(philo, MSG_EAT);
 	usleep(time_to_eat * 1000);
 
 	if (pthread_mutex_unlock(philo->left_fork) != MUTEX_SUCCESS)
@@ -54,12 +54,12 @@ void	sleeping(const t_philo *philo)
 {
 	const long	time_to_sleep = philo->args->time_to_sleep;
 
-	put_log(philo, "is sleeping");
+	put_log(philo, MSG_SLEEP);
 	usleep(time_to_sleep * 1000);
 }
 
 // todo: return t_result
 void	thinking(const t_philo *philo)
 {
-	put_log(philo, "is thinking");
+	put_log(philo, MSG_THINK);
 }
