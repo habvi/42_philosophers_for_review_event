@@ -38,7 +38,7 @@ t_result	eating(const t_philo *philo)
 		return (FAILURE);
 	put_log(philo, MSG_FORK);
 
-	philo->var->start_time_of_cycle = get_current_time();
+	philo->var->start_time_of_cycle = get_current_time(); // use put_log
 	put_log(philo, MSG_EAT);
 	usleep(time_to_eat * 1000);
 

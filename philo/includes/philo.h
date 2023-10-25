@@ -60,9 +60,12 @@ pthread_t	*create_threads(t_args *args);
 void		wait_threads(const t_args *args, pthread_t *threads);
 void		destroy_threads(pthread_t **threads);
 
-/* philos_behaviors */
+/* philo_behaviors */
 t_result	eating(const t_philo *philo);
 void		sleeping(const t_philo *philo);
 void		thinking(const t_philo *philo);
+
+/* philo_cycle */
+void		*philo_cycle(void *thread_args);
 
 #endif

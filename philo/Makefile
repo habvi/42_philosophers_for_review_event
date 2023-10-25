@@ -22,7 +22,8 @@ SRCS		:=	args.c \
 				destroy.c \
 				main.c \
 				mutex.c \
-				philos_behaviors.c \
+				philo_behaviors.c \
+				philo_cycle.c \
 				thread_create.c \
 				threads.c \
 				time.c
