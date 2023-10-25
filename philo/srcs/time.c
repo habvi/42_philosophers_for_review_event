@@ -27,3 +27,12 @@ long	get_elapsed_time(const t_philo *philo)
 
 	return (elapsed_time);
 }
+
+long	get_elapsed_cycle_time(const t_philo *philo)
+{
+	const long	start_time = philo->args->start_time;
+	const long	start_time_of_cycle = philo->var->start_time_of_cycle;
+	const long	elapsed_cycle_time = start_time_of_cycle - start_time;
+
+	return (elapsed_cycle_time);
+}

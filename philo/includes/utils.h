@@ -20,5 +20,6 @@ void	put(const t_philo *philo, const char *message);
 /* time */
 long	get_current_time(void);
 long	get_elapsed_time(const t_philo *philo);
+long	get_elapsed_cycle_time(const t_philo *philo);
 
 #endif
