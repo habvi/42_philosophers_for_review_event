@@ -41,6 +41,9 @@ typedef struct s_philo {
 bool		is_valid_argc(const int argc);
 t_args		set_args(const int argc, const char **argv, t_result *result);
 
+/* destroy */
+void		destroy(t_args *args, pthread_t **threads);
+
 /* mutex */
 t_result	init_mutex(t_args *args);
 void		destroy_mutex(t_args *args);

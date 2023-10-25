@@ -19,6 +19,7 @@ endif
 #--------------------------------------------
 SRCS_DIR	:=	srcs
 SRCS		:=	args.c \
+				destroy.c \
 				main.c \
 				mutex.c \
 				philos_behaviors.c \

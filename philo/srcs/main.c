@@ -8,13 +8,6 @@ static void	set_start_time(t_args *args)
 	args->start_time = get_current_time();
 }
 
-static void	destroy(t_args *args, pthread_t **threads)
-{
-	ft_free((void **)threads);
-	ft_free((void **)&args->philos);
-	destroy_mutex(args);
-}
-
 static t_result	run_philosophers(t_args *args)
 {
 	pthread_t	*threads;
@@ -24,7 +17,7 @@ static t_result	run_philosophers(t_args *args)
 	set_start_time(args);
 	threads = create_threads(args);
 	if (threads == NULL)
-		return (FAILURE);
+		return (FAILURE); // todo: wait,destroy
 	wait_threads(args, threads);
 	destroy(args, &threads);
 	return (SUCCESS);

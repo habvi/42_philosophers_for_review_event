@@ -25,7 +25,6 @@ static void	*philo_cycle(void *thread_args)
 		sleeping(philo);
 		thinking(philo);
 	}
-	ft_free((void **)&philo);
 	return (NULL);
 }
 
