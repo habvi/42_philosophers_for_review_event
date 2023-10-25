@@ -17,10 +17,17 @@ static void	set_two_forks(t_philo *philo, const int i, const t_args *args)
 	}
 }
 
-// static void	init_philo_var(t_philo_var *var)
-// {
-// 	var->start_time_of_cycle = 0;
-// }
+static t_philo_var	*init_philo_var(void)
+{
+	t_philo_var	*var;
+
+	var = (t_philo_var *)malloc(sizeof(t_philo_var) * 1);
+	if (var == NULL)
+		return (NULL);
+	// todo: get_current_time()?
+	var->start_time_of_cycle = 0;
+	return (var);
+}
 
 static t_philo	*set_thread_info(const int i, t_args *args)
 {
@@ -32,13 +39,12 @@ static t_philo	*set_thread_info(const int i, t_args *args)
 	philo->id = i;
 	philo->args = args;
 	set_two_forks(philo, i, args);
-	philo->var = (t_philo_var *)malloc(sizeof(t_philo_var) * 1);
+	philo->var = init_philo_var();
 	if (philo->var == NULL)
 	{
 		ft_free((void **)&philo);
 		return (NULL);
 	}
-	// init_philo_var(philo->var);
 	return (philo);
 }
 
@@ -55,7 +61,6 @@ static t_result	create_each_philo_thread(pthread_t *thread, const int i, t_args 
 	return (SUCCESS);
 }
 
-// todo: exit -> return error
 pthread_t	*create_threads(t_args *args)
 {
 	pthread_t	*threads;
