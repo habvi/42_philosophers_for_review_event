@@ -5,9 +5,7 @@
 
 static bool	is_within_time_to_die(const t_philo *philo)
 {
-	const long	start_time = philo->args->start_time;
-	const long	current_time = get_current_time();
-	const long	elapsed_time = current_time - start_time;
+	const long	elapsed_time = get_elapsed_time(philo);
 
 	return (elapsed_time < philo->args->time_to_die);
 }

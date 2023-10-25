@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h> // exit
 #include <sys/time.h>
+#include "philo.h"
 #include "utils.h"
 
 long	get_current_time(void)
@@ -20,4 +21,13 @@ long	get_current_time(void)
 	milli_sec = sec * 1000L + micro_sec / 1000L;
 	// printf("%ld ", milli_sec);
 	return (milli_sec);
+}
+
+long	get_elapsed_time(const t_philo *philo)
+{
+	const long	start_time = philo->args->start_time;
+	const long	current_time = get_current_time();
+	const long	elapsed_time = current_time - start_time;
+
+	return (elapsed_time);
 }

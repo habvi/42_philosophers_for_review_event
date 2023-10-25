@@ -9,15 +9,6 @@
 // 		usleep(50);
 // }
 
-static long	get_elapsed_time(const t_philo *philo)
-{
-	const long	start_time = philo->args->start_time;
-	const long	current_time = get_current_time();
-	const long	elapsed_time = current_time - start_time;
-
-	return (elapsed_time);
-}
-
 // todo: return t_result
 static void	put_log(const t_philo *philo, const char *message)
 {

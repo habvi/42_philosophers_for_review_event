@@ -6,6 +6,7 @@
 # define TIME_ERROR (-1)
 
 typedef struct s_args	t_args;
+typedef struct s_philo	t_philo;
 
 /* utils */
 bool	ft_atoi(const char *str, int *num);
@@ -17,5 +18,6 @@ void	put_args(const t_args *args);
 
 /* time */
 long	get_current_time(void);
+long	get_elapsed_time(const t_philo *philo);
 
 #endif
