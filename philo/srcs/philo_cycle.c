@@ -17,7 +17,9 @@ void	*philo_cycle(void *thread_args)
 	while (is_within_time_to_die(philo))
 	{
 		// todo: error(free)
+		take_two_forks(philo);
 		eating(philo);
+		put_two_forks(philo);
 		sleeping(philo);
 		thinking(philo);
 	}

@@ -40,6 +40,7 @@ typedef struct s_philo {
 	pthread_mutex_t	*right_fork;
 	// not const
 	t_philo_var		*var;
+	// t_common_data	*data;
 }	t_philo;
 
 /* args */
@@ -61,7 +62,9 @@ void		wait_threads(const t_args *args, pthread_t *threads);
 void		destroy_threads(pthread_t **threads);
 
 /* philo_behaviors */
-t_result	eating(const t_philo *philo);
+t_result	take_two_forks(const t_philo *philo);
+void		eating(const t_philo *philo);
+t_result	put_two_forks(const t_philo *philo);
 void		sleeping(const t_philo *philo);
 void		thinking(const t_philo *philo);
 

@@ -24,24 +24,30 @@ static void	put_log(const t_philo *philo, const char *message)
 		return ;
 }
 
-// todo: usleep
-t_result	eating(const t_philo *philo)
+t_result	take_two_forks(const t_philo *philo)
 {
-	const long	time_to_eat = philo->args->time_to_eat;
-
 	// interval(philo->id);
 	if (pthread_mutex_lock(philo->left_fork) != MUTEX_SUCCESS)
 		return (FAILURE);
 	put_log(philo, MSG_FORK);
-
 	if (pthread_mutex_lock(philo->right_fork) != MUTEX_SUCCESS)
 		return (FAILURE);
 	put_log(philo, MSG_FORK);
+	return (SUCCESS);
+}
+
+// todo: usleep, return t_result
+void	eating(const t_philo *philo)
+{
+	const long	time_to_eat = philo->args->time_to_eat;
 
 	philo->var->start_time_of_cycle = get_current_time(); // use put_log
 	put_log(philo, MSG_EAT);
 	usleep(time_to_eat * 1000);
+}
 
+t_result	put_two_forks(const t_philo *philo)
+{
 	if (pthread_mutex_unlock(philo->left_fork) != MUTEX_SUCCESS)
 		return (FAILURE);
 	if (pthread_mutex_unlock(philo->right_fork) != MUTEX_SUCCESS)
