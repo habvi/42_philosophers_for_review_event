@@ -71,4 +71,8 @@ void		thinking(const t_philo *philo);
 /* philo_cycle */
 void		*philo_cycle(void *thread_args);
 
+/* put */
+void		put_log(const t_philo *philo, const char *message)
+;
+
 #endif
