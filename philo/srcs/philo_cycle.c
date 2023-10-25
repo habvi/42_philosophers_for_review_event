@@ -18,9 +18,13 @@ static bool	is_any_philo_died(const t_philo *philo)
 
 static bool	is_time_to_die_exceeded(const t_philo *philo)
 {
-	const long	elapsed_time = get_elapsed_time(philo);
+	// const long	elapsed_time = get_elapsed_time(philo);
 
-	return (elapsed_time > philo->args->time_to_die);
+	// return (elapsed_time > philo->args->time_to_die);
+
+	const long	elapsed_cycle_time = get_elapsed_cycle_time(philo);
+
+	return (elapsed_cycle_time > philo->args->time_to_die);
 }
 
 static t_result	set_philo_death(const t_philo *philo)
