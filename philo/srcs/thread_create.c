@@ -66,12 +66,24 @@ static t_philo	*set_thread_info(const int i, t_args *args)
 	return (philo);
 }
 
+static t_result	create_each_philo_thread(pthread_t *thread, const int i, t_args *args)
+{
+	t_philo	*philo;
+
+	philo = set_thread_info(i, args);
+	if (philo == NULL)
+		return (FAILURE);
+	if (pthread_create(thread, NULL, philo_cycle, (void *)philo) != THREAD_SUCCESS)
+		return (FAILURE);
+	args->philos[i] = philo;
+	return (SUCCESS);
+}
+
 // todo: exit -> return error
 pthread_t	*create_threads(t_args *args)
 {
 	pthread_t	*threads;
 	int			i;
-	t_philo		*philo;
 
 	threads = (pthread_t *)malloc(sizeof(pthread_t) * args->num_of_philos);
 	if (threads == NULL)
@@ -79,12 +91,11 @@ pthread_t	*create_threads(t_args *args)
 	i = 0;
 	while (i < args->num_of_philos)
 	{
-		philo = set_thread_info(i, args);
-		if (philo == NULL)
-			return (ft_free((void **)&threads));
-		if (pthread_create(&threads[i], NULL, philo_cycle, (void *)philo) != THREAD_SUCCESS)
-			return (ft_free((void **)&threads));
-		args->philos[i] = philo;
+		if (create_each_philo_thread(&threads[i], i, args) == FAILURE)
+		{
+			ft_free((void **)&threads);
+			return (NULL);
+		}
 		i++;
 	}
 	return (threads);
