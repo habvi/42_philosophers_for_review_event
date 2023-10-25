@@ -17,17 +17,11 @@ static void	put_log(const t_philo *philo, const char *message)
 
 	for_log = &philo->args->for_log;
 	if (pthread_mutex_lock(for_log) != MUTEX_SUCCESS)
-	{
-		perror("pthread_mutex_lock");
 		return ;
-	}
 	elapsed_time = get_elapsed_time(philo);
 	printf("%ld %d %s\n", elapsed_time, philo->id, message);
 	if (pthread_mutex_unlock(for_log) != MUTEX_SUCCESS)
-	{
-		perror("pthread_mutex_unlock");
 		return ;
-	}
 }
 
 // todo: usleep
@@ -37,17 +31,11 @@ t_result	eating(const t_philo *philo)
 
 	// interval(philo->id);
 	if (pthread_mutex_lock(philo->left_fork) != MUTEX_SUCCESS)
-	{
-		perror("pthread_mutex_lock");
 		return (FAILURE);
-	}
 	put_log(philo, "has taken a fork");
 
 	if (pthread_mutex_lock(philo->right_fork) != MUTEX_SUCCESS)
-	{
-		perror("pthread_mutex_lock");
 		return (FAILURE);
-	}
 	put_log(philo, "has taken a fork");
 
 	philo->var->start_time_of_cycle = get_current_time();
@@ -55,15 +43,9 @@ t_result	eating(const t_philo *philo)
 	usleep(time_to_eat * 1000);
 
 	if (pthread_mutex_unlock(philo->left_fork) != MUTEX_SUCCESS)
-	{
-		perror("pthread_mutex_unlock");
 		return (FAILURE);
-	}
 	if (pthread_mutex_unlock(philo->right_fork) != MUTEX_SUCCESS)
-	{
-		perror("pthread_mutex_unlock");
 		return (FAILURE);
-	}
 	return (SUCCESS);
 }
 

@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <unistd.h> // usleep
 #include "philo.h"
 #include "utils.h"
