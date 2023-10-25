@@ -8,8 +8,8 @@ static void	destroy_philos(t_args *args)
 	i = 0;
 	while (i < args->num_of_philos)
 	{
-		free(args->philos[i]->var);
-		free(args->philos[i]);
+		ft_free((void **)&args->philos[i]->var);
+		ft_free((void **)&args->philos[i]);
 		i++;
 	}
 	ft_free((void **)&args->philos);
