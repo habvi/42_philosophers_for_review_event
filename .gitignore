@@ -6,7 +6,7 @@
 # include
 !.gitignore
 !Makefile
-!*.c
+!philo/*.c
 !*.h
 !.github/**
 !test/norm.py
