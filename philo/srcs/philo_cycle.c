@@ -42,14 +42,14 @@ static t_result	set_philo_death(const t_philo *philo)
 
 static t_result	philo_action(const t_philo *philo, t_result (*action)(const t_philo *))
 {
-	if (is_any_philo_died(philo))
-		return (SUCCESS);
-	action(philo);
 	if (is_time_to_die_exceeded(philo))
 	{
 		if (set_philo_death(philo) == FAILURE)
 			return (FAILURE);
 	}
+	if (is_any_philo_died(philo))
+		return (SUCCESS);
+	action(philo);
 	return (SUCCESS);
 }
 
