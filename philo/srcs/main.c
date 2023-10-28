@@ -37,5 +37,7 @@ int	main(int argc, char *argv[])
 	if (result == FAILURE)
 		return (EXIT_FAILURE);
 	result = run_philosophers(&args);
-	return (result);
+	if (result == FAILURE)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

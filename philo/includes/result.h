@@ -4,8 +4,9 @@
 # include <stdlib.h>
 
 typedef enum e_result {
-	SUCCESS = EXIT_SUCCESS,
-	FAILURE = EXIT_FAILURE
+	SUCCESS = 0,
+	FAILURE = 1,
+	BREAK = 2
 }	t_result;
 
 #endif

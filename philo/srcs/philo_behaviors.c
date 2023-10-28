@@ -13,9 +13,21 @@ t_result	take_two_forks(const t_philo *philo)
 	// interval(philo->id);
 	if (pthread_mutex_lock(philo->left_fork) != MUTEX_SUCCESS)
 		return (FAILURE);
+	if (is_any_philo_died(philo))
+	{
+		if (pthread_mutex_unlock(philo->left_fork) != MUTEX_SUCCESS)
+			return (FAILURE);
+		return (BREAK);
+	}
 	put_log(philo, MSG_FORK);
 	if (pthread_mutex_lock(philo->right_fork) != MUTEX_SUCCESS)
 		return (FAILURE);
+	if (is_any_philo_died(philo))
+	{
+		if (put_two_forks(philo) == FAILURE)
+			return (FAILURE);
+		return (BREAK);
+	}
 	put_log(philo, MSG_FORK);
 	return (SUCCESS);
 }
@@ -33,10 +45,18 @@ t_result	put_two_forks(const t_philo *philo)
 t_result	eating(const t_philo *philo)
 {
 	const long	time_to_eat = philo->args->time_to_eat;
+	t_result	result;
 
-	if (take_two_forks(philo) == FAILURE)
-		return (FAILURE);
+	result = take_two_forks(philo);
+	if (result == FAILURE || result == BREAK)
+		return (result);
 
+	if (is_any_philo_died(philo))
+	{
+		if (put_two_forks(philo) == FAILURE)
+			return (FAILURE);
+		return (BREAK);
+	}
 	philo->var->start_time_of_cycle = get_current_time(); // use put_log
 	put_log(philo, MSG_EAT);
 	usleep(time_to_eat * 1000);
