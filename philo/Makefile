@@ -20,6 +20,7 @@ endif
 SRCS_DIR	:=	srcs
 SRCS		:=	args.c \
 				destroy.c \
+				forks.c \
 				main.c \
 				monitor_cycle.c \
 				monitor.c \
