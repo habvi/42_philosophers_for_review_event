@@ -24,6 +24,8 @@ static t_philo_var	*init_philo_var(void)
 	var = (t_philo_var *)malloc(sizeof(t_philo_var) * 1);
 	if (var == NULL)
 		return (NULL);
+	if (pthread_mutex_init(&var->for_start_time, NULL) != MUTEX_SUCCESS)
+		return (NULL);
 	set_start_time_of_cycle(var);
 	return (var);
 }

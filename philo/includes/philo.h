@@ -35,6 +35,7 @@ typedef struct s_args {
 
 typedef struct s_philo_var {
 	long	start_time_of_cycle;
+	pthread_mutex_t	for_start_time;
 }	t_philo_var;
 
 typedef struct s_philo {

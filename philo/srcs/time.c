@@ -38,11 +38,24 @@ t_result	set_start_time_of_cycle(t_philo_var *philo_var)
 	return (SUCCESS);
 }
 
+static long	get_start_time_of_cycle(t_philo_var *philo_var)
+{
+	long	start_time_of_cycle;
+
+	if (pthread_mutex_lock(&philo_var->for_start_time) != MUTEX_SUCCESS)
+		return (0); // todo
+	start_time_of_cycle = philo_var->start_time_of_cycle;
+	if (pthread_mutex_unlock(&philo_var->for_start_time) != MUTEX_SUCCESS)
+		return (0); // todo
+	return (start_time_of_cycle);
+}
+
 long	get_elapsed_cycle_time(const t_philo *philo)
 {
-	const long	start_time = philo->args->start_time;
-	const long	start_time_of_cycle = philo->var->start_time_of_cycle;
-	const long	elapsed_cycle_time = start_time_of_cycle - start_time;
+	// const long	start_time = philo->args->start_time;
+	const long	now_time = get_current_time(); // todo
+	const long	start_time_of_cycle = get_start_time_of_cycle(philo->var);
+	const long	elapsed_cycle_time = now_time - start_time_of_cycle;
 
 	return (elapsed_cycle_time);
 }

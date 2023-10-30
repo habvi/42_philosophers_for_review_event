@@ -8,6 +8,7 @@ static void	destroy_philos(t_args *args)
 	i = 0;
 	while (i < args->num_of_philos)
 	{
+		pthread_mutex_destroy(&args->philos[i]->var->for_start_time);
 		ft_free((void **)&args->philos[i]->var);
 		ft_free((void **)&args->philos[i]);
 		i++;
