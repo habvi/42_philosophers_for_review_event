@@ -65,13 +65,13 @@ t_result	eating(const t_philo *philo)
 	if (result == FAILURE || result == BREAK)
 		return (result);
 
-	if (is_any_philo_died(philo))
+	// unneccessary?
 	{
 		if (put_two_forks(philo) == FAILURE)
 			return (FAILURE);
 		return (BREAK);
 	}
-	philo->var->start_time_of_cycle = get_current_time(); // use put_log
+	set_start_time_of_cycle(philo->var); // todo: use philo->var->start_time_of_cycle for put_log
 	put_log(philo, MSG_EAT);
 	usleep(time_to_eat * 1000);
 

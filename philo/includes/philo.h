@@ -30,6 +30,7 @@ typedef struct s_args {
 	pthread_mutex_t	for_log;
 	bool			is_any_philo_died;
 	pthread_mutex_t	for_death;
+	pthread_mutex_t	start_cycle;
 }	t_args;
 
 typedef struct s_philo_var {

@@ -2,6 +2,16 @@
 #include "utils.h"
 
 // todo: error
+static t_result	wait_start_cycle(t_args *args)
+{
+	if (pthread_mutex_lock(&args->start_cycle) != MUTEX_SUCCESS)
+		return (FAILURE);
+	if (pthread_mutex_unlock(&args->start_cycle) != MUTEX_SUCCESS)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
+// todo: error
 static bool	is_any_philo_died(const t_philo *philo)
 {
 	pthread_mutex_t	*for_death;
@@ -58,9 +68,10 @@ void	*philo_cycle(void *thread_args)
 {
 	const t_philo	*philo = (const t_philo *)thread_args;
 
+	if (wait_start_cycle(philo->args) == FAILURE)
+		return (NULL); // todo
 	while (!is_any_philo_died(philo))
 	{
-		// todo: error(free)
 		// philo_action(philo, &take_two_forks);
 		philo_action(philo, &eating);
 		// philo_action(philo, &put_two_forks);

@@ -24,8 +24,7 @@ static t_philo_var	*init_philo_var(void)
 	var = (t_philo_var *)malloc(sizeof(t_philo_var) * 1);
 	if (var == NULL)
 		return (NULL);
-	// todo: error?
-	var->start_time_of_cycle = get_current_time();
+	set_start_time_of_cycle(var);
 	return (var);
 }
 
@@ -69,15 +68,20 @@ pthread_t	*create_threads(t_args *args)
 	threads = (pthread_t *)malloc(sizeof(pthread_t) * args->num_of_philos);
 	if (threads == NULL)
 		return (NULL);
+	if (pthread_mutex_lock(&args->start_cycle) != MUTEX_SUCCESS)
+		return (NULL);
 	i = 0;
 	while (i < args->num_of_philos)
 	{
 		if (create_each_philo_thread(&threads[i], i, args) == FAILURE)
 		{
 			ft_free((void **)&threads);
+			pthread_mutex_unlock(&args->start_cycle);
 			return (NULL);
 		}
 		i++;
 	}
+	if (pthread_mutex_unlock(&args->start_cycle) != MUTEX_SUCCESS)
+		return (NULL);
 	return (threads);
 }

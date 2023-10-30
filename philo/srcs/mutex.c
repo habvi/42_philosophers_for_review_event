@@ -19,6 +19,7 @@ void	destroy_mutex(t_args *args)
 	destroy_forks(args);
 	pthread_mutex_destroy(&args->for_log);
 	pthread_mutex_destroy(&args->for_death);
+	pthread_mutex_destroy(&args->start_cycle);
 }
 
 static t_result	init_forks(t_args *args)
@@ -49,6 +50,8 @@ static t_result	init_other_mutex(t_args *args)
 	if (pthread_mutex_init(&args->for_log, NULL) != MUTEX_SUCCESS)
 		return (FAILURE);
 	if (pthread_mutex_init(&args->for_death, NULL) != MUTEX_SUCCESS)
+		return (FAILURE);
+	if (pthread_mutex_init(&args->start_cycle, NULL) != MUTEX_SUCCESS)
 		return (FAILURE);
 	return (SUCCESS);
 }
