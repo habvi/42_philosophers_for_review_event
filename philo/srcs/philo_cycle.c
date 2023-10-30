@@ -26,37 +26,17 @@ static bool	is_any_philo_died(const t_philo *philo)
 	return (is_any_philo_died);
 }
 
-static bool	is_time_to_die_exceeded(const t_philo *philo)
-{
-	// const long	elapsed_time = get_elapsed_time(philo);
+// static bool	is_time_to_die_exceeded(const t_philo *philo)
+// {
+// 	const long	elapsed_time = get_elapsed_time(philo);
+// 	const long	elapsed_cycle_time = get_elapsed_cycle_time(philo);
+// 	const long	time_to_die = (long)philo->args->time_to_die;
 
-	// return (elapsed_time > philo->args->time_to_die);
-
-	const long	elapsed_cycle_time = get_elapsed_cycle_time(philo);
-
-	return (elapsed_cycle_time > philo->args->time_to_die);
-}
-
-static t_result	set_philo_death(const t_philo *philo)
-{
-	pthread_mutex_t	*for_death;
-
-	for_death = &philo->args->for_death;
-	if (pthread_mutex_lock(for_death) != MUTEX_SUCCESS)
-		return (FAILURE);
-	philo->args->is_any_philo_died = true;
-	if (pthread_mutex_unlock(for_death) != MUTEX_SUCCESS)
-		return (FAILURE);
-	return (SUCCESS);
-}
+// 	return (elapsed_time > time_to_die || elapsed_cycle_time > time_to_die);
+// }
 
 static t_result	philo_action(const t_philo *philo, t_result (*action)(const t_philo *))
 {
-	if (is_time_to_die_exceeded(philo))
-	{
-		if (set_philo_death(philo) == FAILURE)
-			return (FAILURE);
-	}
 	if (is_any_philo_died(philo))
 		return (SUCCESS);
 	action(philo);
