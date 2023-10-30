@@ -11,6 +11,7 @@ static void	set_start_time(t_args *args)
 static t_result	run_philosophers(t_args *args)
 {
 	pthread_t	*threads;
+	pthread_t	*monitors;
 
 	if (init_mutex(args) == FAILURE)
 		return (FAILURE);
@@ -18,8 +19,11 @@ static t_result	run_philosophers(t_args *args)
 	threads = create_threads(args);
 	if (threads == NULL)
 		return (FAILURE); // todo: wait,destroy
-	wait_threads(args, threads);
-	destroy(args, &threads);
+	monitors = monitor_death(args);
+	if (monitors == NULL)
+		return (FAILURE); // todo: wait,destroy
+	wait_threads(args, threads, monitors);
+	destroy(args, &threads, &monitors);
 	return (SUCCESS);
 }
 

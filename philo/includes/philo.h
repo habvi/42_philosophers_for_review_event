@@ -45,15 +45,19 @@ typedef struct s_philo {
 	pthread_mutex_t	*right_fork;
 	// not const
 	t_philo_var		*var;
-	// t_common_data	*data;
 }	t_philo;
+
+typedef struct s_monitor {
+	int		id;
+	t_args	*args;
+}	t_monitor;
 
 /* args */
 bool		is_valid_argc(const int argc);
 t_args		set_args(const int argc, const char **argv, t_result *result);
 
 /* destroy */
-void		destroy(t_args *args, pthread_t **threads);
+void		destroy(t_args *args, pthread_t **threads, pthread_t **monitors);
 
 /* mutex */
 t_result	init_mutex(t_args *args);
@@ -63,7 +67,7 @@ void		destroy_mutex(t_args *args);
 pthread_t	*create_threads(t_args *args);
 
 /* threads */
-void		wait_threads(const t_args *args, pthread_t *threads);
+void		wait_threads(const t_args *args, pthread_t *threads, pthread_t *monitors);
 void		destroy_threads(pthread_t **threads);
 
 /* philo_behaviors */
@@ -75,6 +79,9 @@ t_result	thinking(const t_philo *philo);
 
 /* philo_cycle */
 void		*philo_cycle(void *thread_args);
+
+/* monitor*/
+pthread_t	*monitor_death(t_args *args);
 
 /* put */
 void		put_log(const t_philo *philo, const char *message)

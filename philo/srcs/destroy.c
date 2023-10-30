@@ -16,9 +16,10 @@ static void	destroy_philos(t_args *args)
 	ft_free((void **)&args->philos);
 }
 
-void	destroy(t_args *args, pthread_t **threads)
+void	destroy(t_args *args, pthread_t **threads, pthread_t **monitors)
 {
 	ft_free((void **)threads);
+	ft_free((void **)monitors);
 	destroy_philos(args);
 	destroy_mutex(args);
 }

@@ -21,6 +21,7 @@ SRCS_DIR	:=	srcs
 SRCS		:=	args.c \
 				destroy.c \
 				main.c \
+				monitor.c \
 				mutex.c \
 				philo_behaviors.c \
 				philo_cycle.c \
