@@ -82,6 +82,7 @@ void		*philo_cycle(void *thread_args);
 
 /* monitor*/
 pthread_t	*monitor_death(t_args *args);
+void		*monitor_cycle(void *thread_args);
 
 /* put */
 void		put_log(const t_philo *philo, const char *message)
