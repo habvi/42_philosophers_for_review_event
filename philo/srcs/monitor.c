@@ -13,14 +13,16 @@ static t_monitor	*set_monitor_info(const int i, t_args *args)
 	return (monitor);
 }
 
-static t_result	create_each_monitor_thread(pthread_t *thread, const int i, t_args *args)
+static t_result	create_each_monitor_thread(\
+								pthread_t *thread, const int i, t_args *args)
 {
 	t_monitor	*monitor;
 
 	monitor = set_monitor_info(i, args);
 	if (monitor == NULL)
 		return (FAILURE);
-	if (pthread_create(thread, NULL, monitor_cycle, (void *)monitor) != THREAD_SUCCESS)
+	if (pthread_create(thread, NULL, monitor_cycle, (void *)monitor) \
+															!= THREAD_SUCCESS)
 		return (FAILURE);
 	return (SUCCESS);
 }

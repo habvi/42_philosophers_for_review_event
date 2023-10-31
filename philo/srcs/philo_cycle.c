@@ -25,16 +25,8 @@ bool	is_any_philo_died(const t_philo *philo)
 	return (is_any_philo_died);
 }
 
-// static bool	is_time_to_die_exceeded(const t_philo *philo)
-// {
-// 	const long	elapsed_time = get_elapsed_time(philo);
-// 	const long	elapsed_cycle_time = get_elapsed_cycle_time(philo);
-// 	const long	time_to_die = (long)philo->args->time_to_die;
-
-// 	return (elapsed_time > time_to_die || elapsed_cycle_time > time_to_die);
-// }
-
-static t_result	philo_action(const t_philo *philo, t_result (*action)(const t_philo *))
+static t_result	philo_action(\
+					const t_philo *philo, t_result (*action)(const t_philo *))
 {
 	if (is_any_philo_died(philo))
 		return (SUCCESS);

@@ -48,14 +48,16 @@ static t_philo	*set_thread_info(const int i, t_args *args)
 	return (philo);
 }
 
-static t_result	create_each_philo_thread(pthread_t *thread, const int i, t_args *args)
+static t_result	create_each_philo_thread(\
+								pthread_t *thread, const int i, t_args *args)
 {
 	t_philo	*philo;
 
 	philo = set_thread_info(i, args);
 	if (philo == NULL)
 		return (FAILURE);
-	if (pthread_create(thread, NULL, philo_cycle, (void *)philo) != THREAD_SUCCESS)
+	if (pthread_create(thread, NULL, philo_cycle, (void *)philo) \
+															!= THREAD_SUCCESS)
 		return (FAILURE);
 	args->philos[i] = philo;
 	return (SUCCESS);

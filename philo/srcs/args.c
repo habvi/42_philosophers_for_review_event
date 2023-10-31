@@ -35,7 +35,8 @@ static t_result	set_argv(const int argc, const char **argv, t_args *args)
 	is_correct_num &= ft_atoi(argv[3], &args->time_to_eat);
 	is_correct_num &= ft_atoi(argv[4], &args->time_to_sleep);
 	if (argc == 6)
-		is_correct_num &= ft_atoi(argv[5], &args->num_of_times_each_philo_must_eat);
+		is_correct_num &= ft_atoi(\
+							argv[5], &args->num_of_times_each_philo_must_eat);
 	if (!is_correct_num)
 		return (FAILURE);
 	return (SUCCESS);
