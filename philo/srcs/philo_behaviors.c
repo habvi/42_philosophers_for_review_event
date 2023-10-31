@@ -1,11 +1,10 @@
-#include <unistd.h> // usleep
 #include "philo.h"
 #include "utils.h"
 
 // todo: usleep, return t_result
 t_result	eating(const t_philo *philo)
 {
-	const long	time_to_eat = philo->args->time_to_eat;
+	const int	time_to_eat = philo->args->time_to_eat;
 	t_result	result;
 
 	result = take_two_forks(philo);
@@ -30,7 +29,7 @@ t_result	eating(const t_philo *philo)
 // todo: usleep, return t_result
 t_result	sleeping(const t_philo *philo)
 {
-	const long	time_to_sleep = philo->args->time_to_sleep;
+	const int	time_to_sleep = philo->args->time_to_sleep;
 
 	put_log(philo, MSG_SLEEP);
 	usleep(time_to_sleep * 1000);

@@ -6,7 +6,7 @@
 void	put_log(const t_philo *philo, const char *message)
 {
 	pthread_mutex_t	*for_log;
-	long			elapsed_time;
+	int64_t			elapsed_time;
 
 	for_log = &philo->args->for_log;
 	if (pthread_mutex_lock(for_log) != MUTEX_SUCCESS)

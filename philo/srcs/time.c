@@ -5,25 +5,11 @@
 
 long	get_current_time(void)
 {
-	struct timeval	current_time;
-	long			sec;
-	long			micro_sec;
-	long			milli_sec;
-
-	if (gettimeofday(&current_time, NULL) == TIME_ERROR)
-		exit(EXIT_FAILURE); // todo: erase
-	sec = current_time.tv_sec;
-	micro_sec = current_time.tv_usec;
-	milli_sec = sec * 1000L + micro_sec / 1000L;
-	// printf("%ld ", milli_sec);
-	return (milli_sec);
-}
-
-long	get_elapsed_time(const t_philo *philo)
+int64_t	get_elapsed_time(const t_philo *philo)
 {
-	const long	start_time = philo->args->start_time;
-	const long	current_time = get_current_time();
-	const long	elapsed_time = current_time - start_time;
+	const int64_t	start_time = philo->args->start_time;
+	const int64_t	current_time = get_current_time_msec();
+	const int64_t	elapsed_time = current_time - start_time;
 
 	return (elapsed_time);
 }
@@ -32,15 +18,15 @@ t_result	set_start_time_of_cycle(t_philo_var *philo_var)
 {
 	if (pthread_mutex_lock(&philo_var->for_start_time) != MUTEX_SUCCESS)
 		return (FAILURE);
-	philo_var->start_time_of_cycle = get_current_time();
+	philo_var->start_time_of_cycle = get_current_time_msec();
 	if (pthread_mutex_unlock(&philo_var->for_start_time) != MUTEX_SUCCESS)
 		return (FAILURE);
 	return (SUCCESS);
 }
 
-static long	get_start_time_of_cycle(t_philo_var *philo_var)
+static int64_t	get_start_time_of_cycle(t_philo_var *philo_var)
 {
-	long	start_time_of_cycle;
+	int64_t	start_time_of_cycle;
 
 	if (pthread_mutex_lock(&philo_var->for_start_time) != MUTEX_SUCCESS)
 		return (0); // todo
@@ -50,12 +36,12 @@ static long	get_start_time_of_cycle(t_philo_var *philo_var)
 	return (start_time_of_cycle);
 }
 
-long	get_elapsed_cycle_time(const t_philo *philo)
+int64_t	get_elapsed_cycle_time(const t_philo *philo)
 {
-	// const long	start_time = philo->args->start_time;
-	const long	now_time = get_current_time(); // todo
-	const long	start_time_of_cycle = get_start_time_of_cycle(philo->var);
-	const long	elapsed_cycle_time = now_time - start_time_of_cycle;
+	// const int64_t	start_time = philo->args->start_time;
+	const int64_t	now_time = get_current_time_msec(); // todo
+	const int64_t	start_time_of_cycle = get_start_time_of_cycle(philo->var);
+	const int64_t	elapsed_cycle_time = now_time - start_time_of_cycle;
 
 	return (elapsed_cycle_time);
 }

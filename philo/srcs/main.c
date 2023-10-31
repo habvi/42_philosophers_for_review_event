@@ -5,7 +5,7 @@
 // todo: error
 static void	set_start_time(t_args *args)
 {
-	args->start_time = get_current_time();
+	args->start_time = get_current_time_msec();
 }
 
 static t_result	run_philosophers(t_args *args)

@@ -5,7 +5,7 @@
 // todo: before eating
 static bool	is_time_to_die_exceeded(const t_args *args, const t_philo *philo)
 {
-	const long	elapsed_cycle_time = get_elapsed_cycle_time(philo);
+	const int64_t	elapsed_cycle_time = get_elapsed_cycle_time(philo);
 
 	return (elapsed_cycle_time > args->time_to_die);
 }
@@ -40,7 +40,7 @@ void	*monitor_cycle(void *thread_args)
 	{
 		if (!is_time_to_die_exceeded(args, philo))
 		{
-			usleep(100);
+			usleep(500);
 			continue ;
 		}
 		if (set_philo_died(args, philo) == FAILURE)

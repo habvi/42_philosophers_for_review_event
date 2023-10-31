@@ -24,7 +24,7 @@ typedef struct s_args {
 	int				time_to_sleep;
 	int				num_of_times_each_philo_must_eat;
 	// common data
-	long			start_time;
+	int64_t			start_time;
 	t_philo			**philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	for_log;
@@ -34,7 +34,7 @@ typedef struct s_args {
 }	t_args;
 
 typedef struct s_philo_var {
-	long	start_time_of_cycle;
+	int64_t			start_time_of_cycle;
 	pthread_mutex_t	for_start_time;
 }	t_philo_var;
 
