@@ -6,7 +6,7 @@ bool	is_valid_argc(const int argc)
 	return (argc == 5 || argc == 6);
 }
 
-static void	init_t_args(t_args *args)
+static void	init_args(t_args *args)
 {
 	args->num_of_philos = 0;
 	args->time_to_die = 0;
@@ -17,6 +17,22 @@ static void	init_t_args(t_args *args)
 	args->philos = NULL;
 	args->forks = NULL;
 	args->is_any_philo_died = false;
+}
+
+static t_result	set_argv(const int argc, const char **argv, t_args *args)
+{
+	bool	is_correct_num;
+
+	is_correct_num = true;
+	is_correct_num &= ft_atoi(argv[1], &args->num_of_philos);
+	is_correct_num &= ft_atoi(argv[2], &args->time_to_die);
+	is_correct_num &= ft_atoi(argv[3], &args->time_to_eat);
+	is_correct_num &= ft_atoi(argv[4], &args->time_to_sleep);
+	if (argc == 6)
+		is_correct_num &= ft_atoi(argv[5], &args->num_of_times_each_philo_must_eat);
+	if (!is_correct_num)
+		return (FAILURE);
+	return (SUCCESS);
 }
 
 static t_philo	**allocate_philos(const int num_of_philos)
@@ -34,16 +50,13 @@ t_args	set_args(const int argc, const char **argv, t_result *result)
 {
 	t_args	args;
 
-	init_t_args(&args);
-	ft_atoi(argv[1], &args.num_of_philos);
-	ft_atoi(argv[2], &args.time_to_die);
-	ft_atoi(argv[3], &args.time_to_eat);
-	ft_atoi(argv[4], &args.time_to_sleep);
-	if (argc == 6)
-		ft_atoi(argv[5], &args.num_of_times_each_philo_must_eat);
+	*result = SUCCESS;
+	init_args(&args);
+	*result = set_argv(argc, argv, &args);
+	if (*result == FAILURE)
+		return (args);
 	args.philos = allocate_philos(args.num_of_philos);
 	if (args.philos == NULL)
 		*result = FAILURE;
-	*result = SUCCESS;
 	return (args);
 }
