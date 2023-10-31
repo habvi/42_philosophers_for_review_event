@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "philo.h"
 
 // todo: allocate philos here
@@ -27,10 +26,7 @@ int	main(int argc, char *argv[])
 	t_result	result;
 
 	if (!is_valid_argc(argc))
-	{
-		printf("Error: invalid arguments.\n");
 		return (EXIT_FAILURE);
-	}
 	args = set_args(argc, (const char **)argv, &result);
 	if (result == FAILURE)
 		return (EXIT_FAILURE);

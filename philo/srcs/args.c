@@ -1,9 +1,15 @@
+#include <stdio.h>
 #include "philo.h"
 #include "utils.h"
 
 bool	is_valid_argc(const int argc)
 {
-	return (argc == 5 || argc == 6);
+	if (!(argc == 5 || argc == 6))
+	{
+		printf("%s\n", ERR_INVALID_ARG);
+		return (false);
+	}
+	return (true);
 }
 
 static void	init_args(t_args *args)
@@ -54,7 +60,10 @@ t_args	set_args(const int argc, const char **argv, t_result *result)
 	init_args(&args);
 	*result = set_argv(argc, argv, &args);
 	if (*result == FAILURE)
+	{
+		printf("%s\n", ERR_INVALID_ARG);
 		return (args);
+	}
 	args.philos = allocate_philos(args.num_of_philos);
 	if (args.philos == NULL)
 		*result = FAILURE;

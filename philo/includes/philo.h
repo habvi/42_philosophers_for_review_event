@@ -14,6 +14,8 @@
 # define MSG_THINK	"is thinking"
 # define MSG_DIED	"died"
 
+# define ERR_INVALID_ARG	"Error: invalid arguments."
+
 typedef struct s_philo	t_philo;
 
 // todo: types
