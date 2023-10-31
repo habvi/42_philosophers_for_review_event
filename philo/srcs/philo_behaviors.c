@@ -12,6 +12,7 @@ t_result	eating(const t_philo *philo)
 		return (result);
 
 	// unneccessary?
+	if (is_any_philo_died(philo))
 	{
 		if (put_two_forks(philo) == FAILURE)
 			return (FAILURE);
@@ -19,7 +20,7 @@ t_result	eating(const t_philo *philo)
 	}
 	set_start_time_of_cycle(philo->var); // todo: use philo->var->start_time_of_cycle for put_log
 	put_log(philo, MSG_EAT);
-	usleep_gradual(time_to_eat);
+	usleep_gradual(time_to_eat, philo);
 
 	if (put_two_forks(philo) == FAILURE)
 		return (FAILURE);
@@ -32,7 +33,7 @@ t_result	sleeping(const t_philo *philo)
 	const int	time_to_sleep = philo->args->time_to_sleep;
 
 	put_log(philo, MSG_SLEEP);
-	usleep_gradual(time_to_sleep);
+	usleep_gradual(time_to_sleep, philo);
 	return (SUCCESS);
 }
 

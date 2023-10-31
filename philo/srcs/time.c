@@ -3,7 +3,7 @@
 #include "utils.h"
 
 // sleep_time: msec
-void	usleep_gradual(int64_t sleep_time)
+void	usleep_gradual(int64_t sleep_time, const t_philo *philo)
 {
 	const int64_t	start_time = get_current_time_msec();
 	const int64_t	target_time = (start_time + sleep_time) * 1000LL;
@@ -12,7 +12,7 @@ void	usleep_gradual(int64_t sleep_time)
 	while (true)
 	{
 		diff_time = target_time - get_current_time_usec();
-		if (diff_time >= 1000) // todo
+		if (diff_time >= 1000 && !is_any_philo_died(philo))
 			usleep(1000);
 		else
 		{

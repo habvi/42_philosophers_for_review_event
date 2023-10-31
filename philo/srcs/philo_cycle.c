@@ -12,7 +12,7 @@ static t_result	wait_start_cycle(t_args *args)
 }
 
 // todo: error
-static bool	is_any_philo_died(const t_philo *philo)
+bool	is_any_philo_died(const t_philo *philo)
 {
 	pthread_mutex_t	*for_death;
 	bool			is_any_philo_died;

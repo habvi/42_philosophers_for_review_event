@@ -34,7 +34,7 @@ t_result	take_two_forks(const t_philo *philo)
 	// interval(philo->id);
 	if (take_fork(philo->left_fork) == FAILURE)
 		return (FAILURE);
-	if (is_any_philo_died(philo, __LINE__, __func__))
+	if (is_any_philo_died(philo))
 	{
 		if (put_fork(philo->left_fork) == FAILURE)
 			return (FAILURE);
@@ -43,7 +43,7 @@ t_result	take_two_forks(const t_philo *philo)
 	put_log(philo, MSG_FORK);
 	if (take_fork(philo->right_fork) == FAILURE)
 		return (FAILURE);
-	if (is_any_philo_died(philo, __LINE__, __func__))
+	if (is_any_philo_died(philo))
 	{
 		if (put_two_forks(philo) == FAILURE)
 			return (FAILURE);
