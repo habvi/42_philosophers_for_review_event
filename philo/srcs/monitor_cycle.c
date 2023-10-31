@@ -2,7 +2,7 @@
 #include "philo.h"
 #include "utils.h"
 
-// todo: before eating
+// todo: > ? >= ?
 static bool	is_time_to_die_exceeded(const t_args *args, const t_philo *philo)
 {
 	const int64_t	elapsed_cycle_time = get_elapsed_cycle_time(philo);
@@ -10,7 +10,7 @@ static bool	is_time_to_die_exceeded(const t_args *args, const t_philo *philo)
 	return (elapsed_cycle_time > args->time_to_die);
 }
 
-static t_result	set_philo_died(t_args *args, const t_philo *philo)
+static t_result	set_and_put_philo_died(t_args *args, const t_philo *philo)
 {
 	pthread_mutex_t	*for_death;
 
@@ -43,7 +43,7 @@ void	*monitor_cycle(void *thread_args)
 			usleep(500);
 			continue ;
 		}
-		if (set_philo_died(args, philo) == FAILURE)
+		if (set_and_put_philo_died(args, philo) == FAILURE)
 		{
 			ft_free((void **)&monitor);
 			return (NULL); // todo

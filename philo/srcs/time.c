@@ -39,8 +39,7 @@ static int64_t	get_start_time_of_cycle(t_philo_var *philo_var)
 
 int64_t	get_elapsed_cycle_time(const t_philo *philo)
 {
-	// const int64_t	start_time = philo->args->start_time;
-	const int64_t	now_time = get_current_time_msec(); // todo
+	const int64_t	now_time = get_current_time_msec();
 	const int64_t	start_time_of_cycle = get_start_time_of_cycle(philo->var);
 	const int64_t	elapsed_cycle_time = now_time - start_time_of_cycle;
 
