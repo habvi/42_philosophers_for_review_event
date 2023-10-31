@@ -15,7 +15,6 @@ static t_result	run_philosophers(t_args *args)
 	monitors = monitor_death(args);
 	if (monitors == NULL)
 		return (FAILURE); // todo: wait,destroy
-	wait_threads(args, threads, monitors);
 	destroy(args, &threads, &monitors);
 	return (SUCCESS);
 }

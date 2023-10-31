@@ -1,6 +1,20 @@
 #include "philo.h"
 #include "utils.h"
 
+// Wait all threads, even if any one of them an error.
+static void	wait_threads(const t_args *args, pthread_t *philos, pthread_t *monitors)
+{
+	int	i;
+
+	i = 0;
+	while (i < args->num_of_philos)
+	{
+		pthread_join(philos[i], NULL);
+		pthread_join(monitors[i], NULL);
+		i++;
+	}
+}
+
 static void	destroy_philos(t_args *args)
 {
 	int	i;
@@ -18,6 +32,7 @@ static void	destroy_philos(t_args *args)
 
 void	destroy(t_args *args, pthread_t **threads, pthread_t **monitors)
 {
+	wait_threads(args, *threads, *monitors);
 	ft_free((void **)threads);
 	ft_free((void **)monitors);
 	destroy_philos(args);

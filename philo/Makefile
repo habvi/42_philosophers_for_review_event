@@ -29,7 +29,6 @@ SRCS		:=	args.c \
 				philo_cycle.c \
 				put.c \
 				thread_create.c \
-				threads.c \
 				time.c \
 				usleep_gradual.c
 

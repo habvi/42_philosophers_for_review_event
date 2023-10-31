@@ -68,10 +68,6 @@ void		destroy_mutex(t_args *args);
 /* thread_create */
 pthread_t	*create_threads(t_args *args);
 
-/* threads */
-void		wait_threads(const t_args *args, pthread_t *threads, pthread_t *monitors);
-void		destroy_threads(pthread_t **threads);
-
 /* philo_behaviors */
 t_result	take_two_forks(const t_philo *philo);
 t_result	eating(const t_philo *philo);
