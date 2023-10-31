@@ -10,5 +10,5 @@
 !*.h
 !.github/**
 !test/norm.py
-!playground
+!playground/**
 !.gitkeep
