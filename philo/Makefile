@@ -39,7 +39,8 @@ UTILS_DIR	:=	utils
 SRCS		+=	$(UTILS_DIR)/debug.c \
 				$(UTILS_DIR)/ft_atoi.c \
 				$(UTILS_DIR)/ft_free.c \
-				$(UTILS_DIR)/ft_isdigit.c
+				$(UTILS_DIR)/ft_isdigit.c \
+				$(UTILS_DIR)/get_current_time.c
 
 #--------------------------------------------
 OBJS_DIR	:=	objs
