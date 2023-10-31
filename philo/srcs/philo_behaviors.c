@@ -1,5 +1,4 @@
 #include "philo.h"
-#include "utils.h"
 
 // todo: usleep, return t_result
 t_result	eating(const t_philo *philo)

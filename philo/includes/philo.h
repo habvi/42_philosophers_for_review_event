@@ -86,10 +86,11 @@ pthread_t	*monitor_death(t_args *args);
 void		*monitor_cycle(void *thread_args);
 
 /* time */
-void	    usleep_gradual(int64_t sleep_time, const t_philo *philo);
+void		set_start_time(t_args *args);
 int64_t		get_elapsed_time(const t_philo *philo);
 int64_t		get_elapsed_cycle_time(const t_philo *philo);
 t_result	set_start_time_of_cycle(t_philo_var *philo_var);
+void	    usleep_gradual(int64_t sleep_time, const t_philo *philo);
 
 /* put */
 void		put_log(const t_philo *philo, const char *message)

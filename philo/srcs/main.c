@@ -1,13 +1,7 @@
 #include <stdio.h>
 #include "philo.h"
-#include "utils.h"
 
-// todo: error
-static void	set_start_time(t_args *args)
-{
-	args->start_time = get_current_time_msec();
-}
-
+// todo: allocate philos here
 static t_result	run_philosophers(t_args *args)
 {
 	pthread_t	*threads;

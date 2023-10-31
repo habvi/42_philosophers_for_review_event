@@ -1,5 +1,4 @@
 #include "philo.h"
-#include "utils.h"
 
 // todo: error
 static t_result	wait_start_cycle(t_args *args)

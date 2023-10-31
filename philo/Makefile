@@ -30,7 +30,8 @@ SRCS		:=	args.c \
 				put.c \
 				thread_create.c \
 				threads.c \
-				time.c
+				time.c \
+				usleep_gradual.c
 
 #--------------------------------------------
 # utils

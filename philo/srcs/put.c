@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include "philo.h"
-#include "utils.h"
 
 // todo: return t_result
 void	put_log(const t_philo *philo, const char *message)
