@@ -19,7 +19,7 @@ t_result	eating(const t_philo *philo)
 	}
 	set_start_time_of_cycle(philo->var); // todo: use philo->var->start_time_of_cycle for put_log
 	put_log(philo, MSG_EAT);
-	usleep(time_to_eat * 1000);
+	usleep_gradual(time_to_eat);
 
 	if (put_two_forks(philo) == FAILURE)
 		return (FAILURE);
@@ -32,7 +32,7 @@ t_result	sleeping(const t_philo *philo)
 	const int	time_to_sleep = philo->args->time_to_sleep;
 
 	put_log(philo, MSG_SLEEP);
-	usleep(time_to_sleep * 1000);
+	usleep_gradual(time_to_sleep);
 	return (SUCCESS);
 }
 
