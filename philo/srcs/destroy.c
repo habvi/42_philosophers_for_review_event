@@ -15,7 +15,7 @@ static void	wait_threads(const t_args *args, pthread_t *philos, pthread_t *monit
 	}
 }
 
-static void	destroy_philos(t_args *args)
+static void	destroy_each_philos(t_args *args)
 {
 	int	i;
 
@@ -51,11 +51,11 @@ static void	destroy_mutex(t_args *args)
 	pthread_mutex_destroy(&args->start_cycle);
 }
 
-void	destroy(t_args *args, pthread_t **threads, pthread_t **monitors)
+void	destroy(t_args *args, pthread_t **philos, pthread_t **monitors)
 {
-	wait_threads(args, *threads, *monitors);
-	ft_free((void **)threads);
+	wait_threads(args, *philos, *monitors);
+	ft_free((void **)philos);
 	ft_free((void **)monitors);
-	destroy_philos(args);
+	destroy_each_philos(args);
 	destroy_mutex(args);
 }

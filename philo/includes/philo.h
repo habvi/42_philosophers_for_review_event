@@ -66,7 +66,7 @@ void		destroy(t_args *args, pthread_t **threads, pthread_t **monitors);
 t_result	init_mutex(t_args *args);
 
 /* thread_create */
-pthread_t	*create_threads(t_args *args);
+pthread_t	*simulate_philos_cycle(t_args *args);
 
 /* philo_behaviors */
 t_result	take_two_forks(const t_philo *philo);
@@ -80,7 +80,7 @@ bool		is_any_philo_died(const t_philo *philo);
 void		*philo_cycle(void *thread_args);
 
 /* monitor*/
-pthread_t	*monitor_death(t_args *args);
+pthread_t	*monitoring_death(t_args *args);
 void		*monitor_cycle(void *thread_args);
 
 /* time */

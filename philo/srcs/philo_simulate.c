@@ -29,7 +29,7 @@ static t_philo_var	*init_philo_var(void)
 	return (var);
 }
 
-static t_philo	*set_thread_info(const int i, t_args *args)
+static t_philo	*set_philo_info(const int i, t_args *args)
 {
 	t_philo	*philo;
 
@@ -53,7 +53,7 @@ static t_result	create_each_philo_thread(\
 {
 	t_philo	*philo;
 
-	philo = set_thread_info(i, args);
+	philo = set_philo_info(i, args);
 	if (philo == NULL)
 		return (FAILURE);
 	if (pthread_create(thread, NULL, philo_cycle, (void *)philo) \
@@ -63,7 +63,8 @@ static t_result	create_each_philo_thread(\
 	return (SUCCESS);
 }
 
-pthread_t	*create_threads(t_args *args)
+// simulation begins after all threads craeted. controlled by start_cycle mutex.
+pthread_t	*simulate_philos_cycle(t_args *args)
 {
 	pthread_t	*threads;
 	int			i;

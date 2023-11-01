@@ -3,19 +3,19 @@
 // todo: allocate philos here
 static t_result	run_philosophers(t_args *args)
 {
-	pthread_t	*threads;
-	pthread_t	*monitors;
+	pthread_t	*philo_threads;
+	pthread_t	*monitor_threads;
 
 	if (init_mutex(args) == FAILURE)
 		return (FAILURE);
 	set_start_time(args);
-	threads = create_threads(args);
-	if (threads == NULL)
+	philo_threads = simulate_philos_cycle(args);
+	if (philo_threads == NULL)
 		return (FAILURE); // todo: wait,destroy
-	monitors = monitor_death(args);
-	if (monitors == NULL)
+	monitor_threads = monitoring_death(args);
+	if (monitor_threads == NULL)
 		return (FAILURE); // todo: wait,destroy
-	destroy(args, &threads, &monitors);
+	destroy(args, &philo_threads, &monitor_threads);
 	return (SUCCESS);
 }
 

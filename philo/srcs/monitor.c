@@ -27,7 +27,7 @@ static t_result	create_each_monitor_thread(\
 	return (SUCCESS);
 }
 
-pthread_t	*monitor_death(t_args *args)
+pthread_t	*monitoring_death(t_args *args)
 {
 	pthread_t	*monitors;
 	int			i;

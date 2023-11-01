@@ -27,8 +27,8 @@ SRCS		:=	args.c \
 				mutex.c \
 				philo_behaviors.c \
 				philo_cycle.c \
+				philo_simulate.c \
 				put.c \
-				thread_create.c \
 				time.c \
 				usleep_gradual.c
 
