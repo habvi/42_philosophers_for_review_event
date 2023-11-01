@@ -15,6 +15,7 @@
 # define MSG_DIED	"died"
 
 # define ERR_INVALID_ARG	"Error: invalid arguments."
+# define ERR_FATAL			"Error: fatal error."
 
 typedef struct s_philo	t_philo;
 
