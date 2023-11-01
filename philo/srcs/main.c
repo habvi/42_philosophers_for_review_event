@@ -11,7 +11,7 @@ static t_result	run_philosophers(t_args *args)
 	set_start_time(args);
 	philo_threads = simulate_philos_cycle(args);
 	if (philo_threads == NULL)
-		return (fatal_error()); 
+		return (fatal_error());
 	monitor_threads = monitoring_death(args, &philo_threads);
 	if (monitor_threads == NULL)
 		return (fatal_error());

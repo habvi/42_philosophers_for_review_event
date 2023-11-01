@@ -15,7 +15,8 @@ void	eating(const t_philo *philo)
 		put_two_forks(philo);
 		return ;
 	}
-	set_start_time_of_cycle(philo->var); // todo: use philo->var->start_time_of_cycle for put_log
+	// todo: use philo->var->start_time_of_cycle for put_log
+	set_start_time_of_cycle(philo->var);
 	put_log(philo, MSG_EAT);
 	usleep_gradual(time_to_eat, philo);
 

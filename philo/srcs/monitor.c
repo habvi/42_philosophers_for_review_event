@@ -33,11 +33,11 @@ static t_result	create_each_monitor_thread(\
 
 pthread_t	*monitoring_death(t_args *args, pthread_t **philo_threads)
 {
-	pthread_t	*monitor_threads;
+	pthread_t	*monitors;
 	int			i;
 
-	monitor_threads = (pthread_t *)malloc(sizeof(pthread_t) * args->num_of_philos);
-	if (monitor_threads == NULL)
+	monitors = (pthread_t *)malloc(sizeof(pthread_t) * args->num_of_philos);
+	if (monitors == NULL)
 	{
 		destroy(args, philo_threads, NULL, 0);
 		return (NULL);
@@ -45,13 +45,13 @@ pthread_t	*monitoring_death(t_args *args, pthread_t **philo_threads)
 	i = 0;
 	while (i < args->num_of_philos)
 	{
-		if (create_each_monitor_thread(&monitor_threads[i], i, args) == FAILURE)
+		if (create_each_monitor_thread(&monitors[i], i, args) == FAILURE)
 		{
 			args->is_error = true;
-			destroy(args, philo_threads, &monitor_threads, i);
+			destroy(args, philo_threads, &monitors, i);
 			return (NULL);
 		}
 		i++;
 	}
-	return (monitor_threads);
+	return (monitors);
 }

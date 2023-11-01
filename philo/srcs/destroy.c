@@ -4,8 +4,8 @@
 // Wait all threads, even if any one of them an error.
 static void	wait_threads(const t_args *args, pthread_t *threads)
 {
-	t_philo **philo;
-	int	i;
+	t_philo	**philo;
+	int		i;
 
 	if (threads == NULL)
 		return ;
@@ -18,7 +18,8 @@ static void	wait_threads(const t_args *args, pthread_t *threads)
 	}
 }
 
-void	wait_monitor_threads(const t_args *args, pthread_t *threads, const int max_len)
+void	wait_monitor_threads(\
+					const t_args *args, pthread_t *threads, const int max_len)
 {
 	int	i;
 
@@ -32,8 +33,8 @@ void	wait_monitor_threads(const t_args *args, pthread_t *threads, const int max_
 
 static void	destroy_each_philos(t_args *args)
 {
-	t_philo **philos;
-	int	i;
+	t_philo	**philos;
+	int		i;
 
 	philos = args->philos;
 	i = 0;
@@ -68,7 +69,8 @@ static void	destroy_mutex(t_args *args)
 	pthread_mutex_destroy(&args->for_death);
 }
 
-void	destroy(t_args *args, pthread_t **philos, pthread_t **monitors, const int max_len)
+void	destroy(\
+	t_args *args, pthread_t **philos, pthread_t **monitors, const int max_len)
 {
 	wait_threads(args, *philos);
 	wait_monitor_threads(args, *monitors, max_len);
