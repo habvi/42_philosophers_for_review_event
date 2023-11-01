@@ -1,12 +1,4 @@
-#include <stdio.h> // printf
 #include "philo.h"
-
-// todo: put_error,wait,destroy
-static t_result	fatal_error(void)
-{
-	printf("%s\n", ERR_FATAL);
-	return (FAILURE);
-}
 
 // todo: allocate philos here?
 static t_result	run_philosophers(t_args *args)
@@ -20,10 +12,10 @@ static t_result	run_philosophers(t_args *args)
 	philo_threads = simulate_philos_cycle(args);
 	if (philo_threads == NULL)
 		return (fatal_error()); 
-	monitor_threads = monitoring_death(args);
+	monitor_threads = monitoring_death(args, &philo_threads);
 	if (monitor_threads == NULL)
 		return (fatal_error());
-	destroy(args, &philo_threads, &monitor_threads);
+	destroy_all(args, &philo_threads, &monitor_threads);
 	return (SUCCESS);
 }
 

@@ -63,7 +63,8 @@ t_args		set_args(const int argc, const char **argv, t_result *result);
 /* destroy */
 void		wait_monitor_threads(const t_args *args, pthread_t *threads, const int max_len);
 void		destroy_forks(t_args *args);
-void		destroy(t_args *args, pthread_t **threads, pthread_t **monitors);
+void		destroy(t_args *args, pthread_t **philos, pthread_t **monitors, const int max_len);
+void		destroy_all(t_args *args, pthread_t **philos, pthread_t **monitors);
 
 /* mutex */
 t_result	init_mutex(t_args *args);
@@ -83,7 +84,7 @@ bool		is_any_philo_died(const t_philo *philo);
 void		*philo_cycle(void *thread_args);
 
 /* monitor*/
-pthread_t	*monitoring_death(t_args *args);
+pthread_t	*monitoring_death(t_args *args, pthread_t **philo_threads);
 void		*monitor_cycle(void *thread_args);
 
 /* time */
@@ -94,7 +95,7 @@ void		set_start_time_of_cycle(t_philo_var *philo_var);
 void	    usleep_gradual(int64_t sleep_time, const t_philo *philo);
 
 /* put */
-void		put_log(const t_philo *philo, const char *message)
-;
+void		put_log(const t_philo *philo, const char *message);
+t_result	fatal_error(void);
 
 #endif

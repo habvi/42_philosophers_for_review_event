@@ -58,10 +58,17 @@ static t_result	create_each_philo_thread(\
 
 	philo = set_philo_info(i, args);
 	if (philo == NULL)
+	{
+		args->philos[i] = NULL;
 		return (FAILURE);
+	}
 	if (pthread_create(thread, NULL, philo_cycle, (void *)philo) \
 															!= THREAD_SUCCESS)
+	{
+		ft_free((void **)&philo);
+		args->philos[i] = NULL;
 		return (FAILURE);
+	}
 	args->philos[i] = philo;
 	return (SUCCESS);
 }
@@ -83,7 +90,8 @@ pthread_t	*simulate_philos_cycle(t_args *args)
 		{
 			args->is_error = true;
 			pthread_mutex_unlock(&args->start_cycle);
-			return (ft_free((void **)&threads));
+			destroy(args, &threads, NULL, 0);
+			return (NULL);
 		}
 		i++;
 	}

@@ -53,7 +53,6 @@ static t_philo	**allocate_philos(const int num_of_philos)
 	return (philos);
 }
 
-// todo: change ft_atoi's type, check error
 t_args	set_args(const int argc, const char **argv, t_result *result)
 {
 	t_args	args;

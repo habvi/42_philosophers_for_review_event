@@ -24,27 +24,34 @@ static t_result	create_each_monitor_thread(\
 		return (FAILURE);
 	if (pthread_create(thread, NULL, monitor_cycle, (void *)monitor) \
 															!= THREAD_SUCCESS)
+	{
+		ft_free((void **)&monitor);
 		return (FAILURE);
+	}
 	return (SUCCESS);
 }
 
-pthread_t	*monitoring_death(t_args *args)
+pthread_t	*monitoring_death(t_args *args, pthread_t **philo_threads)
 {
-	pthread_t	*monitors;
+	pthread_t	*monitor_threads;
 	int			i;
 
-	monitors = (pthread_t *)malloc(sizeof(pthread_t) * args->num_of_philos);
-	if (monitors == NULL)
+	monitor_threads = (pthread_t *)malloc(sizeof(pthread_t) * args->num_of_philos);
+	if (monitor_threads == NULL)
+	{
+		destroy(args, philo_threads, NULL, 0);
 		return (NULL);
+	}
 	i = 0;
 	while (i < args->num_of_philos)
 	{
-		if (create_each_monitor_thread(&monitors[i], i, args) == FAILURE)
+		if (create_each_monitor_thread(&monitor_threads[i], i, args) == FAILURE)
 		{
 			args->is_error = true;
+			destroy(args, philo_threads, &monitor_threads, i);
 			return (NULL);
 		}
 		i++;
 	}
-	return (monitors);
+	return (monitor_threads);
 }
