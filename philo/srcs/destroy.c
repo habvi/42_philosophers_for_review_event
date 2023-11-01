@@ -30,6 +30,27 @@ static void	destroy_philos(t_args *args)
 	ft_free((void **)&args->philos);
 }
 
+void	destroy_forks(t_args *args)
+{
+	int	i;
+
+	i = 0;
+	while (i < args->num_of_philos)
+	{
+		pthread_mutex_destroy(&args->forks[i]);
+		i++;
+	}
+	ft_free((void **)&args->forks);
+}
+
+static void	destroy_mutex(t_args *args)
+{
+	destroy_forks(args);
+	pthread_mutex_destroy(&args->for_log);
+	pthread_mutex_destroy(&args->for_death);
+	pthread_mutex_destroy(&args->start_cycle);
+}
+
 void	destroy(t_args *args, pthread_t **threads, pthread_t **monitors)
 {
 	wait_threads(args, *threads, *monitors);

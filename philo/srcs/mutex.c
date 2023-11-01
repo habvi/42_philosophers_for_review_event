@@ -1,27 +1,6 @@
 #include "philo.h"
 #include "utils.h"
 
-static void	destroy_forks(t_args *args)
-{
-	int	i;
-
-	i = 0;
-	while (i < args->num_of_philos)
-	{
-		pthread_mutex_destroy(&args->forks[i]);
-		i++;
-	}
-	ft_free((void **)&args->forks);
-}
-
-void	destroy_mutex(t_args *args)
-{
-	destroy_forks(args);
-	pthread_mutex_destroy(&args->for_log);
-	pthread_mutex_destroy(&args->for_death);
-	pthread_mutex_destroy(&args->start_cycle);
-}
-
 static t_result	init_forks(t_args *args)
 {
 	pthread_mutex_t	*forks;

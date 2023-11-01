@@ -59,11 +59,11 @@ bool		is_valid_argc(const int argc);
 t_args		set_args(const int argc, const char **argv, t_result *result);
 
 /* destroy */
+void		destroy_forks(t_args *args);
 void		destroy(t_args *args, pthread_t **threads, pthread_t **monitors);
 
 /* mutex */
 t_result	init_mutex(t_args *args);
-void		destroy_mutex(t_args *args);
 
 /* thread_create */
 pthread_t	*create_threads(t_args *args);
