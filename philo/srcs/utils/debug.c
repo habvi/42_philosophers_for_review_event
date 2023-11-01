@@ -16,9 +16,7 @@ void	put(const t_philo *philo, const char *message)
 	pthread_mutex_t	*for_log;
 
 	for_log = &philo->args->for_log;
-	if (pthread_mutex_lock(for_log) != MUTEX_SUCCESS)
-		return ;
+	pthread_mutex_lock(for_log);
 	printf("%s\n", message);
-	if (pthread_mutex_unlock(for_log) != MUTEX_SUCCESS)
-		return ;
+	pthread_mutex_unlock(for_log);
 }

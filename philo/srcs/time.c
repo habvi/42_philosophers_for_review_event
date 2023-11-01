@@ -15,25 +15,20 @@ int64_t	get_elapsed_time(const t_philo *philo)
 	return (elapsed_time);
 }
 
-t_result	set_start_time_of_cycle(t_philo_var *philo_var)
+void	set_start_time_of_cycle(t_philo_var *philo_var)
 {
-	if (pthread_mutex_lock(&philo_var->for_start_time) != MUTEX_SUCCESS)
-		return (FAILURE);
+	pthread_mutex_lock(&philo_var->for_start_time);
 	philo_var->start_time_of_cycle = get_current_time_msec();
-	if (pthread_mutex_unlock(&philo_var->for_start_time) != MUTEX_SUCCESS)
-		return (FAILURE);
-	return (SUCCESS);
+	pthread_mutex_unlock(&philo_var->for_start_time);
 }
 
 static int64_t	get_start_time_of_cycle(t_philo_var *philo_var)
 {
 	int64_t	start_time_of_cycle;
 
-	if (pthread_mutex_lock(&philo_var->for_start_time) != MUTEX_SUCCESS)
-		return (0); // todo
+	pthread_mutex_lock(&philo_var->for_start_time);
 	start_time_of_cycle = philo_var->start_time_of_cycle;
-	if (pthread_mutex_unlock(&philo_var->for_start_time) != MUTEX_SUCCESS)
-		return (0); // todo
+	pthread_mutex_unlock(&philo_var->for_start_time);
 	return (start_time_of_cycle);
 }
 

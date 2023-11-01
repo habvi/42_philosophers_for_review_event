@@ -46,9 +46,9 @@ void	destroy_forks(t_args *args)
 static void	destroy_mutex(t_args *args)
 {
 	destroy_forks(args);
+	pthread_mutex_destroy(&args->start_cycle);
 	pthread_mutex_destroy(&args->for_log);
 	pthread_mutex_destroy(&args->for_death);
-	pthread_mutex_destroy(&args->start_cycle);
 }
 
 void	destroy(t_args *args, pthread_t **philos, pthread_t **monitors)

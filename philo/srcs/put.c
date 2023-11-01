@@ -8,10 +8,8 @@ void	put_log(const t_philo *philo, const char *message)
 	int64_t			elapsed_time;
 
 	for_log = &philo->args->for_log;
-	if (pthread_mutex_lock(for_log) != MUTEX_SUCCESS)
-		return ;
+	pthread_mutex_lock(for_log);
 	elapsed_time = get_elapsed_time(philo);
 	printf("%ld %d %s\n", elapsed_time, philo->id, message);
-	if (pthread_mutex_unlock(for_log) != MUTEX_SUCCESS)
-		return ;
+	pthread_mutex_unlock(for_log);
 }

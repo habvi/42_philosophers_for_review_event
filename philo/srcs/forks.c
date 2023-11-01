@@ -6,47 +6,36 @@
 // 		usleep(50);
 // }
 
-static t_result	take_fork(pthread_mutex_t *fork)
+static void	take_fork(pthread_mutex_t *fork)
 {
-	if (pthread_mutex_lock(fork) != MUTEX_SUCCESS)
-		return (FAILURE);
-	return (SUCCESS);
+	pthread_mutex_lock(fork);
 }
 
-static t_result	put_fork(pthread_mutex_t *fork)
+static void	put_fork(pthread_mutex_t *fork)
 {
-	if (pthread_mutex_unlock(fork) != MUTEX_SUCCESS)
-		return (FAILURE);
-	return (SUCCESS);
+	pthread_mutex_unlock(fork);
 }
 
-t_result	put_two_forks(const t_philo *philo)
+void	put_two_forks(const t_philo *philo)
 {
-	if (put_fork(philo->right_fork) == FAILURE)
-		return (FAILURE);
-	if (put_fork(philo->left_fork) == FAILURE)
-		return (FAILURE);
-	return (SUCCESS);
+	put_fork(philo->right_fork);
+	put_fork(philo->left_fork);
 }
 
 t_result	take_two_forks(const t_philo *philo)
 {
 	// interval(philo->id);
-	if (take_fork(philo->left_fork) == FAILURE)
-		return (FAILURE);
+	take_fork(philo->left_fork);
 	if (is_any_philo_died(philo))
 	{
-		if (put_fork(philo->left_fork) == FAILURE)
-			return (FAILURE);
+		put_fork(philo->left_fork);
 		return (BREAK);
 	}
 	put_log(philo, MSG_FORK);
-	if (take_fork(philo->right_fork) == FAILURE)
-		return (FAILURE);
+	take_fork(philo->right_fork);
 	if (is_any_philo_died(philo))
 	{
-		if (put_two_forks(philo) == FAILURE)
-			return (FAILURE);
+		put_two_forks(philo);
 		return (BREAK);
 	}
 	put_log(philo, MSG_FORK);

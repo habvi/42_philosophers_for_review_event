@@ -10,19 +10,16 @@ static bool	is_time_to_die_exceeded(const t_args *args, const t_philo *philo)
 	return (elapsed_cycle_time > args->time_to_die);
 }
 
-static t_result	set_and_put_philo_died(t_args *args, const t_philo *philo)
+static void	set_and_put_philo_died(t_args *args, const t_philo *philo)
 {
 	pthread_mutex_t	*for_death;
 
 	for_death = &args->for_death;
-	if (pthread_mutex_lock(for_death) != MUTEX_SUCCESS)
-		return (FAILURE);
+	pthread_mutex_lock(for_death);
 	args->is_any_philo_died = true;
 	put_log(philo, MSG_DIED);
-	put(philo, "-----");
-	if (pthread_mutex_unlock(for_death) != MUTEX_SUCCESS)
-		return (FAILURE);
-	return (SUCCESS);
+	put(philo, "-----"); // todo: erase
+	pthread_mutex_unlock(for_death);
 }
 
 void	*monitor_cycle(void *thread_args)
@@ -38,17 +35,12 @@ void	*monitor_cycle(void *thread_args)
 	philo = args->philos[i];
 	while (!is_any_philo_died(philo))
 	{
-		if (!is_time_to_die_exceeded(args, philo))
+		if (is_time_to_die_exceeded(args, philo))
 		{
-			usleep(500);
-			continue ;
+			set_and_put_philo_died(args, philo);
+			break ;
 		}
-		if (set_and_put_philo_died(args, philo) == FAILURE)
-		{
-			ft_free((void **)&monitor);
-			return (NULL); // todo
-		}
-		break ;
+		usleep(500);
 	}
 	ft_free((void **)&monitor);
 	return (NULL);

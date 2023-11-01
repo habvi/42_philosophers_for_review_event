@@ -29,11 +29,11 @@ typedef struct s_args {
 	// common data
 	int64_t			start_time;
 	t_philo			**philos;
+	pthread_mutex_t	start_cycle;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	for_log;
 	bool			is_any_philo_died;
 	pthread_mutex_t	for_death;
-	pthread_mutex_t	start_cycle;
 }	t_args;
 
 typedef struct s_philo_var {
@@ -71,10 +71,10 @@ pthread_t	*simulate_philos_cycle(t_args *args);
 
 /* philo_behaviors */
 t_result	take_two_forks(const t_philo *philo);
-t_result	eating(const t_philo *philo);
-t_result	put_two_forks(const t_philo *philo);
-t_result	sleeping(const t_philo *philo);
-t_result	thinking(const t_philo *philo);
+void		eating(const t_philo *philo);
+void		put_two_forks(const t_philo *philo);
+void		sleeping(const t_philo *philo);
+void		thinking(const t_philo *philo);
 
 /* philo_cycle */
 bool		is_any_philo_died(const t_philo *philo);
@@ -88,7 +88,7 @@ void		*monitor_cycle(void *thread_args);
 void		set_start_time(t_args *args);
 int64_t		get_elapsed_time(const t_philo *philo);
 int64_t		get_elapsed_cycle_time(const t_philo *philo);
-t_result	set_start_time_of_cycle(t_philo_var *philo_var);
+void		set_start_time_of_cycle(t_philo_var *philo_var);
 void	    usleep_gradual(int64_t sleep_time, const t_philo *philo);
 
 /* put */

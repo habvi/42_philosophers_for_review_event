@@ -75,8 +75,7 @@ pthread_t	*simulate_philos_cycle(t_args *args)
 	threads = (pthread_t *)malloc(sizeof(pthread_t) * args->num_of_philos);
 	if (threads == NULL)
 		return (NULL);
-	if (pthread_mutex_lock(&args->start_cycle) != MUTEX_SUCCESS)
-		return (ft_free((void **)&threads));
+	pthread_mutex_lock(&args->start_cycle);
 	i = 0;
 	while (i < args->num_of_philos)
 	{
@@ -87,7 +86,6 @@ pthread_t	*simulate_philos_cycle(t_args *args)
 		}
 		i++;
 	}
-	if (pthread_mutex_unlock(&args->start_cycle) != MUTEX_SUCCESS)
-		return (ft_free((void **)&threads));
+	pthread_mutex_unlock(&args->start_cycle);
 	return (threads);
 }
