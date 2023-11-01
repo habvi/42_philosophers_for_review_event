@@ -24,7 +24,10 @@ static t_philo_var	*init_philo_var(void)
 	if (var == NULL)
 		return (NULL);
 	if (pthread_mutex_init(&var->for_start_time, NULL) != MUTEX_SUCCESS)
+	{
+		ft_free((void **)&var);
 		return (NULL);
+	}
 	set_start_time_of_cycle(var);
 	return (var);
 }
@@ -73,19 +76,18 @@ pthread_t	*simulate_philos_cycle(t_args *args)
 	if (threads == NULL)
 		return (NULL);
 	if (pthread_mutex_lock(&args->start_cycle) != MUTEX_SUCCESS)
-		return (NULL);
+		return (ft_free((void **)&threads));
 	i = 0;
 	while (i < args->num_of_philos)
 	{
 		if (create_each_philo_thread(&threads[i], i, args) == FAILURE)
 		{
-			ft_free((void **)&threads);
 			pthread_mutex_unlock(&args->start_cycle);
-			return (NULL);
+			return (ft_free((void **)&threads));
 		}
 		i++;
 	}
 	if (pthread_mutex_unlock(&args->start_cycle) != MUTEX_SUCCESS)
-		return (NULL);
+		return (ft_free((void **)&threads));
 	return (threads);
 }
