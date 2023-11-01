@@ -27,12 +27,13 @@ static t_result	philo_action(\
 	return (SUCCESS);
 }
 
-// todo: return t_result?
 void	*philo_cycle(void *thread_args)
 {
 	const t_philo	*philo = (const t_philo *)thread_args;
 
 	wait_start_cycle(philo->args);
+	if (philo->args->is_error) //todo: lock?
+		return (NULL);
 	while (!is_any_philo_died(philo))
 	{
 		// philo_action(philo, &take_two_forks);

@@ -81,6 +81,7 @@ pthread_t	*simulate_philos_cycle(t_args *args)
 	{
 		if (create_each_philo_thread(&threads[i], i, args) == FAILURE)
 		{
+			args->is_error = true;
 			pthread_mutex_unlock(&args->start_cycle);
 			return (ft_free((void **)&threads));
 		}

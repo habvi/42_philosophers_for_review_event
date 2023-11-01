@@ -41,7 +41,7 @@ pthread_t	*monitoring_death(t_args *args)
 	{
 		if (create_each_monitor_thread(&monitors[i], i, args) == FAILURE)
 		{
-			ft_free((void **)&monitors);
+			args->is_error = true;
 			return (NULL);
 		}
 		i++;

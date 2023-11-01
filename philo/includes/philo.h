@@ -34,6 +34,7 @@ typedef struct s_args {
 	pthread_mutex_t	for_log;
 	bool			is_any_philo_died;
 	pthread_mutex_t	for_death;
+	bool			is_error;
 }	t_args;
 
 typedef struct s_philo_var {
@@ -60,6 +61,7 @@ bool		is_valid_argc(const int argc);
 t_args		set_args(const int argc, const char **argv, t_result *result);
 
 /* destroy */
+void		wait_monitor_threads(const t_args *args, pthread_t *threads, const int max_len);
 void		destroy_forks(t_args *args);
 void		destroy(t_args *args, pthread_t **threads, pthread_t **monitors);
 

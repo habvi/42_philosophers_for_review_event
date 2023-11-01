@@ -33,7 +33,7 @@ void	*monitor_cycle(void *thread_args)
 	i = monitor->id;
 	args = monitor->args;
 	philo = args->philos[i];
-	while (!is_any_philo_died(philo))
+	while (!is_any_philo_died(philo) && !args->is_error) // todo: is_error lock?
 	{
 		if (is_time_to_die_exceeded(args, philo))
 		{
