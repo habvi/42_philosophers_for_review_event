@@ -1,6 +1,7 @@
 #include "philo.h"
 #include "utils.h"
 
+// free monitor in monitor_cycle's last
 static t_monitor	*set_monitor_info(const int i, t_args *args)
 {
 	t_monitor	*monitor;

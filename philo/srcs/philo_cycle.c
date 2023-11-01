@@ -49,6 +49,6 @@ void	*philo_cycle(void *thread_args)
 		philo_action(philo, &sleeping);
 		philo_action(philo, &thinking);
 	}
-	put_log(philo, MSG_DIED);
+	put_log(philo, MSG_DIED); // todo: erase
 	return (NULL);
 }
