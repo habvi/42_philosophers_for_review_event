@@ -1,9 +1,13 @@
 #include "philo.h"
 
-static void	wait_start_cycle(t_args *args)
+static bool	wait_start_cycle(t_args *args)
 {
+	bool	is_error;
+
 	pthread_mutex_lock(&args->start_cycle);
+	is_error = args->is_error;
 	pthread_mutex_unlock(&args->start_cycle);
+	return (is_error);
 }
 
 bool	is_any_philo_died(const t_philo *philo)
@@ -30,9 +34,10 @@ static t_result	philo_action(\
 void	*philo_cycle(void *thread_args)
 {
 	const t_philo	*philo = (const t_philo *)thread_args;
+	bool			is_error;
 
-	wait_start_cycle(philo->args);
-	if (philo->args->is_error) //todo: lock?
+	is_error = wait_start_cycle(philo->args);
+	if (is_error)
 		return (NULL);
 	while (!is_any_philo_died(philo))
 	{
