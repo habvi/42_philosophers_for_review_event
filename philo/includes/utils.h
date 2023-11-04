@@ -9,7 +9,7 @@ typedef struct s_philo		t_philo;
 typedef struct s_philo_var	t_philo_var;
 
 /* utils */
-bool		ft_atoi(const char *str, int *num);
+bool		ft_atoi(const char *str, unsigned int *num);
 void		*ft_free(void **ptr);
 bool		ft_isdigit(int c);
 int64_t		get_current_time_usec(void);

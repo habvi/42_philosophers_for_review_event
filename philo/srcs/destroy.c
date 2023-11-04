@@ -1,27 +1,28 @@
 #include "philo.h"
 #include "utils.h"
 
-// Wait all threads, even if any one of them an error.
-static void	wait_threads(const t_args *args, pthread_t *threads)
+// continue waiting even if one of join an error.
+static void	wait_philo_threads(const t_args *args, pthread_t *threads)
 {
-	t_philo	**philo;
-	int		i;
+	t_philo			**philos;
+	unsigned int	i;
 
 	if (threads == NULL)
 		return ;
-	philo = args->philos;
+	philos = args->philos;
 	i = 0;
-	while (i < args->num_of_philos && philo[i])
+	while (i < args->num_of_philos && philos[i])
 	{
 		pthread_join(threads[i], NULL);
 		i++;
 	}
 }
 
-void	wait_monitor_threads(\
-					const t_args *args, pthread_t *threads, const int max_len)
+// continue waiting even if one of join an error.
+static void	wait_monitor_threads(\
+			const t_args *args, pthread_t *threads, const unsigned int max_len)
 {
-	int	i;
+	unsigned int	i;
 
 	i = 0;
 	while (i < args->num_of_philos && i < max_len)
@@ -33,8 +34,8 @@ void	wait_monitor_threads(\
 
 static void	destroy_each_philos(t_args *args)
 {
-	t_philo	**philos;
-	int		i;
+	t_philo			**philos;
+	unsigned int	i;
 
 	philos = args->philos;
 	i = 0;
@@ -50,7 +51,7 @@ static void	destroy_each_philos(t_args *args)
 
 void	destroy_forks(t_args *args)
 {
-	int	i;
+	unsigned int	i;
 
 	i = 0;
 	while (i < args->num_of_philos)
@@ -69,10 +70,10 @@ static void	destroy_mutex(t_args *args)
 	pthread_mutex_destroy(&args->for_death);
 }
 
-void	destroy(\
-	t_args *args, pthread_t **philos, pthread_t **monitors, const int max_len)
+void	destroy(t_args *args, \
+		pthread_t **philos, pthread_t **monitors, const unsigned int max_len)
 {
-	wait_threads(args, *philos);
+	wait_philo_threads(args, *philos);
 	wait_monitor_threads(args, *monitors, max_len);
 	ft_free((void **)philos);
 	ft_free((void **)monitors);

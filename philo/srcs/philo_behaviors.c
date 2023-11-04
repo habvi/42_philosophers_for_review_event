@@ -2,8 +2,8 @@
 
 void	eating(const t_philo *philo)
 {
-	const int	time_to_eat = philo->args->time_to_eat;
-	t_result	result;
+	const unsigned int	time_to_eat = philo->args->time_to_eat;
+	t_result			result;
 
 	result = take_two_forks(philo);
 	if (result == BREAK)
@@ -25,7 +25,7 @@ void	eating(const t_philo *philo)
 
 void	sleeping(const t_philo *philo)
 {
-	const int	time_to_sleep = philo->args->time_to_sleep;
+	const unsigned int	time_to_sleep = philo->args->time_to_sleep;
 
 	put_log(philo, MSG_SLEEP);
 	usleep_gradual(time_to_sleep, philo);

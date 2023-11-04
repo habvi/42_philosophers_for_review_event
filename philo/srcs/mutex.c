@@ -3,9 +3,9 @@
 
 static t_result	init_forks(t_args *args)
 {
-	pthread_mutex_t	*forks;
-	const int		num_of_forks = args->num_of_philos;
-	int				i;
+	pthread_mutex_t		*forks;
+	const unsigned int	num_of_forks = args->num_of_philos;
+	unsigned int		i;
 
 	forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * num_of_forks);
 	if (forks == NULL)

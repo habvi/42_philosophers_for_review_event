@@ -25,7 +25,7 @@ static void	set_and_put_philo_died(t_args *args, const t_philo *philo)
 void	*monitor_cycle(void *thread_args)
 {
 	t_monitor		*monitor;
-	int				i;
+	unsigned int	i;
 	t_args			*args;
 	t_philo			*philo;
 

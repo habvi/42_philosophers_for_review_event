@@ -2,7 +2,8 @@
 #include "utils.h"
 
 // left: smaller number, right: larger number
-static void	set_two_forks(t_philo *philo, const int i, const t_args *args)
+static void	set_two_forks(\
+					t_philo *philo, const unsigned int i, const t_args *args)
 {
 	if (i + 1 < args->num_of_philos)
 	{
@@ -32,7 +33,7 @@ static t_philo_var	*init_philo_var(void)
 	return (var);
 }
 
-static t_philo	*set_philo_info(const int i, t_args *args)
+static t_philo	*set_philo_info(const unsigned int i, t_args *args)
 {
 	t_philo	*philo;
 
@@ -52,7 +53,7 @@ static t_philo	*set_philo_info(const int i, t_args *args)
 }
 
 static t_result	create_each_philo_thread(\
-								pthread_t *thread, const int i, t_args *args)
+						pthread_t *thread, const unsigned int i, t_args *args)
 {
 	t_philo	*philo;
 
@@ -76,8 +77,8 @@ static t_result	create_each_philo_thread(\
 // simulation begins after all threads craeted. controlled by start_cycle mutex.
 pthread_t	*simulate_philos_cycle(t_args *args)
 {
-	pthread_t	*threads;
-	int			i;
+	pthread_t		*threads;
+	unsigned int	i;
 
 	threads = (pthread_t *)malloc(sizeof(pthread_t) * args->num_of_philos);
 	if (threads == NULL)

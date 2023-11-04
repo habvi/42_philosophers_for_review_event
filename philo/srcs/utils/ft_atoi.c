@@ -32,25 +32,27 @@ static bool	is_overflow(int *num, int c)
 	return (false);
 }
 
-bool	ft_atoi(const char *str, int *num)
+bool	ft_atoi(const char *str, unsigned int *num)
 {
+	int			tmp_num;
 	const char	*head = str;
 	bool		at_least_one_digit;
 
-	*num = 0;
+	tmp_num = 0;
 	at_least_one_digit = false;
 	while (ft_isdigit(*str))
 	{
 		at_least_one_digit = true;
-		if (is_leading_zeros(head, str, *num))
+		if (is_leading_zeros(head, str, tmp_num))
 			return (false);
-		if (is_overflow(num, *str))
+		if (is_overflow(&tmp_num, *str))
 			return (false);
-		*num = *num * 10 + *str - '0';
+		tmp_num = tmp_num * 10 + *str - '0';
 		str++;
 	}
 	if (*str || !at_least_one_digit)
 		return (false);
+	*num = tmp_num;
 	return (true);
 }
 
@@ -60,7 +62,7 @@ bool	ft_atoi(const char *str, int *num)
 
 int	main(void)
 {
-	int	num;
+	unsigned int	num;
 
 	assert(ft_atoi("-", &num) == false);
 	assert(ft_atoi("+", &num) == false);
@@ -71,8 +73,6 @@ int	main(void)
 	assert(ft_atoi("   1", &num) == false);
 	assert(ft_atoi("+0", &num) == false);
 	assert(ft_atoi("+1", &num) == false);
-	assert(ft_atoi("+001", &num) == false);
-	assert(ft_atoi("-1", &num) == false);
 	assert(ft_atoi("2147483648", &num) == false);
 	assert(ft_atoi("000", &num) == false);
 	assert(ft_atoi("0011", &num) == false);
@@ -80,5 +80,11 @@ int	main(void)
 	assert(ft_atoi("0", &num) == true);
 	assert(ft_atoi("11", &num) == true);
 	assert(ft_atoi("2147483647", &num) == true);
+
+	assert(ft_atoi("+001", &num) == false);
+	assert(ft_atoi("-1", &num) == false);
+	assert(ft_atoi("-18274", &num) == false);
+	assert(ft_atoi("-2147483648", &num) == false);
+	assert(ft_atoi("-2147483649", &num) == false);
 }
 */

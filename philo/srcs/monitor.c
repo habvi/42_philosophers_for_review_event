@@ -2,7 +2,7 @@
 #include "utils.h"
 
 // free monitor in monitor_cycle's last
-static t_monitor	*set_monitor_info(const int i, t_args *args)
+static t_monitor	*set_monitor_info(const unsigned int i, t_args *args)
 {
 	t_monitor	*monitor;
 
@@ -15,7 +15,7 @@ static t_monitor	*set_monitor_info(const int i, t_args *args)
 }
 
 static t_result	create_each_monitor_thread(\
-								pthread_t *thread, const int i, t_args *args)
+						pthread_t *thread, const unsigned int i, t_args *args)
 {
 	t_monitor	*monitor;
 
@@ -33,8 +33,8 @@ static t_result	create_each_monitor_thread(\
 
 pthread_t	*monitoring_death(t_args *args, pthread_t **philo_threads)
 {
-	pthread_t	*monitors;
-	int			i;
+	pthread_t		*monitors;
+	unsigned int	i;
 
 	monitors = (pthread_t *)malloc(sizeof(pthread_t) * args->num_of_philos);
 	if (monitors == NULL)
