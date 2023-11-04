@@ -22,13 +22,11 @@ bool	is_any_philo_died(const t_philo *philo)
 	return (is_any_philo_died);
 }
 
-static t_result	philo_action(\
-						const t_philo *philo, void (*action)(const t_philo *))
+static void	philo_action(const t_philo *philo, void (*action)(const t_philo *))
 {
 	if (is_any_philo_died(philo))
-		return (SUCCESS);
+		return ;
 	action(philo);
-	return (SUCCESS);
 }
 
 void	*philo_cycle(void *thread_args)
@@ -41,12 +39,10 @@ void	*philo_cycle(void *thread_args)
 		return (NULL);
 	while (!is_any_philo_died(philo))
 	{
-		// philo_action(philo, &take_two_forks);
 		philo_action(philo, &eating);
-		// philo_action(philo, &put_two_forks);
 		philo_action(philo, &sleeping);
 		philo_action(philo, &thinking);
 	}
-	put_log(philo, MSG_DIED); // todo: erase
+	// put_log(philo, MSG_DIED); // todo: erase
 	return (NULL);
 }

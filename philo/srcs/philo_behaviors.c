@@ -3,18 +3,9 @@
 void	eating(const t_philo *philo)
 {
 	const unsigned int	time_to_eat = philo->args->time_to_eat;
-	t_result			result;
 
-	result = take_two_forks(philo);
-	if (result == BREAK)
+	if (take_two_forks(philo) == BREAK)
 		return ;
-
-	// unneccessary?
-	if (is_any_philo_died(philo))
-	{
-		put_two_forks(philo);
-		return ;
-	}
 	// todo: use philo->var->start_time_of_cycle for put_log
 	set_start_time_of_cycle(philo->var);
 	put_log(philo, MSG_EAT);
