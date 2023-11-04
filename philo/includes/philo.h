@@ -60,7 +60,7 @@ bool		is_valid_argc(const int argc);
 t_args		set_args(const int argc, const char **argv, t_result *result);
 
 /* destroy */
-void		destroy_forks(t_args *args, const unsigned int max_len);
+void		destroy_forks(pthread_mutex_t **forks, const unsigned int max_len);
 void		destroy(t_args *args, pthread_t **philos, \
 							pthread_t **monitors, const unsigned int max_len);
 void		destroy_all(t_args *args, pthread_t **philos, pthread_t **monitors);

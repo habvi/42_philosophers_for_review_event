@@ -49,22 +49,22 @@ static void	destroy_each_philos(t_args *args)
 	ft_free((void **)&args->philos);
 }
 
-void	destroy_forks(t_args *args)
+void	destroy_forks(pthread_mutex_t **forks, const unsigned int max_len)
 {
 	unsigned int	i;
 
 	i = 0;
-	while (i < args->num_of_philos)
+	while (i < max_len)
 	{
-		pthread_mutex_destroy(&args->forks[i]);
+		pthread_mutex_destroy(&(*forks)[i]);
 		i++;
 	}
-	ft_free((void **)&args->forks);
+	ft_free((void **)forks);
 }
 
 static void	destroy_mutex(t_args *args)
 {
-	destroy_forks(args);
+	destroy_forks(&args->forks, args->num_of_philos);
 	pthread_mutex_destroy(&args->start_cycle);
 	pthread_mutex_destroy(&args->for_log);
 	pthread_mutex_destroy(&args->for_death);

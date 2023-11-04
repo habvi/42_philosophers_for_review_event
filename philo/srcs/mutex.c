@@ -15,7 +15,7 @@ static t_result	init_forks(t_args *args)
 	{
 		if (pthread_mutex_init(&forks[i], NULL) != MUTEX_SUCCESS)
 		{
-			destroy_forks(args);
+			destroy_forks(&forks, i);
 			return (FAILURE);
 		}
 		i++;
@@ -41,7 +41,7 @@ t_result	init_mutex(t_args *args)
 		return (FAILURE);
 	if (init_other_mutex(args) == FAILURE)
 	{
-		destroy_forks(args);
+		destroy_forks(&args->forks, args->num_of_philos);
 		return (FAILURE);
 	}
 	return (SUCCESS);
