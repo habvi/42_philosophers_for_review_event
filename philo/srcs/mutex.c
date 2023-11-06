@@ -26,11 +26,9 @@ static t_result	init_forks(t_args *args)
 
 static t_result	init_other_mutex(t_args *args)
 {
-	if (pthread_mutex_init(&args->start_cycle, NULL) != MUTEX_SUCCESS)
+	if (pthread_mutex_init(&args->shared, NULL) != MUTEX_SUCCESS)
 		return (FAILURE);
 	if (pthread_mutex_init(&args->for_log, NULL) != MUTEX_SUCCESS)
-		return (FAILURE);
-	if (pthread_mutex_init(&args->for_death, NULL) != MUTEX_SUCCESS)
 		return (FAILURE);
 	return (SUCCESS);
 }

@@ -4,21 +4,21 @@ static bool	wait_start_cycle(t_args *args)
 {
 	bool	is_error;
 
-	pthread_mutex_lock(&args->start_cycle);
+	pthread_mutex_lock(&args->shared);
 	is_error = args->is_error;
-	pthread_mutex_unlock(&args->start_cycle);
+	pthread_mutex_unlock(&args->shared);
 	return (is_error);
 }
 
 bool	is_any_philo_died(const t_philo *philo)
 {
-	pthread_mutex_t	*for_death;
+	pthread_mutex_t	*shared;
 	bool			is_any_philo_died;
 
-	for_death = &philo->args->for_death;
-	pthread_mutex_lock(for_death);
+	shared = &philo->args->shared;
+	pthread_mutex_lock(shared);
 	is_any_philo_died = philo->args->is_any_philo_died;
-	pthread_mutex_unlock(for_death);
+	pthread_mutex_unlock(shared);
 	return (is_any_philo_died);
 }
 

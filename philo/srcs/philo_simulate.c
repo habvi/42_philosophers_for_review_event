@@ -74,7 +74,7 @@ static t_result	create_each_philo_thread(\
 	return (SUCCESS);
 }
 
-// simulation begins after all threads craeted. controlled by start_cycle mutex.
+// simulation begins after all threads craeted.
 pthread_t	*simulate_philos_cycle(t_args *args)
 {
 	pthread_t		*threads;
@@ -83,19 +83,19 @@ pthread_t	*simulate_philos_cycle(t_args *args)
 	threads = (pthread_t *)malloc(sizeof(pthread_t) * args->num_of_philos);
 	if (threads == NULL)
 		return (NULL);
-	pthread_mutex_lock(&args->start_cycle);
+	pthread_mutex_lock(&args->shared);
 	i = 0;
 	while (i < args->num_of_philos)
 	{
 		if (create_each_philo_thread(&threads[i], i, args) == FAILURE)
 		{
 			args->is_error = true;
-			pthread_mutex_unlock(&args->start_cycle);
+			pthread_mutex_unlock(&args->shared);
 			destroy(args, &threads, NULL, 0);
 			return (NULL);
 		}
 		i++;
 	}
-	pthread_mutex_unlock(&args->start_cycle);
+	pthread_mutex_unlock(&args->shared);
 	return (threads);
 }

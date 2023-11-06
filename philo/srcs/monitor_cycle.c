@@ -12,14 +12,14 @@ static bool	is_time_to_die_exceeded(const t_args *args, const t_philo *philo)
 
 static void	set_and_put_philo_died(t_args *args, const t_philo *philo)
 {
-	pthread_mutex_t	*for_death;
+	pthread_mutex_t	*shared;
 
-	for_death = &args->for_death;
-	pthread_mutex_lock(for_death);
+	shared = &args->shared;
+	pthread_mutex_lock(shared);
 	args->is_any_philo_died = true;
 	put_log(philo, MSG_DIED);
-	put(philo, "-----"); // todo: erase
-	pthread_mutex_unlock(for_death);
+	// put(philo, "-----"); // todo: erase
+	pthread_mutex_unlock(shared);
 }
 
 void	*monitor_cycle(void *thread_args)

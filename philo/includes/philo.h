@@ -28,11 +28,10 @@ typedef struct s_args {
 	// common data
 	int64_t			start_time;
 	t_philo			**philos;
-	pthread_mutex_t	start_cycle;
+	pthread_mutex_t	shared;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	for_log;
 	bool			is_any_philo_died;
-	pthread_mutex_t	for_death;
 	bool			is_error;
 }	t_args;
 
