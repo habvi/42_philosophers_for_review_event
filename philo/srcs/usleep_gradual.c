@@ -5,21 +5,17 @@
 // sleep_time: msec
 void	usleep_gradual(int64_t sleep_time, const t_philo *philo)
 {
-	const int64_t	start_time = get_current_time_msec();
-	const int64_t	target_time = (start_time + sleep_time) * 1000LL;
-	int64_t			diff_time;
+	const int64_t	start_time = get_current_time_usec();
+	int64_t			remain_sleep_time;
 
-	while (true)
+	sleep_time *= 1000;
+	while (start_time + sleep_time - get_current_time_usec() >= 1000)
 	{
-		diff_time = target_time - get_current_time_usec();
-		if (diff_time >= 1000 && !is_any_philo_died(philo))
-			usleep(1000);
-		else
-		{
-			// todo: need?
-			// if (diff_time > 0)
-			// 	usleep(diff_time);
+		if (is_any_philo_died(philo))
 			break ;
-		}
+		usleep(1000);
 	}
+	remain_sleep_time = start_time + sleep_time - get_current_time_usec();
+	if (0 < remain_sleep_time && remain_sleep_time < 1000)
+		usleep(remain_sleep_time);
 }
