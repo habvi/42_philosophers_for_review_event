@@ -1,16 +1,13 @@
 #include <stdio.h> // printf
 #include "philo.h"
 
-void	put_log(const t_philo *philo, const char *message)
+void	put_log(const t_philo *philo, const char *message, \
+									int64_t (*get_time)(const t_philo *phio))
 {
-	pthread_mutex_t	*for_log;
-	int64_t			elapsed_time;
+	int64_t	elapsed_time;
 
-	for_log = &philo->args->for_log;
-	pthread_mutex_lock(for_log);
-	elapsed_time = get_elapsed_time(philo);
+	elapsed_time = get_time(philo);
 	printf("%ld %d %s\n", elapsed_time, philo->id, message);
-	pthread_mutex_unlock(for_log);
 }
 
 t_result	fatal_error(void)

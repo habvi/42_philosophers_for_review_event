@@ -66,7 +66,6 @@ static void	destroy_mutex(t_args *args)
 {
 	destroy_forks(&args->forks, args->num_of_philos);
 	pthread_mutex_destroy(&args->shared);
-	pthread_mutex_destroy(&args->for_log);
 }
 
 void	destroy(t_args *args, \

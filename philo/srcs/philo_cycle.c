@@ -12,6 +12,11 @@ static bool	wait_start_cycle(t_args *args)
 
 bool	is_any_philo_died(const t_philo *philo)
 {
+	return (philo->args->is_any_philo_died);
+}
+
+bool	is_any_philo_died_atomic(const t_philo *philo)
+{
 	pthread_mutex_t	*shared;
 	bool			is_any_philo_died;
 
@@ -24,7 +29,7 @@ bool	is_any_philo_died(const t_philo *philo)
 
 static void	philo_action(const t_philo *philo, void (*action)(const t_philo *))
 {
-	if (is_any_philo_died(philo))
+	if (is_any_philo_died_atomic(philo))
 		return ;
 	action(philo);
 }
@@ -37,7 +42,7 @@ void	*philo_cycle(void *thread_args)
 	is_error = wait_start_cycle(philo->args);
 	if (is_error)
 		return (NULL);
-	while (!is_any_philo_died(philo))
+	while (!is_any_philo_died_atomic(philo))
 	{
 		philo_action(philo, &eating);
 		philo_action(philo, &sleeping);

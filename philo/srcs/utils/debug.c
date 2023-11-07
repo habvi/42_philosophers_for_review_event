@@ -13,10 +13,10 @@ void	put_args(const t_args *args)
 
 void	put(const t_philo *philo, const char *message)
 {
-	pthread_mutex_t	*for_log;
+	pthread_mutex_t	*shared;
 
-	for_log = &philo->args->for_log;
-	pthread_mutex_lock(for_log);
+	shared = &philo->args->shared;
+	pthread_mutex_lock(shared);
 	printf("%s\n", message);
-	pthread_mutex_unlock(for_log);
+	pthread_mutex_unlock(shared);
 }

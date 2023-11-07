@@ -28,8 +28,6 @@ static t_result	init_other_mutex(t_args *args)
 {
 	if (pthread_mutex_init(&args->shared, NULL) != MUTEX_SUCCESS)
 		return (FAILURE);
-	if (pthread_mutex_init(&args->for_log, NULL) != MUTEX_SUCCESS)
-		return (FAILURE);
 	return (SUCCESS);
 }
 

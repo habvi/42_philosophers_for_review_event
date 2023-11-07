@@ -7,6 +7,7 @@
 
 # define MUTEX_SUCCESS	0
 # define THREAD_SUCCESS	0
+# define EXCEEDED 		1
 
 # define MSG_FORK	"has taken a fork"
 # define MSG_EAT	"is eating"
@@ -30,7 +31,6 @@ typedef struct s_args {
 	t_philo			**philos;
 	pthread_mutex_t	shared;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	for_log;
 	bool			is_any_philo_died;
 	bool			is_error;
 }	t_args;
@@ -79,6 +79,7 @@ void		thinking(const t_philo *philo);
 
 /* philo_cycle */
 bool		is_any_philo_died(const t_philo *philo);
+bool		is_any_philo_died_atomic(const t_philo *philo);
 void		*philo_cycle(void *thread_args);
 
 /* monitor*/
@@ -93,7 +94,8 @@ void		set_start_time_of_cycle(t_philo_var *philo_var);
 void		usleep_gradual(int64_t sleep_time, const t_philo *philo);
 
 /* put */
-void		put_log(const t_philo *philo, const char *message);
+void		put_log(const t_philo *philo, const char *message, \
+									int64_t (*get_time)(const t_philo *phio));
 t_result	fatal_error(void);
 
 #endif
