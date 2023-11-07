@@ -32,7 +32,7 @@ typedef struct s_args {
 	pthread_mutex_t	shared;
 	pthread_mutex_t	*forks;
 	bool			is_any_philo_died;
-	bool			is_error;
+	bool			is_thread_error;
 }	t_args;
 
 typedef struct s_philo {

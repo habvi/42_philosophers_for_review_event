@@ -1,24 +1,23 @@
 #include "philo.h"
 
-static int64_t	get_is_error(t_args *args)
+static int64_t	get_is_thread_error(t_args *args)
 {
-	return (args->is_error);
+	return (args->is_thread_error);
 }
 
-// todo: is_thread_err?
 static bool	wait_start_cycle(t_args *args)
 {
-	return (call_atomic(&args->shared, get_is_error, args));
+	return (call_atomic(&args->shared, get_is_thread_error, args));
 }
 
 void	*philo_cycle(void *thread_args)
 {
 	t_philo	*philo;
-	bool	is_error;
+	bool	is_thread_error;
 
 	philo = (t_philo *)thread_args;
-	is_error = wait_start_cycle(philo->args);
-	if (is_error)
+	is_thread_error = wait_start_cycle(philo->args);
+	if (is_thread_error)
 		return (NULL);
 	while (!is_any_philo_died(philo))
 	{

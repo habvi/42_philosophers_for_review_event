@@ -23,7 +23,7 @@ static void	init_args(t_args *args)
 	args->philos = NULL;
 	args->forks = NULL;
 	args->is_any_philo_died = false;
-	args->is_error = false;
+	args->is_thread_error = false;
 }
 
 static t_result	set_argv(const int argc, const char **argv, t_args *args)

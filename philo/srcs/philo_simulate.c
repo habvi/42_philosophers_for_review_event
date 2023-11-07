@@ -84,7 +84,7 @@ pthread_t	*simulate_philos_cycle(t_args *args)
 	threads = simulate_philos_cycle_inter(args);
 	if (threads == NULL)
 	{
-		args->is_error = true;
+		args->is_thread_error = true;
 		destroy(args, &threads, NULL, 0);
 		return (NULL);
 	}

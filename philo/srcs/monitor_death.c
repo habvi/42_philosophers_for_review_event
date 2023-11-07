@@ -59,7 +59,7 @@ pthread_t	*monitoring_death(t_args *args, pthread_t **philo_threads)
 	threads = monitoring_death_inter(args);
 	if (threads == NULL)
 	{
-		args->is_error = true;
+		args->is_thread_error = true;
 		destroy(args, philo_threads, NULL, 0);
 		return (NULL);
 	}
