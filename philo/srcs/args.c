@@ -18,12 +18,13 @@ static void	init_args(t_args *args)
 	args->time_to_die = 0;
 	args->time_to_eat = 0;
 	args->time_to_sleep = 0;
-	args->num_of_times_each_philo_must_eat = 0;
+	args->num_of_each_philo_must_eat = 0;
 	args->start_time = 0;
 	args->philos = NULL;
 	args->forks = NULL;
 	args->is_any_philo_died = false;
 	args->is_thread_error = false;
+	args->num_of_finish_eat = 0;
 }
 
 static t_result	set_argv(const int argc, const char **argv, t_args *args)
@@ -36,8 +37,7 @@ static t_result	set_argv(const int argc, const char **argv, t_args *args)
 	is_correct_num &= ft_atoi(argv[3], &args->time_to_eat);
 	is_correct_num &= ft_atoi(argv[4], &args->time_to_sleep);
 	if (argc == 6)
-		is_correct_num &= ft_atoi(\
-							argv[5], &args->num_of_times_each_philo_must_eat);
+		is_correct_num &= ft_atoi(argv[5], &args->num_of_each_philo_must_eat);
 	if (!is_correct_num)
 		return (FAILURE);
 	return (SUCCESS);

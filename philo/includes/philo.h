@@ -25,7 +25,7 @@ typedef struct s_args {
 	unsigned int	time_to_die;
 	unsigned int	time_to_eat;
 	unsigned int	time_to_sleep;
-	unsigned int	num_of_times_each_philo_must_eat;
+	unsigned int	num_of_each_philo_must_eat;
 	// common data
 	int64_t			start_time;
 	t_philo			*philos;
@@ -33,6 +33,7 @@ typedef struct s_args {
 	pthread_mutex_t	*forks;
 	bool			is_any_philo_died;
 	bool			is_thread_error;
+	unsigned int	num_of_finish_eat;
 }	t_args;
 
 typedef struct s_philo {
@@ -42,6 +43,7 @@ typedef struct s_philo {
 	pthread_mutex_t	*right_fork;
 	// not const
 	int64_t			start_time_of_cycle;
+	unsigned int	eat_count;
 }	t_philo;
 
 typedef struct s_monitor {

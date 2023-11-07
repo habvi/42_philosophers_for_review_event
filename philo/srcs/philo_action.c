@@ -12,9 +12,13 @@ int64_t	call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), void *args)
 
 int64_t	is_simulation_over(t_philo *philo)
 {
-	if (philo->args->is_any_philo_died)
+	const t_args	*args = philo->args;
+
+	if (args->is_any_philo_died)
 		return (true);
-	if (philo->args->is_thread_error)
+	if (args->is_thread_error)
+		return (true);
+	if (args->num_of_finish_eat == args->num_of_philos)
 		return (true);
 	return (false);
 }

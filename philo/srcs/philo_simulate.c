@@ -26,6 +26,7 @@ static t_philo	*set_philo_info(const unsigned int i, t_args *args)
 	philo->args = args;
 	set_two_forks(philo, i, args);
 	set_start_time_of_cycle(philo);
+	philo->eat_count = 0;
 	return (philo);
 }
 

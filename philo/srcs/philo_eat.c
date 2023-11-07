@@ -17,10 +17,23 @@ static int64_t	put_log_eating(t_philo *philo)
 	return (put_log_flow(philo, set_and_get_elapsed_time, MSG_EAT));
 }
 
+static int64_t	count_eat_times(t_philo *philo)
+{
+	const unsigned int	must_eat = philo->args->num_of_each_philo_must_eat;
+
+	philo->eat_count++;
+	if (philo->eat_count == must_eat)
+		philo->args->num_of_finish_eat++;
+	return (SUCCESS);
+}
+
 void	eating(t_philo *philo)
 {
 	const unsigned int	time_to_eat = philo->args->time_to_eat;
+	pthread_mutex_t		*shared;
 
 	philo_action(philo, put_log_eating);
 	usleep_gradual(time_to_eat, philo);
+	shared = &philo->args->shared;
+	call_atomic(shared, count_eat_times, philo);
 }
