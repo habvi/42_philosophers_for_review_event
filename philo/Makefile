@@ -20,14 +20,16 @@ endif
 SRCS_DIR	:=	srcs
 SRCS		:=	args.c \
 				destroy.c \
-				forks.c \
 				main.c \
 				monitor_cycle.c \
-				monitor.c \
+				monitor_death.c \
 				mutex.c \
-				philo_behaviors.c \
+				philo_action.c \
 				philo_cycle.c \
+				philo_eat.c \
+				philo_forks.c \
 				philo_simulate.c \
+				philo_sleep_think.c \
 				put.c \
 				time.c \
 				usleep_gradual.c

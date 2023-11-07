@@ -2,7 +2,7 @@
 #include "philo.h"
 #include "utils.h"
 
-// sleep_time: msec. 
+// sleep_time: msec.
 void	usleep_gradual(int64_t sleep_time, t_philo *philo)
 {
 	const int64_t	start_time = get_current_time_usec();

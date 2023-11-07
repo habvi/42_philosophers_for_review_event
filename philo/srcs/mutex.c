@@ -1,14 +1,17 @@
 #include "philo.h"
 #include "utils.h"
 
-int64_t	call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), void *args)
+static void	destroy_forks(pthread_mutex_t **forks, const unsigned int max_len)
 {
-	int64_t	ret;
+	unsigned int	i;
 
-	pthread_mutex_lock(mutex);
-	ret = func(args);
-	pthread_mutex_unlock(mutex);
-	return (ret);
+	i = 0;
+	while (i < max_len)
+	{
+		pthread_mutex_destroy(&(*forks)[i]);
+		i++;
+	}
+	ft_free((void **)forks);
 }
 
 static t_result	init_forks(t_args *args)
@@ -51,4 +54,10 @@ t_result	init_mutex(t_args *args)
 		return (FAILURE);
 	}
 	return (SUCCESS);
+}
+
+void	destroy_mutex(t_args *args)
+{
+	destroy_forks(&args->forks, args->num_of_philos);
+	pthread_mutex_destroy(&args->shared);
 }

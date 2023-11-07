@@ -54,17 +54,21 @@ bool		is_valid_argc(const int argc);
 t_args		set_args(const int argc, const char **argv, t_result *result);
 
 /* destroy */
-void		destroy_forks(pthread_mutex_t **forks, const unsigned int max_len);
 void		destroy(t_args *args, pthread_t **philos, \
 							pthread_t **monitors, const unsigned int max_len);
 void		destroy_all(t_args *args, pthread_t **philos, pthread_t **monitors);
 
 /* mutex */
-int64_t		call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), void *args);
 t_result	init_mutex(t_args *args);
+void		destroy_mutex(t_args *args);
 
-/* thread_create */
-pthread_t	*simulate_philos_cycle(t_args *args);
+/* philo_action */
+int64_t		call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), void *args);
+bool		is_any_philo_died(t_philo *philo);
+void		philo_action(t_philo *philo, int64_t (*action)(t_philo *));
+
+/* philo_cycle */
+void		*philo_cycle(void *thread_args);
 
 /* philo_behaviors */
 void		take_two_forks(t_philo *philo);
@@ -73,21 +77,12 @@ void		put_two_forks(t_philo *philo);
 void		sleeping(t_philo *philo);
 void		thinking(t_philo *philo);
 
-/* philo_cycle */
-bool		is_any_philo_died(t_philo *philo);
-void		philo_action(t_philo *philo, int64_t (*action)(t_philo *));
-void		*philo_cycle(void *thread_args);
+/* philo_simulate */
+pthread_t	*simulate_philos_cycle(t_args *args);
 
 /* monitor*/
 pthread_t	*monitoring_death(t_args *args, pthread_t **philo_threads);
 void		*monitor_cycle(void *thread_args);
-
-/* time */
-void		set_start_time(t_args *args);
-int64_t		get_elapsed_time(t_philo *philo);
-int64_t		get_elapsed_cycle_time(const int64_t start_time_of_cycle);
-void		set_start_time_of_cycle(t_philo *philo);
-void		usleep_gradual(int64_t sleep_time, t_philo *philo);
 
 /* put */
 int64_t		put_log_flow(\
@@ -95,5 +90,12 @@ int64_t		put_log_flow(\
 void		put_log(const int64_t elapsed_time, \
 									const unsigned int id, const char *message);
 t_result	fatal_error(void);
+
+/* time */
+void		set_start_time(t_args *args);
+int64_t		get_elapsed_time(t_philo *philo);
+int64_t		get_elapsed_cycle_time(const int64_t start_time_of_cycle);
+void		set_start_time_of_cycle(t_philo *philo);
+void		usleep_gradual(int64_t sleep_time, t_philo *philo);
 
 #endif
