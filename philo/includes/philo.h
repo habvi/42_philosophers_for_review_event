@@ -75,7 +75,6 @@ void		thinking(t_philo *philo);
 
 /* philo_cycle */
 bool		is_any_philo_died(const t_philo *philo);
-bool		is_any_philo_died_atomic(const t_philo *philo);
 void		philo_action(t_philo *philo, int64_t (*action)(t_philo *));
 void		*philo_cycle(void *thread_args);
 

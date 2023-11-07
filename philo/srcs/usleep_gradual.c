@@ -11,7 +11,7 @@ void	usleep_gradual(int64_t sleep_time, const t_philo *philo)
 	sleep_time *= 1000;
 	while (start_time + sleep_time - get_current_time_usec() >= 1000)
 	{
-		if (is_any_philo_died_atomic(philo))
+		if (is_any_philo_died(philo))
 			break ;
 		usleep(1000);
 	}
