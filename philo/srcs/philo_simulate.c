@@ -17,22 +17,6 @@ static void	set_two_forks(\
 	}
 }
 
-static t_philo_var	*init_philo_var(void)
-{
-	t_philo_var	*var;
-
-	var = (t_philo_var *)malloc(sizeof(t_philo_var) * 1);
-	if (var == NULL)
-		return (NULL);
-	if (pthread_mutex_init(&var->for_start_time, NULL) != MUTEX_SUCCESS)
-	{
-		ft_free((void **)&var);
-		return (NULL);
-	}
-	set_start_time_of_cycle(var);
-	return (var);
-}
-
 static t_philo	*set_philo_info(const unsigned int i, t_args *args)
 {
 	t_philo	*philo;
@@ -43,12 +27,7 @@ static t_philo	*set_philo_info(const unsigned int i, t_args *args)
 	philo->id = i;
 	philo->args = args;
 	set_two_forks(philo, i, args);
-	philo->var = init_philo_var();
-	if (philo->var == NULL)
-	{
-		ft_free((void **)&philo);
-		return (NULL);
-	}
+	set_start_time_of_cycle(philo);
 	return (philo);
 }
 

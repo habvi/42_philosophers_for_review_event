@@ -1,8 +1,8 @@
 #include <stdio.h> // printf
 #include "philo.h"
 
-void	put_log(const t_philo *philo, const char *message, \
-									int64_t (*get_time)(const t_philo *phio))
+void	put_log(t_philo *philo, const char *message, \
+											int64_t (*get_time)(t_philo *philo))
 {
 	int64_t	elapsed_time;
 

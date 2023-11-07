@@ -27,7 +27,7 @@ bool	is_any_philo_died_atomic(const t_philo *philo)
 	return (is_any_philo_died);
 }
 
-static void	philo_action(const t_philo *philo, void (*action)(const t_philo *))
+static void	philo_action(t_philo *philo, void (*action)(t_philo *))
 {
 	if (is_any_philo_died_atomic(philo))
 		return ;
@@ -36,9 +36,10 @@ static void	philo_action(const t_philo *philo, void (*action)(const t_philo *))
 
 void	*philo_cycle(void *thread_args)
 {
-	const t_philo	*philo = (const t_philo *)thread_args;
-	bool			is_error;
+	t_philo	*philo;
+	bool	is_error;
 
+	philo = (t_philo *)thread_args;
 	is_error = wait_start_cycle(philo->args);
 	if (is_error)
 		return (NULL);

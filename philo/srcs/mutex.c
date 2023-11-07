@@ -1,6 +1,16 @@
 #include "philo.h"
 #include "utils.h"
 
+int64_t	call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), t_args *args)
+{
+	int64_t	ret;
+
+	pthread_mutex_lock(mutex);
+	ret = func(args);
+	pthread_mutex_unlock(mutex);
+	return (ret);
+}
+
 static t_result	init_forks(t_args *args)
 {
 	pthread_mutex_t		*forks;

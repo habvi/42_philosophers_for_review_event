@@ -4,9 +4,8 @@
 # include "result.h"
 # include <stdbool.h>
 
-typedef struct s_args		t_args;
-typedef struct s_philo		t_philo;
-typedef struct s_philo_var	t_philo_var;
+typedef struct s_args	t_args;
+typedef struct s_philo	t_philo;
 
 /* utils */
 bool		ft_atoi(const char *str, unsigned int *num);

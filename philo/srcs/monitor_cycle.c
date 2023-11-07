@@ -5,12 +5,13 @@
 // todo: > ? >= ?
 static bool	is_time_to_die_exceeded(const t_args *args, const t_philo *philo)
 {
-	const int64_t	elapsed_cycle_time = get_elapsed_cycle_time(philo);
+	const int64_t	elapsed_cycle_time = \
+							get_elapsed_cycle_time(philo->start_time_of_cycle);
 
 	return (elapsed_cycle_time > args->time_to_die);
 }
 
-static bool	check_and_set_time_to_die_exceeded(t_args *args, const t_philo *philo)
+static bool	check_and_set_time_to_die_exceeded(t_args *args, t_philo *philo)
 {
 	pthread_mutex_t	*shared;
 
