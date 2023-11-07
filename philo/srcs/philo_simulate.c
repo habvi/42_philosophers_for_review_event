@@ -54,7 +54,7 @@ static t_result	create_each_philo_thread(\
 }
 
 // simulation begins after all threads craeted.
-pthread_t	*simulate_philos_cycle(t_args *args)
+static pthread_t	*simulate_philos_cycle_inter(t_args *args)
 {
 	pthread_t		*threads;
 	unsigned int	i;
@@ -68,13 +68,25 @@ pthread_t	*simulate_philos_cycle(t_args *args)
 	{
 		if (create_each_philo_thread(&threads[i], i, args) == FAILURE)
 		{
-			args->is_error = true;
 			pthread_mutex_unlock(&args->shared);
-			destroy(args, &threads, NULL, 0);
 			return (NULL);
 		}
 		i++;
 	}
 	pthread_mutex_unlock(&args->shared);
+	return (threads);
+}
+
+pthread_t	*simulate_philos_cycle(t_args *args)
+{
+	pthread_t	*threads;
+
+	threads = simulate_philos_cycle_inter(args);
+	if (threads == NULL)
+	{
+		args->is_error = true;
+		destroy(args, &threads, NULL, 0);
+		return (NULL);
+	}
 	return (threads);
 }
