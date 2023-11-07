@@ -10,22 +10,26 @@ int64_t	call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), void *args)
 	return (ret);
 }
 
-static int64_t	get_is_any_philo_died(t_philo *philo)
+int64_t	is_simulation_over(t_philo *philo)
 {
-	return (philo->args->is_any_philo_died);
+	if (philo->args->is_any_philo_died)
+		return (true);
+	if (philo->args->is_thread_error)
+		return (true);
+	return (false);
 }
 
-bool	is_any_philo_died(t_philo *philo)
+bool	is_simulation_over_atomic(t_philo *philo)
 {
 	pthread_mutex_t	*shared;
 
 	shared = &philo->args->shared;
-	return (call_atomic(shared, get_is_any_philo_died, philo));
+	return (call_atomic(shared, is_simulation_over, philo));
 }
 
 void	philo_action(t_philo *philo, int64_t (*action)(t_philo *))
 {
-	if (is_any_philo_died(philo))
+	if (is_simulation_over_atomic(philo))
 		return ;
 	call_atomic(&philo->args->shared, action, (void *)philo);
 }

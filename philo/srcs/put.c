@@ -7,13 +7,6 @@ void	put_log(const int64_t elapsed_time, \
 	printf("%ld %d %s\n", elapsed_time, id, message);
 }
 
-static bool	is_simulation_over(t_philo *philo)
-{
-	if (philo->args->is_any_philo_died)
-		return (true);
-	return (false);
-}
-
 int64_t	put_log_flow(t_philo *philo, int64_t (*get_time)(), const char *message)
 {
 	const int64_t	elapsed_time = get_time(philo);

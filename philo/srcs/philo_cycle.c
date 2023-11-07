@@ -19,7 +19,7 @@ void	*philo_cycle(void *thread_args)
 	is_thread_error = wait_start_cycle(philo->args);
 	if (is_thread_error)
 		return (NULL);
-	while (!is_any_philo_died(philo))
+	while (!is_simulation_over_atomic(philo))
 	{
 		take_two_forks(philo);
 		eating(philo);

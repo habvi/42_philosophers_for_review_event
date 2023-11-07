@@ -33,16 +33,14 @@ static bool	check_and_set_time_to_die_exceeded(t_args *args, t_philo *philo)
 // monitoring for death periodically with interval.
 void	*monitor_cycle(void *thread_args)
 {
-	t_monitor		*monitor;
-	unsigned int	i;
-	t_args			*args;
-	t_philo			*philo;
+	t_monitor	*monitor;
+	t_args		*args;
+	t_philo		*philo;
 
 	monitor = (t_monitor *)thread_args;
-	i = monitor->id;
 	args = monitor->args;
-	philo = args->philos[i];
-	while (!is_any_philo_died(philo) && !args->is_error) // todo: is_error lock
+	philo = args->philos[monitor->id];
+	while (!is_simulation_over_atomic(philo))
 	{
 		if (check_and_set_time_to_die_exceeded(args, philo) == EXCEEDED)
 			break ;
