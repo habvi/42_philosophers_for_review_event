@@ -13,41 +13,38 @@ static int64_t	set_and_get_elapsed_time(t_philo *philo)
 	return (elapsed_time);
 }
 
-static int64_t	print_log_eating(t_philo *philo)
+static int64_t	put_log_eating(t_philo *philo)
 {
-	put_log(philo, MSG_EAT, set_and_get_elapsed_time);
-	return (SUCCESS);
+	return (put_log_flow(philo, set_and_get_elapsed_time, MSG_EAT));
 }
 
 void	eating(t_philo *philo)
 {
 	const unsigned int	time_to_eat = philo->args->time_to_eat;
 
-	philo_action(philo, print_log_eating);
+	philo_action(philo, put_log_eating);
 	usleep_gradual(time_to_eat, philo);
 }
 
-static int64_t	print_log_sleeping(t_philo *philo)
+static int64_t	put_log_sleeping(t_philo *philo)
 {
-	put_log(philo, MSG_SLEEP, get_elapsed_time);
-	return (SUCCESS);
+	return (put_log_flow(philo, get_elapsed_time, MSG_SLEEP));
 }
 
 void	sleeping(t_philo *philo)
 {
 	const unsigned int	time_to_sleep = philo->args->time_to_sleep;
 
-	philo_action(philo, print_log_sleeping);
+	philo_action(philo, put_log_sleeping);
 	usleep_gradual(time_to_sleep, philo);
 }
 
-static int64_t	print_log_thinking(t_philo *philo)
+static int64_t	put_log_thinking(t_philo *philo)
 {
-	put_log(philo, MSG_THINK, get_elapsed_time);
-	return (SUCCESS);
+	return (put_log_flow(philo, get_elapsed_time, MSG_THINK));
 }
 
 void	thinking(t_philo *philo)
 {
-	philo_action(philo, print_log_thinking);
+	philo_action(philo, put_log_thinking);
 }

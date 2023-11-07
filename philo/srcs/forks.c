@@ -6,16 +6,15 @@
 // 		usleep(50);
 // }
 
-static int64_t	print_log_fork(t_philo *philo)
+static int64_t	put_log_fork(t_philo *philo)
 {
-	put_log(philo, MSG_FORK, get_elapsed_time);
-	return (SUCCESS);
+	return (put_log_flow(philo, get_elapsed_time, MSG_FORK));
 }
 
 static void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 {
 	pthread_mutex_lock(fork);
-	philo_action(philo, print_log_fork);
+	philo_action(philo, put_log_fork);
 }
 
 void	take_two_forks(t_philo *philo)

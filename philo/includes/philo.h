@@ -90,8 +90,10 @@ void		set_start_time_of_cycle(t_philo *philo);
 void		usleep_gradual(int64_t sleep_time, t_philo *philo);
 
 /* put */
-void		put_log(t_philo *philo, const char *message, \
-										int64_t (*get_time)(t_philo *philo));
+int64_t		put_log_flow(\
+					t_philo *philo, int64_t (*get_time)(), const char *message);
+void		put_log(const int64_t elapsed_time, \
+									const unsigned int id, const char *message);
 t_result	fatal_error(void);
 
 #endif
