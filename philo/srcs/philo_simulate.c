@@ -57,6 +57,7 @@ static pthread_t	*simulate_philos_cycle_inter(t_args *args)
 		if (create_each_philo_thread(&threads[i], i, args) == FAILURE)
 		{
 			pthread_mutex_unlock(&args->shared);
+			destroy_philos(args, &threads, i);
 			return (NULL);
 		}
 		i++;
@@ -73,7 +74,7 @@ pthread_t	*simulate_philos_cycle(t_args *args)
 	if (threads == NULL)
 	{
 		args->is_thread_error = true;
-		destroy(args, &threads, NULL, 0);
+		destroy_args(args);
 		return (NULL);
 	}
 	return (threads);

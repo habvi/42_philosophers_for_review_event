@@ -1,30 +1,14 @@
 #include "philo.h"
 #include "utils.h"
 
-// todo: erase philos[i]
 // continue waiting even if one of join an error.
-static void	wait_philo_threads(const t_args *args, pthread_t *threads)
-{
-	t_philo			**philos;
-	unsigned int	i;
-
-	if (threads == NULL)
-		return ;
-	philos = args->philos;
-	i = 0;
-	while (i < args->num_of_philos && philos[i])
-	{
-		pthread_join(threads[i], NULL);
-		i++;
-	}
-}
-
-// continue waiting even if one of join an error.
-static void	wait_monitor_threads(\
+static void	wait_threads(\
 			const t_args *args, pthread_t *threads, const unsigned int max_len)
 {
 	unsigned int	i;
 
+	if (threads == NULL)
+		return ;
 	i = 0;
 	while (i < args->num_of_philos && i < max_len)
 	{
@@ -33,33 +17,30 @@ static void	wait_monitor_threads(\
 	}
 }
 
-static void	destroy_each_philos(t_args *args)
+void	destroy_philos(\
+				t_args *args, pthread_t **philos, const unsigned int max_len)
 {
-	t_philo			**philos;
-	unsigned int	i;
+	wait_threads(args, *philos, max_len);
+	ft_free((void **)philos);
+}
 
-	philos = args->philos;
-	i = 0;
-	while (i < args->num_of_philos && philos[i])
-	{
-		ft_free((void **)&philos[i]);
-		i++;
-	}
+static void	destroy_monitor(\
+				t_args *args, pthread_t **monitors, const unsigned int max_len)
+{
+	wait_threads(args, *monitors, max_len);
+	ft_free((void **)monitors);
+}
+
+void	destroy_args(t_args *args)
+{
 	ft_free((void **)&args->philos);
+	destroy_mutex(args);
 }
 
 void	destroy(t_args *args, \
 		pthread_t **philos, pthread_t **monitors, const unsigned int max_len)
 {
-	wait_philo_threads(args, *philos);
-	wait_monitor_threads(args, *monitors, max_len);
-	ft_free((void **)philos);
-	ft_free((void **)monitors);
-	destroy_each_philos(args);
-	destroy_mutex(args);
-}
-
-void	destroy_all(t_args *args, pthread_t **philos, pthread_t **monitors)
-{
-	destroy(args, philos, monitors, args->num_of_philos);
+	destroy_philos(args, philos, max_len);
+	destroy_monitor(args, monitors, max_len);
+	destroy_args(args);
 }

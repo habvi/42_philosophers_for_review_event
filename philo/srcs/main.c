@@ -1,6 +1,10 @@
 #include "philo.h"
 
-// todo: allocate philos here?
+static void	destroy_all(t_args *args, pthread_t **philos, pthread_t **monitors)
+{
+	destroy(args, philos, monitors, args->num_of_philos);
+}
+
 static t_result	run_philosophers(t_args *args)
 {
 	pthread_t	*philo_threads;

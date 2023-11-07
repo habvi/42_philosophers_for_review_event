@@ -54,9 +54,11 @@ bool		is_valid_argc(const int argc);
 t_args		set_args(const int argc, const char **argv, t_result *result);
 
 /* destroy */
+void		destroy_philos(\
+				t_args *args, pthread_t **philos, const unsigned int max_len);
+void		destroy_args(t_args *args);
 void		destroy(t_args *args, pthread_t **philos, \
 							pthread_t **monitors, const unsigned int max_len);
-void		destroy_all(t_args *args, pthread_t **philos, pthread_t **monitors);
 
 /* mutex */
 t_result	init_mutex(t_args *args);
