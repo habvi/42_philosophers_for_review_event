@@ -74,7 +74,7 @@ void		sleeping(t_philo *philo);
 void		thinking(t_philo *philo);
 
 /* philo_cycle */
-bool		is_any_philo_died(const t_philo *philo);
+bool		is_any_philo_died(t_philo *philo);
 void		philo_action(t_philo *philo, int64_t (*action)(t_philo *));
 void		*philo_cycle(void *thread_args);
 
@@ -87,7 +87,7 @@ void		set_start_time(t_args *args);
 int64_t		get_elapsed_time(t_philo *philo);
 int64_t		get_elapsed_cycle_time(const int64_t start_time_of_cycle);
 void		set_start_time_of_cycle(t_philo *philo);
-void		usleep_gradual(int64_t sleep_time, const t_philo *philo);
+void		usleep_gradual(int64_t sleep_time, t_philo *philo);
 
 /* put */
 void		put_log(t_philo *philo, const char *message, \
