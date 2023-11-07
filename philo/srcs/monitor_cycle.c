@@ -39,7 +39,7 @@ void	*monitor_cycle(void *thread_args)
 
 	monitor = (t_monitor *)thread_args;
 	args = monitor->args;
-	philo = args->philos[monitor->id];
+	philo = &args->philos[monitor->id];
 	while (!is_simulation_over_atomic(philo))
 	{
 		if (check_and_set_time_to_die_exceeded(args, philo) == EXCEEDED)

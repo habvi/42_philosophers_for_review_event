@@ -1,6 +1,7 @@
 #include "philo.h"
 #include "utils.h"
 
+// todo: erase philos[i]
 // continue waiting even if one of join an error.
 static void	wait_philo_threads(const t_args *args, pthread_t *threads)
 {

@@ -43,11 +43,11 @@ static t_result	set_argv(const int argc, const char **argv, t_args *args)
 	return (SUCCESS);
 }
 
-static t_philo	**allocate_philos(const unsigned int num_of_philos)
+static t_philo	*allocate_philos(const unsigned int num_of_philos)
 {
-	t_philo	**philos;
+	t_philo	*philos;
 
-	philos = (t_philo **)malloc(sizeof(t_philo *) * num_of_philos);
+	philos = (t_philo *)malloc(sizeof(t_philo) * num_of_philos);
 	if (philos == NULL)
 		return (NULL);
 	return (philos);

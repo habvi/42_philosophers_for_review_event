@@ -28,7 +28,7 @@ typedef struct s_args {
 	unsigned int	num_of_times_each_philo_must_eat;
 	// common data
 	int64_t			start_time;
-	t_philo			**philos;
+	t_philo			*philos;
 	pthread_mutex_t	shared;
 	pthread_mutex_t	*forks;
 	bool			is_any_philo_died;

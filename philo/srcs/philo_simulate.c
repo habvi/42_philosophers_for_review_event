@@ -21,9 +21,7 @@ static t_philo	*set_philo_info(const unsigned int i, t_args *args)
 {
 	t_philo	*philo;
 
-	philo = (t_philo *)malloc(sizeof(t_philo) * 1);
-	if (philo == NULL)
-		return (NULL);
+	philo = &args->philos[i];
 	philo->id = i;
 	philo->args = args;
 	set_two_forks(philo, i, args);
@@ -37,19 +35,9 @@ static t_result	create_each_philo_thread(\
 	t_philo	*philo;
 
 	philo = set_philo_info(i, args);
-	if (philo == NULL)
-	{
-		args->philos[i] = NULL;
-		return (FAILURE);
-	}
 	if (pthread_create(thread, NULL, philo_cycle, (void *)philo) \
 															!= THREAD_SUCCESS)
-	{
-		ft_free((void **)&philo);
-		args->philos[i] = NULL;
 		return (FAILURE);
-	}
-	args->philos[i] = philo;
 	return (SUCCESS);
 }
 
