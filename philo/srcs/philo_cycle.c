@@ -27,11 +27,11 @@ bool	is_any_philo_died_atomic(const t_philo *philo)
 	return (is_any_philo_died);
 }
 
-static void	philo_action(t_philo *philo, void (*action)(t_philo *))
+void	philo_action(t_philo *philo, int64_t (*action)(t_philo *))
 {
 	if (is_any_philo_died_atomic(philo))
 		return ;
-	action(philo);
+	call_atomic(&philo->args->shared, action, (void *)philo);
 }
 
 void	*philo_cycle(void *thread_args)
@@ -45,9 +45,11 @@ void	*philo_cycle(void *thread_args)
 		return (NULL);
 	while (!is_any_philo_died_atomic(philo))
 	{
-		philo_action(philo, &eating);
-		philo_action(philo, &sleeping);
-		philo_action(philo, &thinking);
+		take_two_forks(philo);
+		eating(philo);
+		put_two_forks(philo);
+		sleeping(philo);
+		thinking(philo);
 	}
 	// put_log(philo, MSG_DIED); // todo: erase
 	return (NULL);

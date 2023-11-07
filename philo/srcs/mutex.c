@@ -1,7 +1,7 @@
 #include "philo.h"
 #include "utils.h"
 
-int64_t	call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), t_args *args)
+int64_t	call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), void *args)
 {
 	int64_t	ret;
 

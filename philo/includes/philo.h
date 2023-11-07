@@ -60,22 +60,23 @@ void		destroy(t_args *args, pthread_t **philos, \
 void		destroy_all(t_args *args, pthread_t **philos, pthread_t **monitors);
 
 /* mutex */
-int64_t		call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), t_args *args);
+int64_t		call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), void *args);
 t_result	init_mutex(t_args *args);
 
 /* thread_create */
 pthread_t	*simulate_philos_cycle(t_args *args);
 
 /* philo_behaviors */
-t_result	take_two_forks(t_philo *philo);
+void		take_two_forks(t_philo *philo);
 void		eating(t_philo *philo);
-void		put_two_forks(const t_philo *philo);
+void		put_two_forks(t_philo *philo);
 void		sleeping(t_philo *philo);
 void		thinking(t_philo *philo);
 
 /* philo_cycle */
 bool		is_any_philo_died(const t_philo *philo);
 bool		is_any_philo_died_atomic(const t_philo *philo);
+void		philo_action(t_philo *philo, int64_t (*action)(t_philo *));
 void		*philo_cycle(void *thread_args);
 
 /* monitor*/
