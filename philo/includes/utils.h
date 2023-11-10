@@ -8,7 +8,7 @@ typedef struct s_args	t_args;
 typedef struct s_philo	t_philo;
 
 /* utils */
-bool		ft_atoi(const char *str, unsigned int *num);
+bool		ft_atoi_positive(const char *str, unsigned int *num);
 void		*ft_free(void **ptr);
 bool		ft_isdigit(int c);
 int64_t		get_current_time_usec(void);

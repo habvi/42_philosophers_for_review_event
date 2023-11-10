@@ -32,25 +32,35 @@ static bool	is_overflow(int *num, int c)
 	return (false);
 }
 
-bool	ft_atoi(const char *str, unsigned int *num)
+static bool	ft_atoi(const char *str, int *num)
 {
-	int			tmp_num;
 	const char	*head = str;
 	bool		at_least_one_digit;
 
-	tmp_num = 0;
+	*num = 0;
 	at_least_one_digit = false;
 	while (ft_isdigit(*str))
 	{
 		at_least_one_digit = true;
-		if (is_leading_zeros(head, str, tmp_num))
+		if (is_leading_zeros(head, str, *num))
 			return (false);
-		if (is_overflow(&tmp_num, *str))
+		if (is_overflow(num, *str))
 			return (false);
-		tmp_num = tmp_num * 10 + *str - '0';
+		*num = *num * 10 + *str - '0';
 		str++;
 	}
 	if (*str || !at_least_one_digit)
+		return (false);
+	return (true);
+}
+
+bool	ft_atoi_positive(const char *str, unsigned int *num)
+{
+	int		tmp_num;
+	bool	is_correct_num;
+
+	is_correct_num = ft_atoi(str, &tmp_num);
+	if (!is_correct_num || tmp_num < 0)
 		return (false);
 	*num = tmp_num;
 	return (true);
