@@ -73,11 +73,14 @@ bool		is_simulation_over_atomic(t_philo *philo);
 void		philo_action(t_philo *philo, int64_t (*action)(t_philo *));
 
 /* philo_cycle */
+void		*philo_solo_cycle(void *thread_args);
 void		*philo_cycle(void *thread_args);
 
 /* philo_behaviors */
+void		take_fork(pthread_mutex_t *fork, t_philo *philo);
 void		take_two_forks(t_philo *philo);
 void		eating(t_philo *philo);
+void		put_fork(pthread_mutex_t *fork);
 void		put_two_forks(t_philo *philo);
 void		sleeping(t_philo *philo);
 void		thinking(t_philo *philo);

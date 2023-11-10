@@ -1,10 +1,17 @@
 #include "philo.h"
 #include "utils.h"
 
+// todo: erase conditional branching 
 // left: smaller number, right: larger number
 static void	set_two_forks(\
 					t_philo *philo, const unsigned int i, const t_args *args)
 {
+	if (args->num_of_philos == 1)
+	{
+		philo->left_fork = &args->forks[i];
+		philo->right_fork = &args->forks[i];
+		return ;
+	}
 	if (i + 1 < args->num_of_philos)
 	{
 		philo->left_fork = &args->forks[i];
@@ -36,9 +43,18 @@ static t_result	create_each_philo_thread(\
 	t_philo	*philo;
 
 	philo = set_philo_info(i, args);
-	if (pthread_create(thread, NULL, philo_cycle, (void *)philo) \
+	if (args->num_of_philos == 1)
+	{
+		if (pthread_create(thread, NULL, philo_solo_cycle, (void *)philo) \
 															!= THREAD_SUCCESS)
-		return (FAILURE);
+			return (FAILURE);
+	}
+	else
+	{
+		if (pthread_create(thread, NULL, philo_cycle, (void *)philo) \
+															!= THREAD_SUCCESS)
+			return (FAILURE);
+	}
 	return (SUCCESS);
 }
 
