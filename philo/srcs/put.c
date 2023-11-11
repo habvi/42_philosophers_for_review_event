@@ -4,7 +4,7 @@
 void	put_log(const int64_t elapsed_time, \
 									const unsigned int id, const char *message)
 {
-	printf("%ld %d %s\n", elapsed_time, id, message);
+	printf(SPEC_i64" %d %s\n", elapsed_time, id, message);
 }
 
 int64_t	put_log_flow(t_philo *philo, int64_t (*get_time)(), const char *message)

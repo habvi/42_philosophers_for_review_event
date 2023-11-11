@@ -18,6 +18,12 @@
 # define ERR_INVALID_ARG	"Error: invalid arguments."
 # define ERR_FATAL			"Error: fatal error."
 
+#if defined(__linux__)
+	#define SPEC_i64	"%ld"
+#else
+	#define SPEC_i64	"%lld"
+#endif
+
 typedef struct s_philo	t_philo;
 
 typedef struct s_args {
