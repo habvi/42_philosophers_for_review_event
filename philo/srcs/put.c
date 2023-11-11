@@ -1,5 +1,6 @@
 #include <stdio.h> // printf
 #include "philo.h"
+#include "utils.h"
 
 void	put_log(const int64_t elapsed_time, \
 									const unsigned int id, const char *message)
@@ -7,12 +8,22 @@ void	put_log(const int64_t elapsed_time, \
 	printf(SPEC_i64" %d %s\n", elapsed_time, id, message);
 }
 
-int64_t	put_log_flow(t_philo *philo, int64_t (*get_time)(), const char *message)
+int64_t	put_log_flow(t_philo *philo, void (*set_time)(), const char *message)
 {
-	const int64_t	elapsed_time = get_time(philo);
+	const int64_t	current_time = get_current_time_msec();
+	const int64_t	elapsed_time = current_time - philo->args->start_time;
+	const int64_t	elapsed_cycle_time = current_time - philo->start_time_of_cycle;
 
 	if (is_simulation_over(philo))
-		return (SUCCESS);
+		return (FAILURE);
+	// todo: is_time_to_die_exceeded
+	if (elapsed_cycle_time > philo->args->time_to_die)
+	{
+		// philo->args->is_any_philo_died = true;
+		return (FAILURE);
+	}
+	if (set_time != NULL)
+		set_time(philo, current_time);
 	put_log(elapsed_time, philo->id, message);
 	return (SUCCESS);
 }

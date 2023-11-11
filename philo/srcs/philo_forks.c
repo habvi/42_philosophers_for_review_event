@@ -8,7 +8,7 @@
 
 static int64_t	put_log_fork(t_philo *philo)
 {
-	return (put_log_flow(philo, get_elapsed_time, MSG_FORK));
+	return (put_log_flow(philo, NULL, MSG_FORK));
 }
 
 void	take_fork(pthread_mutex_t *fork, t_philo *philo)

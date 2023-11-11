@@ -31,9 +31,9 @@ bool	is_simulation_over_atomic(t_philo *philo)
 	return (call_atomic(shared, is_simulation_over, philo));
 }
 
-void	philo_action(t_philo *philo, int64_t (*action)(t_philo *))
+int64_t	philo_action(t_philo *philo, int64_t (*action)(t_philo *))
 {
 	if (is_simulation_over_atomic(philo))
-		return ;
-	call_atomic(&philo->args->shared, action, (void *)philo);
+		return (FAILURE);
+	return (call_atomic(&philo->args->shared, action, (void *)philo));
 }

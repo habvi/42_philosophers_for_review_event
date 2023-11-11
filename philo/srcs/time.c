@@ -22,8 +22,8 @@ void	set_start_time_of_cycle(t_philo *philo)
 
 int64_t	get_elapsed_cycle_time(const int64_t start_time_of_cycle)
 {
-	const int64_t	now_time = get_current_time_msec();
-	const int64_t	elapsed_cycle_time = now_time - start_time_of_cycle;
+	const int64_t	current_time = get_current_time_msec();
+	const int64_t	elapsed_cycle_time = current_time - start_time_of_cycle;
 
 	return (elapsed_cycle_time);
 }
