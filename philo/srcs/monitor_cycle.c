@@ -10,7 +10,7 @@ static bool	check_and_set_time_to_die_exceeded(t_args *args, t_philo *philo)
 
 	shared = &args->shared;
 	pthread_mutex_lock(shared);
-	if (is_time_to_die_exceeded(philo, current_time))
+	if (is_starved(philo, current_time))
 	{
 		args->is_any_philo_died = true;
 		put_log(elapsed_time, philo->id, MSG_DIED);

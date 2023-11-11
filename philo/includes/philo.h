@@ -18,11 +18,11 @@
 # define ERR_INVALID_ARG	"Error: invalid arguments."
 # define ERR_FATAL			"Error: fatal error."
 
-#if defined(__linux__)
-	#define SPEC_i64	"%ld"
-#else
-	#define SPEC_i64	"%lld"
-#endif
+# if defined(__linux__)
+#  define SPEC_I64	"%ld"
+# else
+#  define SPEC_I64	"%lld"
+# endif
 
 typedef struct s_philo	t_philo;
 
@@ -74,7 +74,7 @@ void		destroy_mutex(t_args *args);
 
 /* philo_action */
 int64_t		call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), void *args);
-bool		is_time_to_die_exceeded(const t_philo *philo, const int64_t current_time);
+bool		is_starved(const t_philo *philo, const int64_t current_time);
 int64_t		is_simulation_over(t_philo *philo);
 bool		is_simulation_over_atomic(t_philo *philo);
 int64_t		philo_action(t_philo *philo, int64_t (*action)(t_philo *));

@@ -5,7 +5,7 @@
 void	put_log(const int64_t elapsed_time, \
 									const unsigned int id, const char *message)
 {
-	printf(SPEC_i64" %d %s\n", elapsed_time, id, message);
+	printf(SPEC_I64" %d %s\n", elapsed_time, id, message);
 }
 
 int64_t	put_log_flow(t_philo *philo, void (*set_time)(), const char *message)
@@ -15,7 +15,7 @@ int64_t	put_log_flow(t_philo *philo, void (*set_time)(), const char *message)
 
 	if (is_simulation_over(philo))
 		return (FAILURE);
-	if (is_time_to_die_exceeded(philo, current_time))
+	if (is_starved(philo, current_time))
 	{
 		// philo->args->is_any_philo_died = true;
 		return (FAILURE);
