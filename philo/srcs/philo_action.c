@@ -10,6 +10,14 @@ int64_t	call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), void *args)
 	return (ret);
 }
 
+// todo: > ? >= ?
+bool	is_time_to_die_exceeded(const t_philo *philo, const int64_t current_time)
+{
+	const int64_t	elapsed_cycle_time = current_time - philo->start_time_of_cycle;
+
+	return (elapsed_cycle_time > philo->args->time_to_die);
+}
+
 int64_t	is_simulation_over(t_philo *philo)
 {
 	const t_args	*args = philo->args;

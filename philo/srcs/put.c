@@ -12,12 +12,10 @@ int64_t	put_log_flow(t_philo *philo, void (*set_time)(), const char *message)
 {
 	const int64_t	current_time = get_current_time_msec();
 	const int64_t	elapsed_time = current_time - philo->args->start_time;
-	const int64_t	elapsed_cycle_time = current_time - philo->start_time_of_cycle;
 
 	if (is_simulation_over(philo))
 		return (FAILURE);
-	// todo: is_time_to_die_exceeded
-	if (elapsed_cycle_time > philo->args->time_to_die)
+	if (is_time_to_die_exceeded(philo, current_time))
 	{
 		// philo->args->is_any_philo_died = true;
 		return (FAILURE);
