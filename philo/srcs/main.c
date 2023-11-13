@@ -1,4 +1,10 @@
 #include "philo.h"
+#include "utils.h"
+
+static void	set_start_time(t_args *args)
+{
+	args->start_time = get_current_time_msec();
+}
 
 static void	destroy_all(t_args *args, pthread_t **philos, pthread_t **monitors)
 {

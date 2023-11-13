@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "philo.h"
+#include "utils.h"
 
 void	put_args(const t_args *args)
 {

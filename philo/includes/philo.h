@@ -75,7 +75,6 @@ t_result	init_mutex(t_args *args);
 void		destroy_mutex(t_args *args);
 
 /* philo_action */
-int64_t		call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), void *args);
 int64_t		is_simulation_over(t_philo *philo);
 bool		is_simulation_over_atomic(t_philo *philo);
 int64_t		philo_action(t_philo *philo, int64_t (*action)(t_philo *));
@@ -106,9 +105,7 @@ int64_t		put_log_flow(\
 					t_philo *philo, void (*set_time)(), const char *message);
 t_result	fatal_error(void);
 
-/* time */
-void		set_start_time(t_args *args);
-void		set_start_time_of_cycle(t_philo *philo);
+/* usleep */
 void		usleep_gradual(int64_t sleep_time, t_philo *philo);
 
 #endif

@@ -1,4 +1,5 @@
 #include "philo.h"
+#include "utils.h"
 
 static void	set_start_cycle_time(t_philo *philo, const int64_t current_time)
 {

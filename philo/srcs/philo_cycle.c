@@ -1,4 +1,5 @@
 #include "philo.h"
+#include "utils.h"
 
 static int64_t	get_is_thread_error(t_args *args)
 {

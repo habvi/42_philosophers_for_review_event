@@ -31,7 +31,6 @@ SRCS		:=	args.c \
 				philo_simulate.c \
 				philo_sleep_think.c \
 				put.c \
-				time.c \
 				usleep_gradual.c
 
 #--------------------------------------------
