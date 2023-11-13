@@ -2,6 +2,14 @@
 #include "philo.h"
 #include "utils.h"
 
+// todo: don't need atomic...?
+static int64_t	put_self_dead(t_philo *philo)
+{
+	if (philo->is_self_dead)
+		put_log(philo, MSG_DIED);
+	return (SUCCESS);
+}
+
 // monitoring for death periodically with interval.
 void	*monitor_cycle(void *thread_args)
 {
@@ -14,8 +22,7 @@ void	*monitor_cycle(void *thread_args)
 	philo = &args->philos[monitor->id];
 	while (!is_simulation_over_atomic(philo))
 		usleep(500);
-	if (philo->is_self_dead) // todo: call_atomic()
-		put_log(philo, MSG_DIED);
+	call_atomic(&args->shared, put_self_dead, philo);
 	ft_free((void **)&monitor);
 	return (NULL);
 }
