@@ -1,4 +1,5 @@
 #include "philo.h"
+#include "utils.h"
 
 int64_t	call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), void *args)
 {
@@ -11,24 +12,42 @@ int64_t	call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), void *args)
 }
 
 // todo: > ? >= ?
-bool	is_starved(const t_philo *philo, const int64_t current_time)
+static bool	is_starved(t_philo *philo)
 {
-	const int64_t	elapsed_cycle_time = \
-									current_time - philo->start_time_of_cycle;
+	int64_t	elapsed_cycle_time;
 
+	philo->current_time = get_current_time_msec();
+	elapsed_cycle_time = philo->current_time - philo->start_time_of_cycle;
 	return (elapsed_cycle_time > philo->args->time_to_die);
+}
+
+static void	set_philo_dead(t_philo *philo)
+{
+	philo->is_self_dead = true;
+	philo->args->is_any_philo_dead = true;
 }
 
 int64_t	is_simulation_over(t_philo *philo)
 {
 	const t_args	*args = philo->args;
 
-	if (args->is_any_philo_died)
+	if (args->is_any_philo_dead)
 		return (true);
 	if (args->is_thread_error)
+	{
+		set_philo_dead(philo);
 		return (true);
+	}
 	if (args->num_of_finish_eat == args->num_of_philos)
+	{
+		set_philo_dead(philo);
 		return (true);
+	}
+	if (is_starved(philo))
+	{
+		set_philo_dead(philo);
+		return (true);
+	}
 	return (false);
 }
 

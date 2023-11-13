@@ -51,6 +51,7 @@ typedef struct s_philo {
 	int64_t			start_time_of_cycle;
 	unsigned int	eat_count;
 	bool			is_self_dead;
+	int64_t			current_time;
 }	t_philo;
 
 typedef struct s_monitor {
@@ -75,7 +76,6 @@ void		destroy_mutex(t_args *args);
 
 /* philo_action */
 int64_t		call_atomic(pthread_mutex_t *mutex, int64_t (*func)(), void *args);
-bool		is_starved(const t_philo *philo, const int64_t current_time);
 int64_t		is_simulation_over(t_philo *philo);
 bool		is_simulation_over_atomic(t_philo *philo);
 int64_t		philo_action(t_philo *philo, int64_t (*action)(t_philo *));
@@ -101,8 +101,7 @@ pthread_t	*monitoring_death(t_args *args, pthread_t **philo_threads);
 void		*monitor_cycle(void *thread_args);
 
 /* put */
-void		put_log(const int64_t elapsed_time, \
-									const unsigned int id, const char *message);
+void		put_log(const t_philo *philo, const char *message);
 int64_t		put_log_flow(\
 					t_philo *philo, void (*set_time)(), const char *message);
 t_result	fatal_error(void);
