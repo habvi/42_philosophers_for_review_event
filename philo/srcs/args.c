@@ -22,7 +22,7 @@ static void	init_args(t_args *args)
 	args->start_time = 0;
 	args->philos = NULL;
 	args->forks = NULL;
-	args->is_any_philo_died = false;
+	args->is_any_philo_dead = false;
 	args->is_thread_error = false;
 	args->num_of_finish_eat = 0;
 }

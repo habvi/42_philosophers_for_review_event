@@ -41,6 +41,5 @@ void	*philo_cycle(void *thread_args)
 		sleeping(philo);
 		thinking(philo);
 	}
-	// put_log(get_elapsed_time(philo), philo->id, MSG_DIED); // todo: erase
 	return (NULL);
 }

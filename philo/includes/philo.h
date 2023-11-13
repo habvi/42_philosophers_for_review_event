@@ -37,7 +37,7 @@ typedef struct s_args {
 	t_philo			*philos;
 	pthread_mutex_t	shared;
 	pthread_mutex_t	*forks;
-	bool			is_any_philo_died;
+	bool			is_any_philo_dead;
 	bool			is_thread_error;
 	unsigned int	num_of_finish_eat;
 }	t_args;
@@ -50,6 +50,7 @@ typedef struct s_philo {
 	// not const
 	int64_t			start_time_of_cycle;
 	unsigned int	eat_count;
+	bool			is_self_dead;
 }	t_philo;
 
 typedef struct s_monitor {
