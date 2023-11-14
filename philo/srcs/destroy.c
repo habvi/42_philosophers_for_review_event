@@ -17,18 +17,11 @@ static void	wait_threads(\
 	}
 }
 
-void	destroy_philos(\
-				t_args *args, pthread_t **philos, const unsigned int max_len)
+void	destroy_threads(\
+				t_args *args, pthread_t **threads, const unsigned int max_len)
 {
-	wait_threads(args, *philos, max_len);
-	ft_free((void **)philos);
-}
-
-static void	destroy_monitor(\
-				t_args *args, pthread_t **monitors, const unsigned int max_len)
-{
-	wait_threads(args, *monitors, max_len);
-	ft_free((void **)monitors);
+	wait_threads(args, *threads, max_len);
+	ft_free((void **)threads);
 }
 
 void	destroy_args(t_args *args)
@@ -40,7 +33,7 @@ void	destroy_args(t_args *args)
 void	destroy(t_args *args, \
 		pthread_t **philos, pthread_t **monitors, const unsigned int max_len)
 {
-	destroy_philos(args, philos, max_len);
-	destroy_monitor(args, monitors, max_len);
+	destroy_threads(args, philos, max_len);
+	destroy_threads(args, monitors, max_len);
 	destroy_args(args);
 }
