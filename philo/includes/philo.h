@@ -23,6 +23,12 @@
 #  define SPEC_I64	"%lld"
 # endif
 
+# define RED	"\033[31m"
+# define GREEN	"\033[32m"
+# define BLUE	"\033[34m"
+# define PINK	"\033[35m"
+# define END	"\033[0m"
+
 typedef struct s_philo		t_philo;
 typedef struct s_deque		t_deque;
 typedef struct s_deque_node	t_deque_node;

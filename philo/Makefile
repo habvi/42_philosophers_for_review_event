@@ -43,6 +43,7 @@ SRCS		+=	$(UTILS_DIR)/call_atomic.c \
 				$(UTILS_DIR)/ft_atoi.c \
 				$(UTILS_DIR)/ft_free.c \
 				$(UTILS_DIR)/ft_isdigit.c \
+				$(UTILS_DIR)/ft_streq.c \
 				$(UTILS_DIR)/get_current_time.c
 
 #--------------------------------------------

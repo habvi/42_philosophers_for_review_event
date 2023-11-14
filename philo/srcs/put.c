@@ -1,5 +1,6 @@
 #include <stdio.h> // printf
 #include "philo.h"
+#include "utils.h"
 
 // call in lock
 void	put_log(const t_philo *philo, const char *message)
@@ -7,7 +8,16 @@ void	put_log(const t_philo *philo, const char *message)
 	const int64_t	elapsed_time = \
 								philo->current_time - philo->args->start_time;
 
-	printf(SPEC_I64" %d %s\n", elapsed_time, philo->id, message);
+	if (ft_streq(message, MSG_EAT))
+		printf(PINK SPEC_I64" %d %s\n"END, elapsed_time, philo->id, message);
+	else if (ft_streq(message, MSG_SLEEP))
+		printf(BLUE SPEC_I64" %d %s\n"END, elapsed_time, philo->id, message);
+	else if (ft_streq(message, MSG_THINK))
+		printf(GREEN SPEC_I64" %d %s\n"END, elapsed_time, philo->id, message);
+	else if (ft_streq(message, MSG_DIED))
+		printf(RED SPEC_I64" %d %s\n"END, elapsed_time, philo->id, message);
+	else
+		printf(SPEC_I64" %d %s\n", elapsed_time, philo->id, message);
 }
 
 // call in lock
