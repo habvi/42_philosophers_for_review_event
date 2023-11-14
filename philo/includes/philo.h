@@ -25,6 +25,8 @@
 # endif
 
 typedef struct s_philo	t_philo;
+typedef struct s_deque	t_deque;
+typedef struct s_deque_node	t_deque_node;
 
 typedef struct s_args {
 	unsigned int	num_of_philos;
@@ -64,15 +66,17 @@ bool		is_valid_argc(const int argc);
 t_args		set_args(const int argc, const char **argv, t_result *result);
 
 /* destroy */
-void		destroy_threads(\
-				t_args *args, pthread_t **philos, const unsigned int max_len);
+void		destroy_threads(t_deque **threads);
 void		destroy_args(t_args *args);
-void		destroy(t_args *args, pthread_t **philos, \
-							pthread_t **monitors, const unsigned int max_len);
+void		destroy(t_args *args, t_deque **philos, t_deque **monitors);
 
 /* mutex */
 t_result	init_mutex(t_args *args);
 void		destroy_mutex(t_args *args);
+
+/* thread */
+t_result	add_threads_list(t_deque *threads, pthread_t new_thread);
+t_deque_node	*create_thread_node(pthread_t new_thread);
 
 /* philo_action */
 int64_t		is_simulation_over(t_philo *philo);
@@ -93,10 +97,10 @@ void		sleeping(t_philo *philo);
 void		thinking(t_philo *philo);
 
 /* philo_simulate */
-pthread_t	*simulate_philos_cycle(t_args *args);
+t_deque		*simulate_philos_cycle(t_args *args);
 
 /* monitor*/
-pthread_t	*monitoring_death(t_args *args, pthread_t **philo_threads);
+t_deque		*monitoring_death(t_args *args, t_deque **philo_threads);
 void		*monitor_cycle(void *thread_args);
 
 /* put */

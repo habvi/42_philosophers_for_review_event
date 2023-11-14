@@ -19,6 +19,7 @@ endif
 #--------------------------------------------
 SRCS_DIR	:=	srcs
 SRCS		:=	args.c \
+				create_thread.c \
 				destroy.c \
 				main.c \
 				monitor_cycle.c \

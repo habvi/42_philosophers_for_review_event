@@ -1,3 +1,4 @@
+#include "ft_deque.h"
 #include "philo.h"
 #include "utils.h"
 
@@ -40,43 +41,46 @@ static t_philo	*set_philo_info(const unsigned int i, t_args *args)
 }
 
 static t_result	create_each_philo_thread(\
-						pthread_t *thread, const unsigned int i, t_args *args)
+						t_deque *threads, const unsigned int i, t_args *args)
 {
-	t_philo	*philo;
+	t_philo		*philo;
+	pthread_t	new_thread;
 
 	philo = set_philo_info(i, args);
 	if (args->num_of_philos == 1)
 	{
-		if (pthread_create(thread, NULL, philo_solo_cycle, (void *)philo) \
+		if (pthread_create(&new_thread, NULL, philo_solo_cycle, (void *)philo) \
 															!= THREAD_SUCCESS)
 			return (FAILURE);
 	}
 	else
 	{
-		if (pthread_create(thread, NULL, philo_cycle, (void *)philo) \
+		if (pthread_create(&new_thread, NULL, philo_cycle, (void *)philo) \
 															!= THREAD_SUCCESS)
 			return (FAILURE);
 	}
+	if (add_threads_list(threads, new_thread) == FAILURE)
+		return (FAILURE);
 	return (SUCCESS);
 }
 
 // simulation begins after all threads craeted.
-static pthread_t	*simulate_philos_cycle_inter(t_args *args)
+static t_deque	*simulate_philos_cycle_inter(t_args *args)
 {
-	pthread_t		*threads;
+	t_deque			*threads;
 	unsigned int	i;
 
-	threads = (pthread_t *)malloc(sizeof(pthread_t) * args->num_of_philos);
+	threads = deque_new();
 	if (threads == NULL)
 		return (NULL);
 	pthread_mutex_lock(&args->shared);
 	i = 0;
 	while (i < args->num_of_philos)
 	{
-		if (create_each_philo_thread(&threads[i], i, args) == FAILURE)
+		if (create_each_philo_thread(threads, i, args) == FAILURE)
 		{
 			pthread_mutex_unlock(&args->shared);
-			destroy_threads(args, &threads, i);
+			destroy_threads(&threads);
 			return (NULL);
 		}
 		i++;
@@ -85,9 +89,9 @@ static pthread_t	*simulate_philos_cycle_inter(t_args *args)
 	return (threads);
 }
 
-pthread_t	*simulate_philos_cycle(t_args *args)
+t_deque	*simulate_philos_cycle(t_args *args)
 {
-	pthread_t	*threads;
+	t_deque	*threads;
 
 	threads = simulate_philos_cycle_inter(args);
 	if (threads == NULL)

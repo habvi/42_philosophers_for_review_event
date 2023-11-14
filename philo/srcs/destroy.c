@@ -1,27 +1,28 @@
+#include "ft_deque.h"
 #include "philo.h"
 #include "utils.h"
 
-// continue waiting even if one of join an error.
-static void	wait_threads(\
-			const t_args *args, pthread_t *threads, const unsigned int max_len)
+static void	del_node(void *content)
 {
-	unsigned int	i;
+	ft_free(&content);
+}
+
+// continue waiting even if one of join an error.
+void	destroy_threads(t_deque **threads)
+{
+	t_deque_node	*node;
+	pthread_t		*thread;
 
 	if (threads == NULL)
 		return ;
-	i = 0;
-	while (i < args->num_of_philos && i < max_len)
+	while (!deque_is_empty(*threads))
 	{
-		pthread_join(threads[i], NULL);
-		i++;
+		node = deque_pop_front(*threads);
+		thread = (pthread_t *)node->content;
+		pthread_join(*thread, NULL);
+		deque_clear_node(&node, del_node);
 	}
-}
-
-void	destroy_threads(\
-				t_args *args, pthread_t **threads, const unsigned int max_len)
-{
-	wait_threads(args, *threads, max_len);
-	ft_free((void **)threads);
+	deque_clear_all(threads, del_node);
 }
 
 void	destroy_args(t_args *args)
@@ -30,10 +31,9 @@ void	destroy_args(t_args *args)
 	destroy_mutex(args);
 }
 
-void	destroy(t_args *args, \
-		pthread_t **philos, pthread_t **monitors, const unsigned int max_len)
+void	destroy(t_args *args, t_deque **philos, t_deque **monitors)
 {
-	destroy_threads(args, philos, max_len);
-	destroy_threads(args, monitors, max_len);
+	destroy_threads(philos);
+	destroy_threads(monitors);
 	destroy_args(args);
 }

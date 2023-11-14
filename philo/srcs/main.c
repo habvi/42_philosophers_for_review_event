@@ -6,15 +6,10 @@ static void	set_start_time(t_args *args)
 	args->start_time = get_current_time_msec();
 }
 
-static void	destroy_all(t_args *args, pthread_t **philos, pthread_t **monitors)
-{
-	destroy(args, philos, monitors, args->num_of_philos);
-}
-
 static t_result	run_philosophers(t_args *args)
 {
-	pthread_t	*philo_threads;
-	pthread_t	*monitor_threads;
+	t_deque	*philo_threads;
+	t_deque	*monitor_threads;
 
 	if (init_mutex(args) == FAILURE)
 		return (FAILURE);
@@ -25,7 +20,7 @@ static t_result	run_philosophers(t_args *args)
 	monitor_threads = monitoring_death(args, &philo_threads);
 	if (monitor_threads == NULL)
 		return (fatal_error());
-	destroy_all(args, &philo_threads, &monitor_threads);
+	destroy(args, &philo_threads, &monitor_threads);
 	return (SUCCESS);
 }
 
