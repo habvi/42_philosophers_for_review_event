@@ -7,7 +7,6 @@
 
 # define MUTEX_SUCCESS	0
 # define THREAD_SUCCESS	0
-# define EXCEEDED 		1
 
 # define MSG_FORK	"has taken a fork"
 # define MSG_EAT	"is eating"
@@ -24,8 +23,8 @@
 #  define SPEC_I64	"%lld"
 # endif
 
-typedef struct s_philo	t_philo;
-typedef struct s_deque	t_deque;
+typedef struct s_philo		t_philo;
+typedef struct s_deque		t_deque;
 typedef struct s_deque_node	t_deque_node;
 
 typedef struct s_args {
@@ -62,54 +61,54 @@ typedef struct s_monitor {
 }	t_monitor;
 
 /* args */
-bool		is_valid_argc(const int argc);
-t_args		set_args(const int argc, const char **argv, t_result *result);
+bool			is_valid_argc(const int argc);
+t_args			set_args(const int argc, const char **argv, t_result *result);
 
 /* destroy */
-void		destroy_threads(t_deque **threads);
-void		destroy_args(t_args *args);
-void		destroy(t_args *args, t_deque **philos, t_deque **monitors);
+void			destroy_threads(t_deque **threads);
+void			destroy_args(t_args *args);
+void			destroy(t_args *args, t_deque **philos, t_deque **monitors);
 
 /* mutex */
-t_result	init_mutex(t_args *args);
-void		destroy_mutex(t_args *args);
+t_result		init_mutex(t_args *args);
+void			destroy_mutex(t_args *args);
 
 /* thread */
-t_result	add_threads_list(t_deque *threads, pthread_t new_thread);
+t_result		add_threads_list(t_deque *threads, pthread_t new_thread);
 t_deque_node	*create_thread_node(pthread_t new_thread);
 
 /* philo_action */
-int64_t		is_simulation_over(t_philo *philo);
-bool		is_simulation_over_atomic(t_philo *philo);
-int64_t		philo_action(t_philo *philo, int64_t (*action)(t_philo *));
+int64_t			is_simulation_over(t_philo *philo);
+bool			is_simulation_over_atomic(t_philo *philo);
+int64_t			philo_action(t_philo *philo, int64_t (*action)(t_philo *));
 
 /* philo_cycle */
-void		*philo_solo_cycle(void *thread_args);
-void		*philo_cycle(void *thread_args);
+void			*philo_solo_cycle(void *thread_args);
+void			*philo_cycle(void *thread_args);
 
 /* philo_behaviors */
-void		take_fork(pthread_mutex_t *fork, t_philo *philo);
-void		take_two_forks(t_philo *philo);
-void		eating(t_philo *philo);
-void		put_fork(pthread_mutex_t *fork);
-void		put_two_forks(t_philo *philo);
-void		sleeping(t_philo *philo);
-void		thinking(t_philo *philo);
+void			take_fork(pthread_mutex_t *fork, t_philo *philo);
+void			take_two_forks(t_philo *philo);
+void			eating(t_philo *philo);
+void			put_fork(pthread_mutex_t *fork);
+void			put_two_forks(t_philo *philo);
+void			sleeping(t_philo *philo);
+void			thinking(t_philo *philo);
 
 /* philo_simulate */
-t_deque		*simulate_philos_cycle(t_args *args);
+t_deque			*simulate_philos_cycle(t_args *args);
 
 /* monitor*/
-t_deque		*monitoring_death(t_args *args, t_deque **philo_threads);
-void		*monitor_cycle(void *thread_args);
+t_deque			*monitoring_death(t_args *args, t_deque **philo_threads);
+void			*monitor_cycle(void *thread_args);
 
 /* put */
-void		put_log(const t_philo *philo, const char *message);
-int64_t		put_log_flow(\
+void			put_log(const t_philo *philo, const char *message);
+int64_t			put_log_flow(\
 					t_philo *philo, void (*set_time)(), const char *message);
-t_result	fatal_error(void);
+t_result		fatal_error(void);
 
 /* usleep */
-void		usleep_gradual(int64_t sleep_time, t_philo *philo);
+void			usleep_gradual(int64_t sleep_time, t_philo *philo);
 
 #endif
