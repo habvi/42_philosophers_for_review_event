@@ -45,6 +45,23 @@ SRCS		+=	$(UTILS_DIR)/call_atomic.c \
 				$(UTILS_DIR)/get_current_time.c
 
 #--------------------------------------------
+# ft_deque
+#--------------------------------------------
+DEQUE_DIR	:=	ft_deque
+SRCS		+=	$(UTILS_DIR)/$(DEQUE_DIR)/dq_add_back.c \
+				$(UTILS_DIR)/$(DEQUE_DIR)/dq_add_front.c \
+				$(UTILS_DIR)/$(DEQUE_DIR)/dq_clear_all.c \
+				$(UTILS_DIR)/$(DEQUE_DIR)/dq_clear_node.c \
+				$(UTILS_DIR)/$(DEQUE_DIR)/dq_is_empty.c \
+				$(UTILS_DIR)/$(DEQUE_DIR)/dq_new.c \
+				$(UTILS_DIR)/$(DEQUE_DIR)/dq_node_new.c \
+				$(UTILS_DIR)/$(DEQUE_DIR)/dq_pop_back.c \
+				$(UTILS_DIR)/$(DEQUE_DIR)/dq_pop_front.c \
+				$(UTILS_DIR)/$(DEQUE_DIR)/dq_pop_selected_node.c \
+				$(UTILS_DIR)/$(DEQUE_DIR)/dq_print.c \
+				$(UTILS_DIR)/$(DEQUE_DIR)/dq_set_node.c
+
+#--------------------------------------------
 OBJS_DIR	:=	objs
 OBJS		:=	$(SRCS:%.c=$(OBJS_DIR)/%.o)
 
