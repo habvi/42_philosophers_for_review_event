@@ -1,11 +1,5 @@
 #include "philo.h"
 
-// static void	interval(const int id)
-// {
-// 	if (id % 2)
-// 		usleep(50);
-// }
-
 static int64_t	put_log_fork(t_philo *philo)
 {
 	return (put_log_flow(philo, NULL, MSG_FORK));
@@ -19,8 +13,8 @@ void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 
 void	take_two_forks(t_philo *philo)
 {
-	take_fork(philo->left_fork, philo);
-	take_fork(philo->right_fork, philo);
+	take_fork(philo->fork1, philo);
+	take_fork(philo->fork2, philo);
 }
 
 void	put_fork(pthread_mutex_t *fork)
@@ -30,6 +24,6 @@ void	put_fork(pthread_mutex_t *fork)
 
 void	put_two_forks(t_philo *philo)
 {
-	put_fork(philo->right_fork);
-	put_fork(philo->left_fork);
+	put_fork(philo->fork1);
+	put_fork(philo->fork2);
 }

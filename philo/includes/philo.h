@@ -52,8 +52,8 @@ typedef struct s_args {
 typedef struct s_philo {
 	unsigned int	id;
 	t_args			*args;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	*fork1;
+	pthread_mutex_t	*fork2;
 	// not const
 	int64_t			start_time_of_cycle;
 	unsigned int	eat_count;

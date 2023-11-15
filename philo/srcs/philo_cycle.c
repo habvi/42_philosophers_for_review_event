@@ -1,3 +1,4 @@
+#include <unistd.h> // usleep
 #include "philo.h"
 #include "utils.h"
 
@@ -20,9 +21,15 @@ void	*philo_solo_cycle(void *thread_args)
 	is_thread_error = wait_start_cycle(philo->args);
 	if (is_thread_error)
 		return (NULL);
-	take_fork(philo->left_fork, philo);
-	put_fork(philo->left_fork);
+	take_fork(philo->fork1, philo);
+	put_fork(philo->fork1);
 	return (NULL);
+}
+
+static void	adjust_simulation_start(const t_philo *philo)
+{
+	if (philo->id % 2 == 1)
+		usleep(200);
 }
 
 void	*philo_cycle(void *thread_args)
@@ -34,6 +41,7 @@ void	*philo_cycle(void *thread_args)
 	is_thread_error = wait_start_cycle(philo->args);
 	if (is_thread_error)
 		return (NULL);
+	adjust_simulation_start(philo);
 	while (!is_simulation_over_atomic(philo))
 	{
 		take_two_forks(philo);

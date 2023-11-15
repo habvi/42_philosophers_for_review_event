@@ -2,26 +2,26 @@
 #include "philo.h"
 #include "utils.h"
 
-// todo: erase conditional branching 
-// left: smaller number, right: larger number
+// even: take left_fork -> right_fork
+// odd: take right_fork -> left_fork
 static void	set_two_forks(\
 					t_philo *philo, const unsigned int i, const t_args *args)
 {
 	if (args->num_of_philos == 1)
 	{
-		philo->left_fork = &args->forks[i];
-		philo->right_fork = &args->forks[i];
+		philo->fork1 = &args->forks[i];
+		philo->fork2 = &args->forks[i];
 		return ;
 	}
-	if (i + 1 < args->num_of_philos)
+	if (i % 2 == 0)
 	{
-		philo->left_fork = &args->forks[i];
-		philo->right_fork = &args->forks[i + 1];
+		philo->fork1 = &args->forks[i];
+		philo->fork2 = &args->forks[(i + 1) % args->num_of_philos];
 	}
 	else
 	{
-		philo->left_fork = &args->forks[0];
-		philo->right_fork = &args->forks[args->num_of_philos - 1];
+		philo->fork1 = &args->forks[(i + 1) % args->num_of_philos];
+		philo->fork2 = &args->forks[i];
 	}
 }
 
