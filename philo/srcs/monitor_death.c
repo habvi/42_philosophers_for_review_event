@@ -46,17 +46,10 @@ static int64_t	set_thread_error(t_shared *shared)
 	return (SUCCESS);
 }
 
-static t_deque	*monitoring_death_inter(t_args *args, t_shared *shared)
+static t_result	create_monitor_thread(t_deque *monitors, t_args *args, t_shared *shared)
 {
-	t_deque			*monitors;
 	unsigned int	i;
 
-	monitors = deque_new();
-	if (monitors == NULL)
-	{
-		call_atomic(&shared->shared, set_thread_error, shared);
-		return (NULL);
-	}
 	i = 0;
 	while (i < args->num_of_philos)
 	{
@@ -64,11 +57,11 @@ static t_deque	*monitoring_death_inter(t_args *args, t_shared *shared)
 		{
 			call_atomic(&shared->shared, set_thread_error, shared);
 			destroy_threads(&monitors);
-			return (NULL);
+			return (FAILURE);
 		}
 		i++;
 	}
-	return (monitors);
+	return (SUCCESS);
 }
 
 t_deque	*monitoring_death(\
@@ -76,8 +69,13 @@ t_deque	*monitoring_death(\
 {
 	t_deque	*threads;
 
-	threads = monitoring_death_inter(args, shared);
+	threads = deque_new();
 	if (threads == NULL)
+	{
+		call_atomic(&shared->shared, set_thread_error, shared);
+		return (NULL);
+	}
+	if (create_monitor_thread(threads, args, shared) == FAILURE)
 	{
 		destroy_threads(philo_threads);
 		return (NULL);

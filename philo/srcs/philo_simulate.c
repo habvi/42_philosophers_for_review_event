@@ -68,10 +68,30 @@ static t_result	create_each_philo_thread(t_deque *threads, \
 }
 
 // simulation begins after all threads craeted.
-static t_deque	*simulate_philos_cycle_inter(t_args *args, t_shared *shared)
+static t_result	create_philo_thread(t_deque *philos, t_args *args, t_shared *shared)
 {
-	t_deque			*threads;
 	unsigned int	i;
+
+	pthread_mutex_lock(&shared->shared);
+	i = 0;
+	while (i < args->num_of_philos)
+	{
+		if (create_each_philo_thread(philos, i, args, shared) == FAILURE)
+		{
+			shared->is_thread_error = true;
+			pthread_mutex_unlock(&shared->shared);
+			destroy_threads(&philos);
+			return (FAILURE);
+		}
+		i++;
+	}
+	pthread_mutex_unlock(&shared->shared);
+	return (SUCCESS);
+}
+
+t_deque	*simulate_philos_cycle(t_args *args, t_shared *shared)
+{
+	t_deque	*threads;
 
 	threads = deque_new();
 	if (threads == NULL)
@@ -79,29 +99,7 @@ static t_deque	*simulate_philos_cycle_inter(t_args *args, t_shared *shared)
 		shared->is_thread_error = true;
 		return (NULL);
 	}
-	pthread_mutex_lock(&shared->shared);
-	i = 0;
-	while (i < args->num_of_philos)
-	{
-		if (create_each_philo_thread(threads, i, args, shared) == FAILURE)
-		{
-			shared->is_thread_error = true;
-			pthread_mutex_unlock(&shared->shared);
-			destroy_threads(&threads);
-			return (NULL);
-		}
-		i++;
-	}
-	pthread_mutex_unlock(&shared->shared);
-	return (threads);
-}
-
-t_deque	*simulate_philos_cycle(t_args *args, t_shared *shared)
-{
-	t_deque	*threads;
-
-	threads = simulate_philos_cycle_inter(args, shared);
-	if (threads == NULL)
+	if (create_philo_thread(threads, args, shared) == FAILURE)
 	{
 		destroy_args(args);
 		destroy_shared(args, shared);
