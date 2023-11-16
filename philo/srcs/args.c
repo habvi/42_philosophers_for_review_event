@@ -22,10 +22,6 @@ static void	init_args(t_args *args)
 	args->num_of_each_philo_must_eat = 0;
 	args->start_time = 0;
 	args->philos = NULL;
-	args->forks = NULL;
-	args->is_any_philo_dead = false;
-	args->is_thread_error = false;
-	args->num_of_finish_eat = 0;
 }
 
 static t_result	set_argv(const int argc, const char **argv, t_args *args)

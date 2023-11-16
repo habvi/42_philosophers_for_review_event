@@ -2,14 +2,14 @@
 #include "philo.h"
 #include "utils.h"
 
-static int64_t	get_is_thread_error(t_args *args)
+static int64_t	get_is_thread_error(const t_shared *shared)
 {
-	return (args->is_thread_error);
+	return (shared->is_thread_error);
 }
 
-static bool	wait_start_cycle(t_args *args)
+static bool	wait_start_cycle(t_shared *shared)
 {
-	return (call_atomic(&args->shared, get_is_thread_error, args));
+	return (call_atomic(&shared->shared, get_is_thread_error, shared));
 }
 
 void	*philo_solo_cycle(void *thread_args)
@@ -18,7 +18,7 @@ void	*philo_solo_cycle(void *thread_args)
 	bool	is_thread_error;
 
 	philo = (t_philo *)thread_args;
-	is_thread_error = wait_start_cycle(philo->args);
+	is_thread_error = wait_start_cycle(philo->shared);
 	if (is_thread_error)
 		return (NULL);
 	take_fork(philo->fork1, philo);
@@ -38,7 +38,7 @@ void	*philo_cycle(void *thread_args)
 	bool	is_thread_error;
 
 	philo = (t_philo *)thread_args;
-	is_thread_error = wait_start_cycle(philo->args);
+	is_thread_error = wait_start_cycle(philo->shared);
 	if (is_thread_error)
 		return (NULL);
 	adjust_simulation_start(philo);

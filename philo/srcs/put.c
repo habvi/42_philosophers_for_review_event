@@ -6,7 +6,7 @@
 void	put_log(const t_philo *philo, const char *message)
 {
 	const int64_t	elapsed_time = \
-						(philo->current_time - philo->args->start_time) / 1000;
+						(philo->current_time - philo->args.start_time) / 1000;
 
 	if (ft_streq(message, MSG_EAT))
 		printf(PINK SPEC_I64" %d %s\n"END, elapsed_time, philo->id, message);

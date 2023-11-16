@@ -7,7 +7,7 @@ static int64_t	put_log_sleeping(t_philo *philo)
 
 void	sleeping(t_philo *philo)
 {
-	const int64_t	time_to_sleep = philo->args->time_to_sleep;
+	const int64_t	time_to_sleep = philo->args.time_to_sleep;
 
 	if (philo_action(philo, put_log_sleeping) == FAILURE)
 		return ;
@@ -21,7 +21,7 @@ static int64_t	put_log_thinking(t_philo *philo)
 
 void	thinking(t_philo *philo)
 {
-	const int64_t	time_to_think = philo->args->time_to_think;
+	const int64_t	time_to_think = philo->args.time_to_think;
 
 	if (philo_action(philo, put_log_thinking) == FAILURE)
 		return ;

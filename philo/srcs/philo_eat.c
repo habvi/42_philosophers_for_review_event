@@ -13,22 +13,22 @@ static int64_t	put_log_eating(t_philo *philo)
 
 static int64_t	count_eat_times(t_philo *philo)
 {
-	const unsigned int	must_eat = philo->args->num_of_each_philo_must_eat;
+	const unsigned int	must_eat = philo->args.num_of_each_philo_must_eat;
 
 	philo->eat_count++;
 	if (philo->eat_count == must_eat)
-		philo->args->num_of_finish_eat++;
+		philo->shared->num_of_finish_eat++;
 	return (SUCCESS);
 }
 
 void	eating(t_philo *philo)
 {
-	const int64_t	time_to_eat = philo->args->time_to_eat;
+	const int64_t	time_to_eat = philo->args.time_to_eat;
 	pthread_mutex_t	*shared;
 
 	if (philo_action(philo, put_log_eating) == FAILURE)
 		return ;
 	usleep_gradual(time_to_eat, philo);
-	shared = &philo->args->shared;
+	shared = &philo->shared->shared;
 	call_atomic(shared, count_eat_times, philo);
 }

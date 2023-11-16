@@ -21,6 +21,6 @@ void	put(const t_philo *philo, char *message)
 {
 	pthread_mutex_t	*shared;
 
-	shared = &philo->args->shared;
+	shared = &philo->shared->shared;
 	call_atomic(shared, put_sub, message);
 }

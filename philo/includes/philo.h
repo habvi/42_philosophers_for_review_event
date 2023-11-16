@@ -40,22 +40,24 @@ typedef struct s_args {
 	int64_t			time_to_sleep;
 	int64_t			time_to_think;
 	unsigned int	num_of_each_philo_must_eat;
-	// common data
 	int64_t			start_time;
 	t_philo			*philos;
+}	t_args;
+
+typedef struct s_shared {
 	pthread_mutex_t	shared;
 	pthread_mutex_t	*forks;
 	bool			is_any_philo_dead;
 	bool			is_thread_error;
 	unsigned int	num_of_finish_eat;
-}	t_args;
+}	t_shared;
 
 typedef struct s_philo {
 	unsigned int	id;
-	t_args			*args;
+	t_args			args;
+	t_shared		*shared;
 	pthread_mutex_t	*fork1;
 	pthread_mutex_t	*fork2;
-	// not const
 	int64_t			start_time_of_cycle;
 	unsigned int	eat_count;
 	bool			is_self_dead;
@@ -64,12 +66,16 @@ typedef struct s_philo {
 
 typedef struct s_monitor {
 	unsigned int	id;
-	t_args			*args;
+	t_args			args;
+	t_shared		*shared;
 }	t_monitor;
 
 /* args */
 bool			is_valid_argc(const int argc);
 t_args			set_args(const int argc, const char **argv, t_result *result);
+
+/* shared */
+t_result		init_shared(const t_args *args, t_shared *shared);
 
 /* set_time */
 void			set_start_time(t_args *args);
@@ -77,11 +83,14 @@ int64_t			calc_time_to_think(const t_args *args);
 
 /* destroy */
 void			destroy_threads(t_deque **threads);
-void			destroy_args(t_args *args);
-void			destroy(t_args *args, t_deque **philos, t_deque **monitors);
+void			destroy_args(const t_args *args);
+void			destroy_shared(const t_args *args, t_shared *shared);
+void			destroy(const t_args *args, \
+						t_shared *shared, t_deque **philos, t_deque **monitors);
 
 /* mutex */
-t_result		init_mutex(t_args *args);
+void			destroy_forks(\
+						pthread_mutex_t **forks, const unsigned int max_len);
 void			destroy_mutex(t_args *args);
 
 /* thread */
@@ -107,10 +116,11 @@ void			sleeping(t_philo *philo);
 void			thinking(t_philo *philo);
 
 /* philo_simulate */
-t_deque			*simulate_philos_cycle(t_args *args);
+t_deque			*simulate_philos_cycle(t_args *args, t_shared *shared);
 
 /* monitor*/
-t_deque			*monitoring_death(t_args *args, t_deque **philo_threads);
+t_deque			*monitoring_death(\
+					t_args *args, t_shared *shared, t_deque **philo_threads);
 void			*monitor_cycle(void *thread_args);
 
 /* put */

@@ -3,7 +3,8 @@
 #include "utils.h"
 
 // free monitor in monitor_cycle's last
-static t_monitor	*set_monitor_info(const unsigned int i, t_args *args)
+static t_monitor	*set_monitor_info(\
+						const unsigned int i, t_args *args, t_shared *shared)
 {
 	t_monitor	*monitor;
 
@@ -11,17 +12,18 @@ static t_monitor	*set_monitor_info(const unsigned int i, t_args *args)
 	if (monitor == NULL)
 		return (NULL);
 	monitor->id = i;
-	monitor->args = args;
+	monitor->args = *args;
+	monitor->shared = shared;
 	return (monitor);
 }
 
-static t_result	create_each_monitor_thread(\
-						t_deque *threads, const unsigned int i, t_args *args)
+static t_result	create_each_monitor_thread(t_deque *threads, \
+						const unsigned int i, t_args *args, t_shared *shared)
 {
-	t_monitor		*monitor;
-	pthread_t		new_thread;
+	t_monitor	*monitor;
+	pthread_t	new_thread;
 
-	monitor = set_monitor_info(i, args);
+	monitor = set_monitor_info(i, args, shared);
 	if (monitor == NULL)
 		return (FAILURE);
 	if (pthread_create(&new_thread, NULL, monitor_cycle, (void *)monitor) \
@@ -38,7 +40,7 @@ static t_result	create_each_monitor_thread(\
 	return (SUCCESS);
 }
 
-static t_deque	*monitoring_death_inter(t_args *args)
+static t_deque	*monitoring_death_inter(t_args *args, t_shared *shared)
 {
 	t_deque			*monitors;
 	unsigned int	i;
@@ -49,7 +51,7 @@ static t_deque	*monitoring_death_inter(t_args *args)
 	i = 0;
 	while (i < args->num_of_philos)
 	{
-		if (create_each_monitor_thread(monitors, i, args) == FAILURE)
+		if (create_each_monitor_thread(monitors, i, args, shared) == FAILURE)
 		{
 			destroy_threads(&monitors);
 			return (NULL);
@@ -59,14 +61,15 @@ static t_deque	*monitoring_death_inter(t_args *args)
 	return (monitors);
 }
 
-t_deque	*monitoring_death(t_args *args, t_deque **philo_threads)
+t_deque	*monitoring_death(\
+						t_args *args, t_shared *shared, t_deque **philo_threads)
 {
 	t_deque	*threads;
 
-	threads = monitoring_death_inter(args);
+	threads = monitoring_death_inter(args, shared);
 	if (threads == NULL)
 	{
-		args->is_thread_error = true;
+		shared->is_thread_error = true; // todo: lock?
 		destroy_threads(philo_threads);
 		return (NULL);
 	}
