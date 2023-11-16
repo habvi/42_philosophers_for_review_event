@@ -38,6 +38,7 @@ typedef struct s_args {
 	unsigned int	time_to_die;
 	unsigned int	time_to_eat;
 	unsigned int	time_to_sleep;
+	int64_t			time_to_think;
 	unsigned int	num_of_each_philo_must_eat;
 	// common data
 	int64_t			start_time;
@@ -69,6 +70,10 @@ typedef struct s_monitor {
 /* args */
 bool			is_valid_argc(const int argc);
 t_args			set_args(const int argc, const char **argv, t_result *result);
+
+/* set_time */
+void			set_start_time(t_args *args);
+int64_t			calc_time_to_think(const t_args *args);
 
 /* destroy */
 void			destroy_threads(t_deque **threads);

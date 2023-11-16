@@ -18,6 +18,7 @@ static void	init_args(t_args *args)
 	args->time_to_die = 0;
 	args->time_to_eat = 0;
 	args->time_to_sleep = 0;
+	args->time_to_think = 0;
 	args->num_of_each_philo_must_eat = 0;
 	args->start_time = 0;
 	args->philos = NULL;
@@ -42,6 +43,7 @@ static t_result	set_argv(const int argc, const char **argv, t_args *args)
 									argv[5], &args->num_of_each_philo_must_eat);
 	if (!is_correct_num)
 		return (FAILURE);
+	args->time_to_think = calc_time_to_think(args);
 	return (SUCCESS);
 }
 
