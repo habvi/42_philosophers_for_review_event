@@ -54,7 +54,7 @@ static bool	ft_atoi(const char *str, int *num)
 	return (true);
 }
 
-bool	ft_atoi_positive(const char *str, unsigned int *num)
+bool	ft_atoi_positive_uint(const char *str, unsigned int *num)
 {
 	int		tmp_num;
 	bool	is_correct_num;
@@ -62,7 +62,19 @@ bool	ft_atoi_positive(const char *str, unsigned int *num)
 	is_correct_num = ft_atoi(str, &tmp_num);
 	if (!is_correct_num || tmp_num < 0)
 		return (false);
-	*num = tmp_num;
+	*num = (unsigned int)tmp_num;
+	return (true);
+}
+
+bool	ft_atoi_positive_int64(const char *str, int64_t *num)
+{
+	int		tmp_num;
+	bool	is_correct_num;
+
+	is_correct_num = ft_atoi(str, &tmp_num);
+	if (!is_correct_num || tmp_num < 0)
+		return (false);
+	*num = (int64_t)tmp_num;
 	return (true);
 }
 

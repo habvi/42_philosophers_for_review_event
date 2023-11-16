@@ -23,8 +23,8 @@ static int64_t	count_eat_times(t_philo *philo)
 
 void	eating(t_philo *philo)
 {
-	const unsigned int	time_to_eat = philo->args->time_to_eat;
-	pthread_mutex_t		*shared;
+	const int64_t	time_to_eat = philo->args->time_to_eat;
+	pthread_mutex_t	*shared;
 
 	if (philo_action(philo, put_log_eating) == FAILURE)
 		return ;

@@ -27,16 +27,17 @@ static void	set_two_forks(\
 
 static t_philo	*set_philo_info(const unsigned int i, t_args *args)
 {
-	t_philo	*philo;
+	t_philo			*philo;
+	const int64_t	current_time = get_current_time_usec();
 
 	philo = &args->philos[i];
 	philo->id = i;
 	philo->args = args;
 	set_two_forks(philo, i, args);
-	philo->start_time_of_cycle = get_current_time_msec();
+	philo->start_time_of_cycle = current_time;
 	philo->eat_count = 0;
 	philo->is_self_dead = false;
-	philo->current_time = get_current_time_msec();
+	philo->current_time = current_time;
 	return (philo);
 }
 

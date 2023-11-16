@@ -33,16 +33,19 @@ static t_result	set_argv(const int argc, const char **argv, t_args *args)
 	bool	is_correct_num;
 
 	is_correct_num = true;
-	is_correct_num &= ft_atoi_positive(argv[1], &args->num_of_philos);
+	is_correct_num &= ft_atoi_positive_uint(argv[1], &args->num_of_philos);
 	is_correct_num &= (args->num_of_philos >= 1);
-	is_correct_num &= ft_atoi_positive(argv[2], &args->time_to_die);
-	is_correct_num &= ft_atoi_positive(argv[3], &args->time_to_eat);
-	is_correct_num &= ft_atoi_positive(argv[4], &args->time_to_sleep);
+	is_correct_num &= ft_atoi_positive_int64(argv[2], &args->time_to_die);
+	is_correct_num &= ft_atoi_positive_int64(argv[3], &args->time_to_eat);
+	is_correct_num &= ft_atoi_positive_int64(argv[4], &args->time_to_sleep);
 	if (argc == 6)
-		is_correct_num &= ft_atoi_positive(\
+		is_correct_num &= ft_atoi_positive_uint(\
 									argv[5], &args->num_of_each_philo_must_eat);
 	if (!is_correct_num)
 		return (FAILURE);
+	args->time_to_die *= 1000;
+	args->time_to_eat *= 1000;
+	args->time_to_sleep *= 1000;
 	args->time_to_think = calc_time_to_think(args);
 	return (SUCCESS);
 }

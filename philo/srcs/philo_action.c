@@ -1,12 +1,11 @@
 #include "philo.h"
 #include "utils.h"
 
-// todo: > ? >= ?
 static bool	is_starved(t_philo *philo)
 {
 	int64_t	elapsed_cycle_time;
 
-	philo->current_time = get_current_time_msec();
+	philo->current_time = get_current_time_usec();
 	elapsed_cycle_time = philo->current_time - philo->start_time_of_cycle;
 	return (elapsed_cycle_time > philo->args->time_to_die);
 }

@@ -35,9 +35,9 @@ typedef struct s_deque_node	t_deque_node;
 
 typedef struct s_args {
 	unsigned int	num_of_philos;
-	unsigned int	time_to_die;
-	unsigned int	time_to_eat;
-	unsigned int	time_to_sleep;
+	int64_t			time_to_die;
+	int64_t			time_to_eat;
+	int64_t			time_to_sleep;
 	int64_t			time_to_think;
 	unsigned int	num_of_each_philo_must_eat;
 	// common data
