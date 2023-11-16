@@ -25,7 +25,6 @@ void	put_log(const t_philo *philo, const char *message)
 // set_time() is only used eating
 int64_t	put_log_flow(t_philo *philo, void (*set_time)(), const char *message)
 {
-
 	if (is_simulation_over(philo))
 		return (FAILURE);
 	if (set_time != NULL)

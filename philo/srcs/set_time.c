@@ -1,4 +1,3 @@
-#include <stdio.h> // todo: erase
 #include "philo.h"
 #include "utils.h"
 
@@ -15,6 +14,5 @@ int64_t	calc_time_to_think(const t_args *args)
 	const int64_t	total_time_to_think = n * args->time_to_eat % cycle_time;
 	const int64_t	time_to_think = total_time_to_think / n_cycles;
 
-	// printf("---------------------- %ld\n", time_to_think);
 	return (time_to_think);
 }
