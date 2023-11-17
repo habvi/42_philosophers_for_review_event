@@ -68,7 +68,8 @@ static t_result	create_each_philo_thread(t_deque *threads, \
 }
 
 // simulation begins after all threads craeted.
-static t_result	create_philo_thread(t_deque *philos, t_args *args, t_shared *shared)
+static t_result	create_philo_thread(\
+								t_deque *philos, t_args *args, t_shared *shared)
 {
 	unsigned int	i;
 

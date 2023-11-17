@@ -101,9 +101,9 @@ fclean	: clean
 re		: fclean all
 
 #--------------------------------------------
-.PHONY	: run
-run		: re
-	./$(NAME) 1 10 2 3
+# make fclean color
+color	: CFLAGS += -D COLOR
+color	: $(NAME)
 
 .PHONY	: sani
 sani	:

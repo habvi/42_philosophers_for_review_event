@@ -46,7 +46,8 @@ static int64_t	set_thread_error(t_shared *shared)
 	return (SUCCESS);
 }
 
-static t_result	create_monitor_thread(t_deque *monitors, t_args *args, t_shared *shared)
+static t_result	create_monitor_thread(\
+							t_deque *monitors, t_args *args, t_shared *shared)
 {
 	unsigned int	i;
 
