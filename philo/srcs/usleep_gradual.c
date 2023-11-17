@@ -5,9 +5,12 @@
 // sleep_time: usec.
 void	usleep_gradual(int64_t sleep_time, t_philo *philo)
 {
-	const int64_t	start_time = get_current_time_usec();
-	int64_t			remain_sleep_time;
+	int64_t	start_time;
+	int64_t	remain_sleep_time;
 
+	if (sleep_time == 0)
+		return ;
+	start_time = get_current_time_usec();
 	while (start_time + sleep_time - get_current_time_usec() >= 1000)
 	{
 		if (is_simulation_over_atomic(philo))
