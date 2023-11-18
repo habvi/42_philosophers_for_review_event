@@ -91,10 +91,7 @@ int64_t			calc_time_to_think(const t_args *args);
 
 /* destroy */
 void			destroy_threads(t_deque **threads);
-void			destroy_args(const t_args *args);
-void			destroy_shared(const t_args *args, t_shared *shared);
-void			destroy(const t_args *args, \
-						t_shared *shared, t_deque **philos, t_deque **monitors);
+void			destroy(const t_args *args, t_shared *shared);
 
 /* mutex */
 void			destroy_forks(\
@@ -124,11 +121,10 @@ void			sleeping(t_philo *philo);
 void			thinking(t_philo *philo);
 
 /* philo_simulate */
-t_deque			*simulate_philos_cycle(t_args *args, t_shared *shared);
+t_result		simulate_philos_cycle(t_args *args, t_shared *shared);
 
 /* monitor*/
-t_deque			*monitoring_death(\
-					t_args *args, t_shared *shared, t_deque **philo_threads);
+t_result		monitoring_death(t_args *args, t_shared *shared);
 void			*monitor_cycle(void *thread_args);
 
 /* put */

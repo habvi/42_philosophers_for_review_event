@@ -57,7 +57,6 @@ static t_result	create_monitor_thread(\
 		if (create_each_monitor_thread(monitors, i, args, shared) == FAILURE)
 		{
 			call_atomic(&shared->shared, set_thread_error, shared);
-			destroy_threads(&monitors);
 			return (FAILURE);
 		}
 		i++;
@@ -65,21 +64,21 @@ static t_result	create_monitor_thread(\
 	return (SUCCESS);
 }
 
-t_deque	*monitoring_death(\
-						t_args *args, t_shared *shared, t_deque **philo_threads)
+t_result	monitoring_death(t_args *args, t_shared *shared)
 {
-	t_deque	*threads;
+	t_deque		*threads;
+	t_result	result;
 
 	threads = deque_new();
 	if (threads == NULL)
 	{
 		call_atomic(&shared->shared, set_thread_error, shared);
-		return (NULL);
+		destroy(args, shared);
+		return (FAILURE);
 	}
-	if (create_monitor_thread(threads, args, shared) == FAILURE)
-	{
-		destroy_threads(philo_threads);
-		return (NULL);
-	}
-	return (threads);
+	result = create_monitor_thread(threads, args, shared);
+	if (result == FAILURE)
+		destroy(args, shared);
+	destroy_threads(&threads);
+	return (result);
 }

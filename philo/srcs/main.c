@@ -3,19 +3,18 @@
 static t_result	run_philosophers(t_args *args)
 {
 	t_shared	shared;
-	t_deque		*philo_threads;
-	t_deque		*monitor_threads;
+	t_result	result;
 
 	if (init_shared(args, &shared) == FAILURE)
 		return (FAILURE);
 	set_start_time(args);
-	philo_threads = simulate_philos_cycle(args, &shared);
-	if (philo_threads == NULL)
+	result = simulate_philos_cycle(args, &shared);
+	if (result == FAILURE)
 		return (fatal_error());
-	monitor_threads = monitoring_death(args, &shared, &philo_threads);
-	if (monitor_threads == NULL)
+	result = monitoring_death(args, &shared);
+	if (result == FAILURE)
 		return (fatal_error());
-	destroy(args, &shared, &philo_threads, &monitor_threads);
+	destroy(args, &shared);
 	return (SUCCESS);
 }
 

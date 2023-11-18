@@ -81,7 +81,6 @@ static t_result	create_philo_thread(\
 		{
 			shared->is_thread_error = true;
 			pthread_mutex_unlock(&shared->shared);
-			destroy_threads(&philos);
 			return (FAILURE);
 		}
 		i++;
@@ -90,21 +89,21 @@ static t_result	create_philo_thread(\
 	return (SUCCESS);
 }
 
-t_deque	*simulate_philos_cycle(t_args *args, t_shared *shared)
+t_result	simulate_philos_cycle(t_args *args, t_shared *shared)
 {
-	t_deque	*threads;
+	t_deque		*threads;
+	t_result	result;
 
 	threads = deque_new();
 	if (threads == NULL)
 	{
 		shared->is_thread_error = true;
-		return (NULL);
+		destroy(args, shared);
+		return (FAILURE);
 	}
-	if (create_philo_thread(threads, args, shared) == FAILURE)
-	{
-		destroy_args(args);
-		destroy_shared(args, shared);
-		return (NULL);
-	}
-	return (threads);
+	result = create_philo_thread(threads, args, shared);
+	if (result == FAILURE)
+		destroy(args, shared);
+	destroy_threads(&threads);
+	return (result);
 }

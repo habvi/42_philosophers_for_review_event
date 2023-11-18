@@ -25,22 +25,19 @@ void	destroy_threads(t_deque **threads)
 	deque_clear_all(threads, del_node);
 }
 
-void	destroy_shared(const t_args *args, t_shared *shared)
+static void	destroy_shared(const t_args *args, t_shared *shared)
 {
 	destroy_forks(&shared->forks, args->num_of_philos);
 	pthread_mutex_destroy(&shared->shared);
 }
 
-void	destroy_args(const t_args *args)
+static void	destroy_args(const t_args *args)
 {
 	ft_free((void **)&args->philos);
 }
 
-void	destroy(const t_args *args, t_shared *shared, \
-										t_deque **philos, t_deque **monitors)
+void	destroy(const t_args *args, t_shared *shared)
 {
-	destroy_threads(philos);
-	destroy_threads(monitors);
 	destroy_shared(args, shared);
 	destroy_args(args);
 }
