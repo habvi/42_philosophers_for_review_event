@@ -41,13 +41,15 @@ static void	adjust_simulation_start(t_philo *philo)
 	if (num_of_philos % 2 == 0)
 	{
 		if (id % 2 == 1)
-			usleep(200);
+			usleep(ADJUST_DURATION);
 	}
 	else
 	{
 		times = id / 2;
 		if (id % 2 == 1)
 			times += num_of_philos / 2 + 1;
+		if (cycle_time == 0)
+			return ;
 		usleep_gradual(base_time * times % cycle_time, philo);
 	}
 }
