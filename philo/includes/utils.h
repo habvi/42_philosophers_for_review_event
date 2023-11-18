@@ -15,6 +15,7 @@ bool	ft_atoi_positive_int64(const char *str, int64_t *num);
 void	*ft_free(void **ptr);
 bool	ft_isdigit(int c);
 int64_t	ft_max(const int64_t x, const int64_t y);
+int64_t	ft_min(const int64_t x, const int64_t y);
 bool	ft_streq(const char *s1, const char *s2);
 int64_t	get_current_time_usec(void);
 
