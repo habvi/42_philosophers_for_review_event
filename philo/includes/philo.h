@@ -51,12 +51,12 @@ typedef struct s_args {
 	int64_t			time_to_sleep;
 	int64_t			time_to_think;
 	unsigned int	num_of_each_philo_must_eat;
-	int64_t			start_time;
 }	t_args;
 
 typedef struct s_shared {
 	pthread_mutex_t	shared;
 	pthread_mutex_t	*forks;
+	int64_t			start_time;
 	bool			is_any_philo_dead;
 	bool			is_thread_error;
 	unsigned int	num_of_finish_eat;
@@ -68,6 +68,7 @@ typedef struct s_philo {
 	t_shared		*shared;
 	pthread_mutex_t	*fork1;
 	pthread_mutex_t	*fork2;
+	int64_t			start_time_of_philo;
 	int64_t			start_time_of_cycle;
 	unsigned int	eat_count;
 	bool			is_self_dead;

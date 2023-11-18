@@ -1,11 +1,6 @@
 #include "philo.h"
 #include "utils.h"
 
-void	set_start_time(t_args *args)
-{
-	args->start_time = get_current_time_usec();
-}
-
 static int64_t	calc_max_cycle_time(const t_args *args)
 {
 	return (ft_max(args->time_to_eat * 2, \

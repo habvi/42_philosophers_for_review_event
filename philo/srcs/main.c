@@ -8,7 +8,6 @@ static t_result	run_philosophers(\
 
 	if (init_shared(philos, &shared, num_of_philos) == FAILURE)
 		return (FAILURE);
-	set_start_time(args);
 	result = simulate_philos_cycle(philos, &shared, num_of_philos);
 	if (result == FAILURE)
 		return (FAILURE);

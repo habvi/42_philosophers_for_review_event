@@ -20,7 +20,6 @@ static void	init_args(t_args *args)
 	args->time_to_sleep = 0;
 	args->time_to_think = 0;
 	args->num_of_each_philo_must_eat = 0;
-	args->start_time = 0;
 }
 
 static t_result	set_argv(const int argc, const char **argv, t_args *args)
