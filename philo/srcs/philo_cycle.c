@@ -2,6 +2,7 @@
 #include "philo.h"
 #include "utils.h"
 
+// todo: with set_start_time??
 static int64_t	get_is_thread_error(const t_shared *shared)
 {
 	return (shared->is_thread_error);
@@ -63,6 +64,7 @@ void	*philo_cycle(void *thread_args)
 	is_thread_error = wait_start_cycle(philo->shared);
 	if (is_thread_error)
 		return (NULL);
+	// set_start_time(philo); // todo
 	adjust_simulation_start(philo);
 	while (!is_simulation_over_atomic(philo))
 	{

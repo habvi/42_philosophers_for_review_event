@@ -3,8 +3,7 @@
 #include "utils.h"
 
 // free monitor in monitor_cycle's last
-static t_monitor	*set_monitor_info(\
-						const unsigned int i, t_args *args, t_shared *shared)
+static t_monitor	*set_monitor_info(t_philo *philo, const unsigned int i)
 {
 	t_monitor	*monitor;
 
@@ -12,18 +11,17 @@ static t_monitor	*set_monitor_info(\
 	if (monitor == NULL)
 		return (NULL);
 	monitor->id = i;
-	monitor->args = *args;
-	monitor->shared = shared;
+	monitor->philo = philo;
 	return (monitor);
 }
 
-static t_result	create_each_monitor_thread(t_deque *threads, \
-						const unsigned int i, t_args *args, t_shared *shared)
+static t_result	create_each_monitor_thread(\
+						t_deque *threads, t_philo *philo, const unsigned int i)
 {
 	t_monitor	*monitor;
 	pthread_t	new_thread;
 
-	monitor = set_monitor_info(i, args, shared);
+	monitor = set_monitor_info(philo, i);
 	if (monitor == NULL)
 		return (FAILURE);
 	if (pthread_create(&new_thread, NULL, monitor_cycle, (void *)monitor) \
@@ -46,15 +44,15 @@ static int64_t	set_thread_error(t_shared *shared)
 	return (SUCCESS);
 }
 
-static t_result	create_monitor_thread(\
-							t_deque *monitors, t_args *args, t_shared *shared)
+static t_result	create_monitor_thread(t_deque *threads, t_philo *philos, \
+							t_shared *shared, const unsigned int num_of_philos)
 {
 	unsigned int	i;
 
 	i = 0;
-	while (i < args->num_of_philos)
+	while (i < num_of_philos)
 	{
-		if (create_each_monitor_thread(monitors, i, args, shared) == FAILURE)
+		if (create_each_monitor_thread(threads, &philos[i], i) == FAILURE)
 		{
 			call_atomic(&shared->shared, set_thread_error, shared);
 			return (FAILURE);
@@ -64,7 +62,8 @@ static t_result	create_monitor_thread(\
 	return (SUCCESS);
 }
 
-t_result	monitoring_death(t_args *args, t_shared *shared)
+t_result	monitoring_death(\
+			t_philo *philos, t_shared *shared, const unsigned int num_of_philos)
 {
 	t_deque		*threads;
 	t_result	result;
@@ -73,12 +72,12 @@ t_result	monitoring_death(t_args *args, t_shared *shared)
 	if (threads == NULL)
 	{
 		call_atomic(&shared->shared, set_thread_error, shared);
-		destroy(args, shared);
+		destroy_shared(shared, num_of_philos);
 		return (FAILURE);
 	}
-	result = create_monitor_thread(threads, args, shared);
+	result = create_monitor_thread(threads, philos, shared, num_of_philos);
 	if (result == FAILURE)
-		destroy(args, shared);
+		destroy_shared(shared, num_of_philos);
 	destroy_threads(&threads);
 	return (result);
 }

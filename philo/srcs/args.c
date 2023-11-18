@@ -21,7 +21,6 @@ static void	init_args(t_args *args)
 	args->time_to_think = 0;
 	args->num_of_each_philo_must_eat = 0;
 	args->start_time = 0;
-	args->philos = NULL;
 }
 
 static t_result	set_argv(const int argc, const char **argv, t_args *args)
@@ -46,30 +45,13 @@ static t_result	set_argv(const int argc, const char **argv, t_args *args)
 	return (SUCCESS);
 }
 
-static t_philo	*allocate_philos(const unsigned int num_of_philos)
-{
-	t_philo	*philos;
-
-	philos = (t_philo *)malloc(sizeof(t_philo) * num_of_philos);
-	if (philos == NULL)
-		return (NULL);
-	return (philos);
-}
-
 t_args	set_args(const int argc, const char **argv, t_result *result)
 {
 	t_args	args;
 
-	*result = SUCCESS;
 	init_args(&args);
 	*result = set_argv(argc, argv, &args);
 	if (*result == FAILURE)
-	{
 		printf("%s\n", ERR_INVALID_ARG);
-		return (args);
-	}
-	args.philos = allocate_philos(args.num_of_philos);
-	if (args.philos == NULL)
-		*result = FAILURE;
 	return (args);
 }

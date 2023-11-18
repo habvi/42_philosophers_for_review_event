@@ -21,10 +21,12 @@ SRCS_DIR	:=	srcs
 SRCS		:=	args.c \
 				create_thread.c \
 				destroy.c \
+				init_mutex.c \
+				init_philos.c \
+				init_shared.c \
 				main.c \
 				monitor_cycle.c \
 				monitor_death.c \
-				mutex.c \
 				philo_action.c \
 				philo_cycle.c \
 				philo_eat.c \

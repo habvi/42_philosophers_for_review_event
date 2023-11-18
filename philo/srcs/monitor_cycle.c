@@ -18,7 +18,7 @@ void	*monitor_cycle(void *thread_args)
 	pthread_mutex_t	*shared;
 
 	monitor = (t_monitor *)thread_args;
-	philo = &monitor->args.philos[monitor->id];
+	philo = monitor->philo;
 	while (!is_simulation_over_atomic(philo))
 		usleep(500);
 	shared = &philo->shared->shared;
