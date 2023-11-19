@@ -23,27 +23,10 @@ static t_result	create_each_philo_thread(t_deque *threads, t_philo *philo)
 	return (SUCCESS);
 }
 
-// todo
-// static void	set_start_time(t_shared *shared)
-// {
-// 	shared->start_time = get_current_time_usec();
-// }
-
-static void	set_start_time(\
-			t_shared *shared, t_philo *philos, const unsigned int num_of_philos)
+// copy this value locally at the beginning of each thread.
+static void	set_start_time(t_shared *shared)
 {
-	unsigned int	i;
-	const int64_t	current_time = get_current_time_usec();
-
-	shared->start_time = current_time;
-	i = 0;
-	while (i < num_of_philos)
-	{
-		philos[i].start_time_of_philo = current_time;
-		philos[i].start_time_of_cycle = current_time;
-		philos[i].current_time = current_time;
-		i++;
-	}
+	shared->start_time = get_current_time_usec();
 }
 
 // simulation begins after all threads craeted.
@@ -64,7 +47,7 @@ static t_result	create_philo_thread(t_deque *threads, t_shared *shared, \
 		}
 		i++;
 	}
-	set_start_time(shared, philos, num_of_philos);
+	set_start_time(shared);
 	pthread_mutex_unlock(&shared->shared);
 	return (SUCCESS);
 }

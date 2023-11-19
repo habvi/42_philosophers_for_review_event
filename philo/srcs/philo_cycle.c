@@ -2,15 +2,21 @@
 #include "philo.h"
 #include "utils.h"
 
-// todo: with set_start_time??
-static int64_t	get_is_thread_error(const t_shared *shared)
+static int64_t	set_start_time_and_get_error(t_philo *philo)
 {
-	return (shared->is_thread_error);
+	const int64_t	start_time = philo->shared->start_time;
+
+	philo->start_time_of_philo = start_time;
+	philo->start_time_of_cycle = start_time;
+	return (philo->shared->is_thread_error);
 }
 
-static bool	wait_start_cycle(t_shared *shared)
+static bool	wait_start_cycle(t_philo *philo)
 {
-	return (call_atomic(&shared->shared, get_is_thread_error, shared));
+	pthread_mutex_t	*shared;
+
+	shared = &philo->shared->shared;
+	return (call_atomic(shared, set_start_time_and_get_error, philo));
 }
 
 void	*philo_solo_cycle(void *thread_args)
@@ -19,7 +25,7 @@ void	*philo_solo_cycle(void *thread_args)
 	bool	is_thread_error;
 
 	philo = (t_philo *)thread_args;
-	is_thread_error = wait_start_cycle(philo->shared);
+	is_thread_error = wait_start_cycle(philo);
 	if (is_thread_error)
 		return (NULL);
 	take_fork(philo->fork1, philo);
@@ -61,10 +67,9 @@ void	*philo_cycle(void *thread_args)
 	bool	is_thread_error;
 
 	philo = (t_philo *)thread_args;
-	is_thread_error = wait_start_cycle(philo->shared);
+	is_thread_error = wait_start_cycle(philo);
 	if (is_thread_error)
 		return (NULL);
-	// set_start_time(philo); // todo
 	adjust_simulation_start(philo);
 	while (!is_simulation_over_atomic(philo))
 	{

@@ -1,4 +1,5 @@
 #include "philo.h"
+#include "utils.h"
 
 static void	set_philos(t_philo *philos, t_args *args)
 {
@@ -18,7 +19,7 @@ static void	set_philos(t_philo *philos, t_args *args)
 		philo->start_time_of_cycle = 0;
 		philo->eat_count = 0;
 		philo->is_self_dead = false;
-		philo->current_time = 0;
+		philo->current_time = get_current_time_usec();
 		i++;
 	}
 }
