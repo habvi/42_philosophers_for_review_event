@@ -85,9 +85,6 @@ t_result		init_shared(t_philo *philos, \
 							t_shared *shared, const unsigned int num_of_philos);
 t_result		init_mutex(t_shared *shared, const unsigned int num_of_philos);
 
-/* set_time */
-int64_t			calc_time_to_think(const t_args *args);
-
 /* destroy */
 void			destroy_philos(t_philo **philos);
 void			destroy_shared(\
@@ -132,7 +129,8 @@ void			*monitor_cycle(void *thread_args);
 void			put_log(const t_philo *philo, const char *message);
 int64_t			put_log_flow(\
 					t_philo *philo, void (*set_time)(), const char *message);
-t_result		fatal_error(void);
+void			error_args(void);
+t_result		error_fatal(void);
 
 /* usleep */
 void			usleep_gradual(int64_t sleep_time, t_philo *philo);

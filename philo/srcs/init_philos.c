@@ -30,7 +30,10 @@ t_philo	*init_philos(t_args *args)
 
 	philos = (t_philo *)malloc(sizeof(t_philo) * args->num_of_philos);
 	if (philos == NULL)
+	{
+		error_fatal();
 		return (NULL);
+	}
 	set_philos(philos, args);
 	return (philos);
 }

@@ -7,13 +7,13 @@ static t_result	run_philosophers(\
 	t_result	result;
 
 	if (init_shared(philos, &shared, num_of_philos) == FAILURE)
-		return (FAILURE);
+		return (error_fatal());
 	result = simulate_philos_cycle(philos, &shared, num_of_philos);
 	if (result == FAILURE)
-		return (FAILURE);
+		return (error_fatal());
 	result = monitoring_death(philos, &shared, num_of_philos);
 	if (result == FAILURE)
-		return (FAILURE);
+		return (error_fatal());
 	destroy_shared(&shared, num_of_philos);
 	return (SUCCESS);
 }
@@ -31,12 +31,12 @@ int	main(int argc, char *argv[])
 		return (EXIT_FAILURE);
 	philos = init_philos(&args);
 	if (philos == NULL)
-		return (fatal_error());
+		return (EXIT_FAILURE);
 	result = run_philosophers(philos, args.num_of_philos);
 	if (result == FAILURE)
 	{
 		destroy_philos(&philos);
-		return (fatal_error());
+		return (EXIT_FAILURE);
 	}
 	destroy_philos(&philos);
 	return (EXIT_SUCCESS);
