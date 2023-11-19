@@ -9,7 +9,7 @@
 # define THREAD_SUCCESS	0
 
 # define MAX_DURATION		500000
-# define ADJUST_DURATION	200
+# define ADJUST_DURATION	2000
 # define MONITOR_DURATION	500
 # define NOT_SET			(-1)
 
