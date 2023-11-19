@@ -1,5 +1,4 @@
 #include "philo.h"
-#include "utils.h"
 
 static t_result	init_forks(t_shared *shared, const unsigned int num_of_forks)
 {
