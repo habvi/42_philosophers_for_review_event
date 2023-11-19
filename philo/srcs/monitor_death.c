@@ -2,39 +2,15 @@
 #include "philo.h"
 #include "utils.h"
 
-// free monitor in monitor_cycle's last
-static t_monitor	*set_monitor_info(t_philo *philo, const unsigned int i)
+static t_result	create_each_monitor_thread(t_deque *threads, t_philo *philo)
 {
-	t_monitor	*monitor;
-
-	monitor = (t_monitor *)malloc(sizeof(t_monitor) * 1);
-	if (monitor == NULL)
-		return (NULL);
-	monitor->id = i;
-	monitor->philo = philo;
-	return (monitor);
-}
-
-static t_result	create_each_monitor_thread(\
-						t_deque *threads, t_philo *philo, const unsigned int i)
-{
-	t_monitor	*monitor;
 	pthread_t	new_thread;
 
-	monitor = set_monitor_info(philo, i);
-	if (monitor == NULL)
-		return (FAILURE);
-	if (pthread_create(&new_thread, NULL, monitor_cycle, (void *)monitor) \
+	if (pthread_create(&new_thread, NULL, monitor_cycle, (void *)philo) \
 															!= THREAD_SUCCESS)
-	{
-		ft_free((void **)&monitor);
 		return (FAILURE);
-	}
 	if (add_threads_list(threads, new_thread) == FAILURE)
-	{
-		ft_free((void **)&monitor);
 		return (FAILURE);
-	}
 	return (SUCCESS);
 }
 
@@ -52,7 +28,7 @@ static t_result	create_monitor_thread(t_deque *threads, t_philo *philos, \
 	i = 0;
 	while (i < num_of_philos)
 	{
-		if (create_each_monitor_thread(threads, &philos[i], i) == FAILURE)
+		if (create_each_monitor_thread(threads, &philos[i]) == FAILURE)
 		{
 			call_atomic(&shared->shared, set_thread_error, shared);
 			return (FAILURE);

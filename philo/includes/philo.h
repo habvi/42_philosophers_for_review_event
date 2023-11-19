@@ -75,11 +75,6 @@ typedef struct s_philo {
 	int64_t			current_time;
 }	t_philo;
 
-typedef struct s_monitor {
-	unsigned int	id;
-	t_philo			*philo;
-}	t_monitor;
-
 /* args */
 bool			is_valid_argc(const int argc);
 t_args			set_args(const int argc, const char **argv, t_result *result);
