@@ -31,7 +31,7 @@ static void	adjust_simulation_start(t_philo *philo)
 	if (num_of_philos % 2 == 0)
 	{
 		if (id % 2 == 1)
-			usleep(ADJUST_DURATION);
+			usleep_gradual(philo->args.time_to_eat / 2, philo);
 	}
 	else
 	{
