@@ -10,6 +10,7 @@
 
 # define MAX_DURATION		500000
 # define ADJUST_DURATION	200
+# define NOT_SET			-1
 
 # define MSG_FORK	"has taken a fork"
 # define MSG_EAT	"is eating"
@@ -50,7 +51,7 @@ typedef struct s_args {
 	int64_t			time_to_eat;
 	int64_t			time_to_sleep;
 	int64_t			time_to_think;
-	unsigned int	num_of_each_philo_must_eat;
+	int64_t			num_of_each_philo_must_eat;
 }	t_args;
 
 typedef struct s_shared {
@@ -92,7 +93,6 @@ void			destroy_shared(\
 void			destroy_forks(\
 						pthread_mutex_t **forks, const unsigned int max_len);
 void			destroy_threads(t_deque **threads);
-
 
 /* thread */
 t_result		add_threads_list(t_deque *threads, pthread_t new_thread);

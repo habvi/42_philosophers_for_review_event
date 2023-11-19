@@ -49,9 +49,9 @@ static t_result	set_argv(const int argc, const char **argv, t_args *args)
 	is_correct_num &= ft_atoi_positive_int64(argv[2], &args->time_to_die);
 	is_correct_num &= ft_atoi_positive_int64(argv[3], &args->time_to_eat);
 	is_correct_num &= ft_atoi_positive_int64(argv[4], &args->time_to_sleep);
-	args->num_of_each_philo_must_eat = 0;
+	args->num_of_each_philo_must_eat = NOT_SET;
 	if (argc == 6)
-		is_correct_num &= ft_atoi_positive_uint(\
+		is_correct_num &= ft_atoi_positive_int64(\
 									argv[5], &args->num_of_each_philo_must_eat);
 	if (!is_correct_num)
 		return (FAILURE);

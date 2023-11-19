@@ -10,32 +10,32 @@ static bool	is_starved(t_philo *philo)
 	return (elapsed_cycle_time > philo->args.time_to_die);
 }
 
-static void	set_philo_dead(t_philo *philo)
+static bool	set_simulation_end(t_philo *philo)
 {
-	philo->is_self_dead = true;
 	philo->shared->is_any_philo_dead = true;
+	return (SUCCESS);
 }
 
 int64_t	is_simulation_over(t_philo *philo)
 {
 	const t_shared	*shared = philo->shared;
+	const int64_t	must_eat = philo->args.num_of_each_philo_must_eat;
 
 	if (shared->is_any_philo_dead)
 		return (true);
 	if (shared->is_thread_error)
+		return (set_simulation_end(philo));
+	if (must_eat != NOT_SET)
 	{
-		set_philo_dead(philo);
-		return (true);
-	}
-	if (shared->num_of_finish_eat == philo->args.num_of_philos)
-	{
-		set_philo_dead(philo);
-		return (true);
+		if (must_eat == 0)
+			return (set_simulation_end(philo));
+		if (shared->num_of_finish_eat == philo->args.num_of_philos)
+			return (set_simulation_end(philo));
 	}
 	if (is_starved(philo))
 	{
-		set_philo_dead(philo);
-		return (true);
+		philo->is_self_dead = true;
+		return (set_simulation_end(philo));
 	}
 	return (false);
 }
