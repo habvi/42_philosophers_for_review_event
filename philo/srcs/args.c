@@ -21,11 +21,14 @@ static int64_t	calc_max_cycle_time(const t_args *args)
 static int64_t	calc_time_to_think(const t_args *args)
 {
 	const int64_t	n = args->num_of_philos;
-	const int64_t	max_cycle_time = calc_max_cycle_time(args);
+	int64_t			max_cycle_time;
 	int64_t			num_of_cycle;
 	int64_t			total_time_to_think;
 	int64_t			time_to_think;
 
+	if (n % 2 == 0)
+		return (0);
+	max_cycle_time = calc_max_cycle_time(args);
 	if (max_cycle_time == 0)
 		return (0);
 	num_of_cycle = args->time_to_eat * n / max_cycle_time;
