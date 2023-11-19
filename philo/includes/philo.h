@@ -10,7 +10,8 @@
 
 # define MAX_DURATION		500000
 # define ADJUST_DURATION	200
-# define NOT_SET			-1
+# define MONITOR_DURATION	500
+# define NOT_SET			(-1)
 
 # define MSG_FORK	"has taken a fork"
 # define MSG_EAT	"is eating"
@@ -97,11 +98,16 @@ void			destroy_threads(t_deque **threads);
 /* thread */
 t_result		add_threads_list(t_deque *threads, pthread_t new_thread);
 t_deque_node	*create_thread_node(pthread_t new_thread);
+bool			wait_start(t_philo *philo);
 
 /* philo_action */
 int64_t			is_simulation_over(t_philo *philo);
 bool			is_simulation_over_atomic(t_philo *philo);
 int64_t			philo_action(t_philo *philo, int64_t (*action)(t_philo *));
+
+/* philo_simulate */
+t_result		simulate_philos_cycle(t_philo *philos, \
+							t_shared *shared, const unsigned int num_of_philos);
 
 /* philo_cycle */
 void			*philo_solo_cycle(void *thread_args);
@@ -116,13 +122,7 @@ void			put_two_forks(t_philo *philo);
 void			sleeping(t_philo *philo);
 void			thinking(t_philo *philo);
 
-/* philo_simulate */
-t_result		simulate_philos_cycle(t_philo *philos, \
-							t_shared *shared, const unsigned int num_of_philos);
-
-/* monitor*/
-t_result		monitoring_death(t_philo *philos, \
-							t_shared *shared, const unsigned int num_of_philos);
+/* monitor_cycle */
 void			*monitor_cycle(void *thread_args);
 
 /* put */

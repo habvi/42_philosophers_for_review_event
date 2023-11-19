@@ -23,14 +23,37 @@ static t_result	create_each_philo_thread(t_deque *threads, t_philo *philo)
 	return (SUCCESS);
 }
 
-// copy this value locally at the beginning of each thread.
-static void	set_start_time(t_shared *shared)
+t_result	create_each_monitor_thread(t_deque *threads, t_philo *philo)
 {
-	shared->start_time = get_current_time_usec();
+	pthread_t	new_thread;
+
+	if (pthread_create(&new_thread, NULL, monitor_cycle, (void *)philo) \
+															!= THREAD_SUCCESS)
+		return (FAILURE);
+	if (add_threads_list(threads, new_thread) == FAILURE)
+		return (FAILURE);
+	return (SUCCESS);
+}
+
+static void	set_simulation_start_time(\
+			t_shared *shared, t_philo *philos, const unsigned int num_of_philos)
+{
+	unsigned int	i;
+	const int64_t	current_time = get_current_time_usec();
+
+	shared->start_time = current_time;
+	i = 0;
+	while (i < num_of_philos)
+	{
+		philos[i].start_time_of_philo = current_time;
+		philos[i].start_time_of_cycle = current_time;
+		philos[i].current_time = current_time;
+		i++;
+	}
 }
 
 // simulation begins after all threads craeted.
-static t_result	create_philo_thread(t_deque *threads, t_shared *shared, \
+static t_result	create_threads(t_deque *threads, t_shared *shared, \
 							t_philo *philos, const unsigned int num_of_philos)
 {
 	unsigned int	i;
@@ -45,9 +68,15 @@ static t_result	create_philo_thread(t_deque *threads, t_shared *shared, \
 			pthread_mutex_unlock(&shared->shared);
 			return (FAILURE);
 		}
+		if (create_each_monitor_thread(threads, &philos[i]) == FAILURE)
+		{
+			shared->is_thread_error = true;
+			pthread_mutex_unlock(&shared->shared);
+			return (FAILURE);
+		}
 		i++;
 	}
-	set_start_time(shared);
+	set_simulation_start_time(shared, philos, num_of_philos);
 	pthread_mutex_unlock(&shared->shared);
 	return (SUCCESS);
 }
@@ -65,7 +94,7 @@ t_result	simulate_philos_cycle(\
 		destroy_shared(shared, num_of_philos);
 		return (FAILURE);
 	}
-	result = create_philo_thread(threads, shared, philos, num_of_philos);
+	result = create_threads(threads, shared, philos, num_of_philos);
 	if (result == FAILURE)
 		destroy_shared(shared, num_of_philos);
 	destroy_threads(&threads);

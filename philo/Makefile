@@ -19,14 +19,12 @@ endif
 #--------------------------------------------
 SRCS_DIR	:=	srcs
 SRCS		:=	args.c \
-				create_thread.c \
 				destroy.c \
 				init_mutex.c \
 				init_philos.c \
 				init_shared.c \
 				main.c \
 				monitor_cycle.c \
-				monitor_death.c \
 				philo_action.c \
 				philo_cycle.c \
 				philo_eat.c \
@@ -34,6 +32,7 @@ SRCS		:=	args.c \
 				philo_simulate.c \
 				philo_sleep_think.c \
 				put.c \
+				thread.c \
 				usleep_gradual.c
 
 #--------------------------------------------

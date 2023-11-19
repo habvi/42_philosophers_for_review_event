@@ -11,9 +11,6 @@ static t_result	run_philosophers(\
 	result = simulate_philos_cycle(philos, &shared, num_of_philos);
 	if (result == FAILURE)
 		return (error_fatal());
-	result = monitoring_death(philos, &shared, num_of_philos);
-	if (result == FAILURE)
-		return (error_fatal());
 	destroy_shared(&shared, num_of_philos);
 	return (SUCCESS);
 }

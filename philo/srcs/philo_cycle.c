@@ -2,30 +2,13 @@
 #include "philo.h"
 #include "utils.h"
 
-static int64_t	set_start_time_and_get_error(t_philo *philo)
-{
-	const int64_t	start_time = philo->shared->start_time;
-
-	philo->start_time_of_philo = start_time;
-	philo->start_time_of_cycle = start_time;
-	return (philo->shared->is_thread_error);
-}
-
-static bool	wait_start_cycle(t_philo *philo)
-{
-	pthread_mutex_t	*shared;
-
-	shared = &philo->shared->shared;
-	return (call_atomic(shared, set_start_time_and_get_error, philo));
-}
-
 void	*philo_solo_cycle(void *thread_args)
 {
 	t_philo	*philo;
 	bool	is_thread_error;
 
 	philo = (t_philo *)thread_args;
-	is_thread_error = wait_start_cycle(philo);
+	is_thread_error = wait_start(philo);
 	if (is_thread_error)
 		return (NULL);
 	take_fork(philo->fork1, philo);
@@ -67,7 +50,7 @@ void	*philo_cycle(void *thread_args)
 	bool	is_thread_error;
 
 	philo = (t_philo *)thread_args;
-	is_thread_error = wait_start_cycle(philo);
+	is_thread_error = wait_start(philo);
 	if (is_thread_error)
 		return (NULL);
 	adjust_simulation_start(philo);
