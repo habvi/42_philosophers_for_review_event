@@ -56,7 +56,6 @@ typedef struct s_args {
 
 typedef struct s_shared {
 	pthread_mutex_t	shared;
-	pthread_mutex_t	*forks;
 	int64_t			start_time;
 	bool			is_any_philo_dead;
 	bool			is_thread_error;
@@ -82,14 +81,13 @@ t_args			set_args(const int argc, const char **argv, t_result *result);
 
 /* init */
 t_philo			*init_philos(t_args *args);
-t_result		init_shared(t_philo *philos, \
-							t_shared *shared, const unsigned int num_of_philos);
-t_result		init_mutex(t_shared *shared, const unsigned int num_of_philos);
+t_result		init_shared_and_forks(t_philo *philos, t_shared *shared, \
+					pthread_mutex_t **forks, const unsigned int num_of_philos);
 
 /* destroy */
 void			destroy_philos(t_philo **philos);
-void			destroy_shared(\
-							t_shared *shared, const unsigned int num_of_philos);
+void			destroy_mutex(t_shared *shared, \
+					pthread_mutex_t **forks, const unsigned int num_of_philos);
 void			destroy_forks(\
 						pthread_mutex_t **forks, const unsigned int max_len);
 void			destroy_threads(t_deque **threads);

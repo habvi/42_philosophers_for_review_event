@@ -91,12 +91,9 @@ t_result	simulate_philos_cycle(\
 	if (threads == NULL)
 	{
 		shared->is_thread_error = true;
-		destroy_shared(shared, num_of_philos);
 		return (FAILURE);
 	}
 	result = create_threads(threads, shared, philos, num_of_philos);
-	if (result == FAILURE)
-		destroy_shared(shared, num_of_philos);
 	destroy_threads(&threads);
 	return (result);
 }

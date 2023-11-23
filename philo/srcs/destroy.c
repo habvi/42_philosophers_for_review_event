@@ -38,10 +38,12 @@ void	destroy_forks(pthread_mutex_t **forks, const unsigned int max_len)
 	ft_free((void **)forks);
 }
 
-void	destroy_shared(t_shared *shared, const unsigned int num_of_philos)
+void	destroy_mutex(t_shared *shared, \
+					pthread_mutex_t **forks, const unsigned int num_of_philos)
 {
-	destroy_forks(&shared->forks, num_of_philos);
 	pthread_mutex_destroy(&shared->shared);
+	if (forks != NULL)
+		destroy_forks(forks, num_of_philos);
 }
 
 void	destroy_philos(t_philo **philos)
