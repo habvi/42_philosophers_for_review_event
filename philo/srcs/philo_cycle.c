@@ -16,31 +16,32 @@ void	*philo_solo_cycle(void *thread_args)
 	return (NULL);
 }
 
+static int64_t	calc_delay_time_in_odd(t_args args, const unsigned int id)
+{
+	const int64_t	base_time = args.time_to_eat * id;
+	const int64_t	cycle_time = args.time_to_eat \
+								+ args.time_to_sleep \
+								+ args.time_to_think;
+
+	if (cycle_time == 0)
+		return (0);
+	return (base_time % cycle_time);
+}
+
 static void	adjust_simulation_start(t_philo *philo)
 {
 	const unsigned int	num_of_philos = philo->args.num_of_philos;
-	const unsigned int	id = philo->id;
-	unsigned int		times;
-	const int64_t		base_time = ft_max(0, philo->args.time_to_sleep \
-											+ philo->args.time_to_think \
-											- philo->args.time_to_eat);
-	const int64_t		cycle_time = philo->args.time_to_eat \
-									+ philo->args.time_to_sleep \
-									+ philo->args.time_to_think;
+	int64_t				delay_time;
 
 	if (num_of_philos % 2 == 0)
 	{
-		if (id % 2 == 1)
+		if (philo->id % 2 == 1)
 			usleep_gradual(philo->args.time_to_eat / 2, philo);
 	}
 	else
 	{
-		times = id / 2;
-		if (id % 2 == 1)
-			times += num_of_philos / 2 + 1;
-		if (cycle_time == 0)
-			return ;
-		usleep_gradual(base_time * times % cycle_time, philo);
+		delay_time = calc_delay_time_in_odd(philo->args, philo->id);
+		usleep_gradual(delay_time, philo);
 	}
 }
 
