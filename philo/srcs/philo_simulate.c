@@ -6,7 +6,7 @@ static t_result	create_each_philo_thread(t_deque *threads, t_philo *philo)
 {
 	pthread_t	new_thread;
 
-	if (philo->args.num_of_philos == 1)
+	if (philo->rule.num_of_philos == 1)
 	{
 		if (pthread_create(&new_thread, NULL, philo_solo_cycle, (void *)philo) \
 															!= THREAD_SUCCESS)

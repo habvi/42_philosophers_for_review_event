@@ -7,7 +7,7 @@ static bool	is_starved(t_philo *philo)
 
 	philo->current_time = get_current_time_usec();
 	elapsed_cycle_time = philo->current_time - philo->start_time_of_cycle;
-	return (elapsed_cycle_time > philo->args.time_to_die);
+	return (elapsed_cycle_time > philo->rule.time_to_die);
 }
 
 static bool	set_simulation_end(t_philo *philo)
@@ -19,7 +19,7 @@ static bool	set_simulation_end(t_philo *philo)
 int64_t	is_simulation_over(t_philo *philo)
 {
 	const t_shared	*shared = philo->shared;
-	const int64_t	must_eat = philo->args.num_of_each_philo_must_eat;
+	const int64_t	must_eat = philo->rule.num_of_each_philo_must_eat;
 
 	if (shared->is_any_philo_dead)
 		return (true);
@@ -29,7 +29,7 @@ int64_t	is_simulation_over(t_philo *philo)
 	{
 		if (must_eat == 0)
 			return (set_simulation_end(philo));
-		if (shared->num_of_finish_eat == philo->args.num_of_philos)
+		if (shared->num_of_finish_eat == philo->rule.num_of_philos)
 			return (set_simulation_end(philo));
 	}
 	if (is_starved(philo))

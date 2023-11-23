@@ -14,7 +14,7 @@ static int64_t	put_log_eating(t_philo *philo)
 static int64_t	count_eat_times(t_philo *philo)
 {
 	const unsigned int	must_eat = \
-						(unsigned int)philo->args.num_of_each_philo_must_eat;
+						(unsigned int)philo->rule.num_of_each_philo_must_eat;
 
 	philo->eat_count++;
 	if (philo->eat_count == must_eat)
@@ -24,8 +24,8 @@ static int64_t	count_eat_times(t_philo *philo)
 
 void	eating(t_philo *philo)
 {
-	const int64_t	time_to_eat = philo->args.time_to_eat;
-	const int64_t	must_eat = philo->args.num_of_each_philo_must_eat;
+	const int64_t	time_to_eat = philo->rule.time_to_eat;
+	const int64_t	must_eat = philo->rule.num_of_each_philo_must_eat;
 	pthread_mutex_t	*shared;
 
 	if (philo_action(philo, put_log_eating) == FAILURE)

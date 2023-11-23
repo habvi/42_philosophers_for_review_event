@@ -2,13 +2,13 @@
 #include "philo.h"
 #include "utils.h"
 
-void	put_args(const t_args *args)
+void	put_rule(const t_rule *rule)
 {
-	printf("num of philo  : %d\n", args->num_of_philos);
-	printf("time to die   : "SPEC_I64"\n", args->time_to_die);
-	printf("time to eat   : "SPEC_I64"\n", args->time_to_eat);
-	printf("time to sleep : "SPEC_I64"\n", args->time_to_sleep);
-	printf("must eat : "SPEC_I64"\n", args->num_of_each_philo_must_eat);
+	printf("num of philo  : %d\n", rule->num_of_philos);
+	printf("time to die   : "SPEC_I64"\n", rule->time_to_die);
+	printf("time to eat   : "SPEC_I64"\n", rule->time_to_eat);
+	printf("time to sleep : "SPEC_I64"\n", rule->time_to_sleep);
+	printf("must eat : "SPEC_I64"\n", rule->num_of_each_philo_must_eat);
 }
 
 static int64_t	put_sub(const char *message)

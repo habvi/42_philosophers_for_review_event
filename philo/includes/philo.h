@@ -45,14 +45,14 @@ typedef struct s_philo		t_philo;
 typedef struct s_deque		t_deque;
 typedef struct s_deque_node	t_deque_node;
 
-typedef struct s_args {
+typedef struct s_rule {
 	unsigned int	num_of_philos;
 	int64_t			time_to_die;
 	int64_t			time_to_eat;
 	int64_t			time_to_sleep;
 	int64_t			time_to_think;
 	int64_t			num_of_each_philo_must_eat;
-}	t_args;
+}	t_rule;
 
 typedef struct s_shared {
 	pthread_mutex_t	shared;
@@ -64,7 +64,7 @@ typedef struct s_shared {
 
 typedef struct s_philo {
 	unsigned int	id;
-	t_args			args;
+	t_rule			rule;
 	t_shared		*shared;
 	pthread_mutex_t	*fork1;
 	pthread_mutex_t	*fork2;
@@ -77,11 +77,11 @@ typedef struct s_philo {
 
 /* args */
 bool			is_valid_argc(const int argc);
-t_args			set_args(const int argc, const char **argv, t_result *result);
+t_rule			set_rule(const int argc, const char **argv, t_result *result);
 
 /* init */
 t_philo			*init_philos(\
-					t_args *args, t_shared *shared, pthread_mutex_t **forks);
+					t_rule *rule, t_shared *shared, pthread_mutex_t **forks);
 
 /* destroy */
 void			destroy_philos(t_philo **philos, \

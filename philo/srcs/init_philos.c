@@ -51,19 +51,19 @@ static void	set_two_forks(t_philo *philo, const unsigned int i, \
 }
 
 static void	set_philos(t_philo *philos, \
-						t_args *args, t_shared *shared, pthread_mutex_t *forks)
+						t_rule *rule, t_shared *shared, pthread_mutex_t *forks)
 {
 	unsigned int	i;
 	t_philo			*philo;
 
 	i = 0;
-	while (i < args->num_of_philos)
+	while (i < rule->num_of_philos)
 	{
 		philo = &philos[i];
 		philo->id = i;
-		philo->args = *args;
+		philo->rule = *rule;
 		philo->shared = shared;
-		set_two_forks(philo, i, forks, args->num_of_philos);
+		set_two_forks(philo, i, forks, rule->num_of_philos);
 		philo->start_time_of_philo = 0;
 		philo->start_time_of_cycle = 0;
 		philo->eat_count = 0;
@@ -73,23 +73,23 @@ static void	set_philos(t_philo *philos, \
 	}
 }
 
-t_philo	*init_philos(t_args *args, t_shared *shared, pthread_mutex_t **forks)
+t_philo	*init_philos(t_rule *rule, t_shared *shared, pthread_mutex_t **forks)
 {
 	t_philo	*philos;
 
 	if (init_shared(shared) == FAILURE)
 		return (NULL);
-	if (init_forks(forks, args->num_of_philos) == FAILURE)
+	if (init_forks(forks, rule->num_of_philos) == FAILURE)
 	{
 		destroy_mutex(shared, NULL, 0);
 		return (NULL);
 	}
-	philos = (t_philo *)malloc(sizeof(t_philo) * args->num_of_philos);
+	philos = (t_philo *)malloc(sizeof(t_philo) * rule->num_of_philos);
 	if (philos == NULL)
 	{
-		destroy_mutex(shared, forks, args->num_of_philos);
+		destroy_mutex(shared, forks, rule->num_of_philos);
 		return (NULL);
 	}
-	set_philos(philos, args, shared, *forks);
+	set_philos(philos, rule, shared, *forks);
 	return (philos);
 }
