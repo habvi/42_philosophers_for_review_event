@@ -20,11 +20,10 @@ void	usleep_gradual(int64_t sleep_time, t_philo *philo)
 		return ;
 	start_time = get_current_time_usec();
 	end_time = start_time + sleep_time;
-	while (!is_simulation_over_atomic(philo))
+	remain_sleep_time = sleep_time;
+	while (remain_sleep_time > 0 && !is_simulation_over_atomic(philo))
 	{
-		remain_sleep_time = calc_remain_sleep_time(end_time);
-		if (remain_sleep_time <= 0)
-			break ;
 		usleep(remain_sleep_time);
+		remain_sleep_time = calc_remain_sleep_time(end_time);
 	}
 }
