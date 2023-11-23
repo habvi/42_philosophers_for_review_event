@@ -9,10 +9,10 @@ int	main(int argc, char *argv[])
 	pthread_mutex_t	*forks;
 
 	if (!is_valid_argc(argc))
-		return (EXIT_FAILURE);
-	rule = set_rule(argc, (const char **)argv, &result);
+		return (error_args());
+	result = set_rules(&rule, argc, (const char **)argv);
 	if (result == FAILURE)
-		return (EXIT_FAILURE);
+		return (error_args());
 	philos = init_philos(&rule, &shared, &forks);
 	if (philos == NULL)
 		return (error_fatal());

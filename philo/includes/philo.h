@@ -77,7 +77,7 @@ typedef struct s_philo {
 
 /* args */
 bool			is_valid_argc(const int argc);
-t_rule			set_rule(const int argc, const char **argv, t_result *result);
+t_result		set_rules(t_rule *rule, const int argc, const char **argv);
 
 /* init */
 t_philo			*init_philos(\
@@ -126,7 +126,7 @@ void			*monitor_cycle(void *thread_args);
 void			put_log(const t_philo *philo, const char *message);
 int64_t			put_log_flow(\
 					t_philo *philo, void (*set_time)(), const char *message);
-void			error_args(void);
+t_result		error_args(void);
 t_result		error_fatal(void);
 
 /* usleep */

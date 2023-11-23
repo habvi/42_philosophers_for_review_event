@@ -33,9 +33,10 @@ int64_t	put_log_flow(t_philo *philo, void (*set_time)(), const char *message)
 	return (SUCCESS);
 }
 
-void	error_args(void)
+t_result	error_args(void)
 {
 	printf("%s\n", ERR_INVALID_ARG);
+	return (FAILURE);
 }
 
 t_result	error_fatal(void)
