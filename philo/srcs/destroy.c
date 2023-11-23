@@ -46,7 +46,9 @@ void	destroy_mutex(t_shared *shared, \
 		destroy_forks(forks, num_of_philos);
 }
 
-void	destroy_philos(t_philo **philos)
+void	destroy_philos(\
+					t_philo **philos, t_shared *shared, pthread_mutex_t **forks)
 {
+	destroy_mutex(shared, forks, (*philos)->args.num_of_philos);
 	ft_free((void **)philos);
 }

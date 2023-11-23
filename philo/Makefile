@@ -21,7 +21,6 @@ SRCS_DIR	:=	srcs
 SRCS		:=	args.c \
 				destroy.c \
 				init_philos.c \
-				init_shared_forks.c \
 				main.c \
 				monitor_cycle.c \
 				philo_action.c \

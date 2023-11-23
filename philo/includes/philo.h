@@ -80,12 +80,12 @@ bool			is_valid_argc(const int argc);
 t_args			set_args(const int argc, const char **argv, t_result *result);
 
 /* init */
-t_philo			*init_philos(t_args *args);
-t_result		init_shared_and_forks(t_philo *philos, t_shared *shared, \
-					pthread_mutex_t **forks, const unsigned int num_of_philos);
+t_philo			*init_philos(\
+					t_args *args, t_shared *shared, pthread_mutex_t **forks);
 
 /* destroy */
-void			destroy_philos(t_philo **philos);
+void			destroy_philos(t_philo **philos, \
+									t_shared *shared, pthread_mutex_t **forks);
 void			destroy_mutex(t_shared *shared, \
 					pthread_mutex_t **forks, const unsigned int num_of_philos);
 void			destroy_forks(\
