@@ -18,8 +18,8 @@
 # define MSG_THINK	"is thinking"
 # define MSG_DIED	"died"
 
-# define ERR_INVALID_ARG	"Error: invalid arguments."
-# define ERR_FATAL			"Error: fatal error."
+# define ERR_INVALID_ARG	"invalid arguments."
+# define ERR_FATAL			"fatal error."
 
 # if defined(__linux__)
 #  define SPEC_I64	"%ld"
@@ -126,8 +126,7 @@ void			*monitor_cycle(void *thread_args);
 void			put_log(const t_philo *philo, const char *message);
 int64_t			put_log_flow(\
 					t_philo *philo, void (*set_time)(), const char *message);
-t_result		error_args(void);
-t_result		error_fatal(void);
+int				put_error(const char *message);
 
 /* usleep */
 void			usleep_gradual(int64_t sleep_time, t_philo *philo);
