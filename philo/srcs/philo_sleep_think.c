@@ -21,9 +21,5 @@ static int64_t	put_log_thinking(t_philo *philo)
 
 void	thinking(t_philo *philo)
 {
-	const int64_t	time_to_think = philo->rule.time_to_think;
-
-	if (philo_action(philo, put_log_thinking) == FAILURE)
-		return ;
-	usleep_gradual(time_to_think, philo);
+	philo_action(philo, put_log_thinking);
 }
