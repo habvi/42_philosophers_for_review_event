@@ -58,26 +58,16 @@ static t_result	create_threads(t_deque *threads, t_shared *shared, \
 {
 	unsigned int	i;
 
-	pthread_mutex_lock(&shared->shared);
 	i = 0;
 	while (i < num_of_philos)
 	{
 		if (create_each_philo_thread(threads, &philos[i]) == FAILURE)
-		{
-			shared->is_thread_error = true;
-			pthread_mutex_unlock(&shared->shared);
 			return (FAILURE);
-		}
 		if (create_each_monitor_thread(threads, &philos[i]) == FAILURE)
-		{
-			shared->is_thread_error = true;
-			pthread_mutex_unlock(&shared->shared);
 			return (FAILURE);
-		}
 		i++;
 	}
 	set_simulation_start_time(shared, philos, num_of_philos);
-	pthread_mutex_unlock(&shared->shared);
 	return (SUCCESS);
 }
 
@@ -93,7 +83,11 @@ t_result	simulate_philos_cycle(\
 		shared->is_thread_error = true;
 		return (FAILURE);
 	}
+	pthread_mutex_lock(&shared->shared);
 	result = create_threads(threads, shared, philos, num_of_philos);
+	if (result == FAILURE)
+		shared->is_thread_error = true;
+	pthread_mutex_unlock(&shared->shared);
 	destroy_threads(&threads);
 	return (result);
 }
