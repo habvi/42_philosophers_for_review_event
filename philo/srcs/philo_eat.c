@@ -31,7 +31,9 @@ void	eating(t_philo *philo)
 	if (philo_action(philo, put_log_eating) == FAILURE)
 		return ;
 	usleep_gradual(time_to_eat, philo);
-	shared = &philo->shared->shared;
 	if (must_eat != NOT_SET)
+	{
+		shared = &philo->shared->shared;
 		call_atomic(shared, count_eat_times, philo);
+	}
 }
