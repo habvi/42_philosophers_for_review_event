@@ -40,9 +40,12 @@ UTILS_DIR	:=	utils
 SRCS		+=	$(UTILS_DIR)/call_atomic.c \
 				$(UTILS_DIR)/debug.c \
 				$(UTILS_DIR)/ft_atoi.c \
+				$(UTILS_DIR)/ft_bzero.c \
+				$(UTILS_DIR)/ft_calloc.c \
 				$(UTILS_DIR)/ft_free.c \
 				$(UTILS_DIR)/ft_isdigit.c \
 				$(UTILS_DIR)/ft_max.c \
+				$(UTILS_DIR)/ft_memset.c \
 				$(UTILS_DIR)/ft_min.c \
 				$(UTILS_DIR)/ft_putstr_fd.c \
 				$(UTILS_DIR)/ft_strcmp.c \
