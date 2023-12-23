@@ -52,7 +52,6 @@ static void	set_simulation_start_time(\
 	}
 }
 
-// simulation begins after all threads craeted.
 static t_result	create_threads(t_deque *threads, t_shared *shared, \
 							t_philo *philos, const unsigned int num_of_philos)
 {
@@ -71,6 +70,7 @@ static t_result	create_threads(t_deque *threads, t_shared *shared, \
 	return (SUCCESS);
 }
 
+// lock & unlock : simulation begins after all threads craeted.
 t_result	simulate_philos_cycle(\
 			t_philo *philos, t_shared *shared, const unsigned int num_of_philos)
 {
