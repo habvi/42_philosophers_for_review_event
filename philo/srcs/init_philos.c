@@ -3,12 +3,9 @@
 
 static t_result	init_shared(t_shared *shared)
 {
+	ft_bzero((void *)shared, sizeof(*shared));
 	if (pthread_mutex_init(&shared->shared, NULL) != MUTEX_SUCCESS)
 		return (FAILURE);
-	shared->start_time = 0;
-	shared->is_any_philo_dead = false;
-	shared->is_thread_error = false;
-	shared->num_of_finish_eat = 0;
 	return (SUCCESS);
 }
 
@@ -64,11 +61,6 @@ static void	set_philos(t_philo *philos, \
 		philo->rule = *rule;
 		philo->shared = shared;
 		set_two_forks(philo, i, forks, rule->num_of_philos);
-		philo->start_time_of_philo = 0;
-		philo->start_time_of_cycle = 0;
-		philo->eat_count = 0;
-		philo->is_self_dead = false;
-		philo->current_time = get_current_time_usec();
 		i++;
 	}
 }
@@ -84,7 +76,7 @@ t_philo	*init_philos(t_rule *rule, t_shared *shared, pthread_mutex_t **forks)
 		destroy_mutex(shared, NULL, 0);
 		return (NULL);
 	}
-	philos = (t_philo *)malloc(sizeof(t_philo) * rule->num_of_philos);
+	philos = (t_philo *)ft_calloc(rule->num_of_philos, sizeof(t_philo));
 	if (philos == NULL)
 	{
 		destroy_mutex(shared, forks, rule->num_of_philos);
