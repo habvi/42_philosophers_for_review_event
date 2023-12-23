@@ -19,7 +19,7 @@
 # define MSG_DIED	"died"
 
 # define ERR_INVALID_ARG	"invalid arguments."
-# define ERR_FATAL			"fatal error."
+# define ERR_FATAL			"fatal."
 
 # if defined(__linux__)
 #  define SPEC_I64	"%ld"
