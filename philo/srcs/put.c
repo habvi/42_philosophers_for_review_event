@@ -1,6 +1,7 @@
-#include <stdio.h> // printf
 #include "philo.h"
 #include "utils.h"
+#include <stdio.h> // printf
+#include <unistd.h>
 
 // call in lock
 void	put_log(const t_philo *philo, const char *message)
@@ -35,6 +36,11 @@ int64_t	put_log_flow(t_philo *philo, void (*set_time)(), const char *message)
 
 int	put_error(const char *message)
 {
-	printf("Error: %s\n", message);
+	if (ft_putstr_fd("Error: ", STDERR_FILENO) == WRITE_ERROR)
+		return (EXIT_FAILURE);
+	if (ft_putstr_fd(message, STDERR_FILENO) == WRITE_ERROR)
+		return (EXIT_FAILURE);
+	if (ft_putstr_fd("\n", STDERR_FILENO) == WRITE_ERROR)
+		return (EXIT_FAILURE);
 	return (EXIT_FAILURE);
 }

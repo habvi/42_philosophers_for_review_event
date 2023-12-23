@@ -5,6 +5,8 @@
 # include <stdbool.h>
 # include "result.h"
 
+# define WRITE_ERROR	(-1)
+
 typedef struct s_rule	t_rule;
 typedef struct s_philo	t_philo;
 
@@ -16,8 +18,10 @@ void	*ft_free(void **ptr);
 bool	ft_isdigit(int c);
 int64_t	ft_max(const int64_t x, const int64_t y);
 int64_t	ft_min(const int64_t x, const int64_t y);
-int 	ft_strcmp(const char *s1, const char *s2);
+ssize_t	ft_putstr_fd(const char *s, int fd);
+int		ft_strcmp(const char *s1, const char *s2);
 bool	ft_streq(const char *s1, const char *s2);
+size_t	ft_strlen(const char *s);
 int64_t	get_current_time_usec(void);
 
 /* debug */

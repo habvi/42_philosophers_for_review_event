@@ -20,7 +20,7 @@ void	usleep_gradual(int64_t sleep_time, t_philo *philo)
 		return ;
 	start_time = get_current_time_usec();
 	end_time = start_time + sleep_time;
-	sleep_chunk_time = calc_sleep_chunk_time(end_time);;
+	sleep_chunk_time = calc_sleep_chunk_time(end_time);
 	while (sleep_chunk_time > 0 && !is_simulation_over_atomic(philo))
 	{
 		usleep(sleep_chunk_time);
