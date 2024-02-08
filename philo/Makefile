@@ -23,7 +23,7 @@ SRCS		:=	args.c \
 				init_philos.c \
 				main.c \
 				monitor_cycle.c \
-				philo_action.c \
+				philo_check_simulation_over.c \
 				philo_cycle.c \
 				philo_eat.c \
 				philo_forks.c \
