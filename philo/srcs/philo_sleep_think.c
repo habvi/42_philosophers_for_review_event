@@ -26,5 +26,10 @@ static int64_t	put_log_thinking(t_philo *philo)
 
 void	thinking(t_philo *philo)
 {
-	philo_action(philo, put_log_thinking);
+	pthread_mutex_t	*shared;
+
+	if (is_simulation_over_atomic(philo))
+		return ;
+	shared = &philo->shared->shared;
+	call_atomic(shared, put_log_thinking, philo);
 }
