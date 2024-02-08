@@ -1,9 +1,14 @@
 #include "philo.h"
 #include "utils.h"
 
+// The required philo->current_time within put_log() is
+// set inside is_simulation_over(), thus preserving the order.
 static int64_t	put_log_sleeping(t_philo *philo)
 {
-	return (put_log_flow(philo, NULL, MSG_SLEEP));
+	if (is_simulation_over(philo))
+		return (FAILURE);
+	put_log(philo, MSG_SLEEP);
+	return (SUCCESS);
 }
 
 void	sleeping(t_philo *philo)
@@ -19,9 +24,14 @@ void	sleeping(t_philo *philo)
 	usleep_gradual(time_to_sleep, philo);
 }
 
+// The required philo->current_time within put_log() is
+// set inside is_simulation_over(), thus preserving the order.
 static int64_t	put_log_thinking(t_philo *philo)
 {
-	return (put_log_flow(philo, NULL, MSG_THINK));
+	if (is_simulation_over(philo))
+		return (FAILURE);
+	put_log(philo, MSG_THINK);
+	return (SUCCESS);
 }
 
 void	thinking(t_philo *philo)

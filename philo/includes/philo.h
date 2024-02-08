@@ -123,8 +123,6 @@ void			*monitor_cycle(void *thread_args);
 
 /* put */
 void			put_log(const t_philo *philo, const char *message);
-int64_t			put_log_flow(\
-					t_philo *philo, void (*set_time)(), const char *message);
 int				put_error(const char *message);
 
 /* usleep */

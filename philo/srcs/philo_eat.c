@@ -6,9 +6,15 @@ static void	set_start_cycle_time(t_philo *philo, const int64_t current_time)
 	philo->start_time_of_cycle = current_time;
 }
 
+// The required philo->current_time within put_log() is
+// set inside is_simulation_over(), thus preserving the order.
 static int64_t	put_log_eating(t_philo *philo)
 {
-	return (put_log_flow(philo, set_start_cycle_time, MSG_EAT));
+	if (is_simulation_over(philo))
+		return (FAILURE);
+	set_start_cycle_time(philo, philo->current_time);
+	put_log(philo, MSG_EAT);
+	return (SUCCESS);
 }
 
 static int64_t	count_eat_times(t_philo *philo)
