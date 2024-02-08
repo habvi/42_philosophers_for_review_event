@@ -47,13 +47,3 @@ bool	is_simulation_over_atomic(t_philo *philo)
 	shared = &philo->shared->shared;
 	return (call_atomic(shared, is_simulation_over, philo));
 }
-
-int64_t	philo_action(t_philo *philo, int64_t (*action)(t_philo *))
-{
-	pthread_mutex_t	*shared;
-
-	if (is_simulation_over_atomic(philo))
-		return (FAILURE);
-	shared = &philo->shared->shared;
-	return (call_atomic(shared, action, (void *)philo));
-}

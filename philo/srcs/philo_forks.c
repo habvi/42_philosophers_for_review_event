@@ -1,4 +1,5 @@
 #include "philo.h"
+#include "utils.h"
 
 static int64_t	put_log_fork(t_philo *philo)
 {
@@ -7,8 +8,13 @@ static int64_t	put_log_fork(t_philo *philo)
 
 void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 {
+	pthread_mutex_t	*shared;
+
 	pthread_mutex_lock(fork);
-	philo_action(philo, put_log_fork);
+	if (is_simulation_over_atomic(philo))
+		return ;
+	shared = &philo->shared->shared;
+	call_atomic(shared, put_log_fork, philo);
 }
 
 void	take_two_forks(t_philo *philo)

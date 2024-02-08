@@ -28,12 +28,12 @@ void	eating(t_philo *philo)
 	const int64_t	must_eat = philo->rule.num_of_each_philo_must_eat;
 	pthread_mutex_t	*shared;
 
-	if (philo_action(philo, put_log_eating) == FAILURE)
+	if (is_simulation_over_atomic(philo))
+		return ;
+	shared = &philo->shared->shared;
+	if (call_atomic(shared, put_log_eating, philo) == FAILURE)
 		return ;
 	usleep_gradual(time_to_eat, philo);
 	if (must_eat != NOT_SET)
-	{
-		shared = &philo->shared->shared;
 		call_atomic(shared, count_eat_times, philo);
-	}
 }
