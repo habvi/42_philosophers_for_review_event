@@ -16,8 +16,6 @@ void	take_fork(pthread_mutex_t *fork, t_philo *philo)
 	pthread_mutex_t	*shared;
 
 	pthread_mutex_lock(fork);
-	if (is_simulation_over_atomic(philo))
-		return ;
 	shared = &philo->shared->shared;
 	call_atomic(shared, put_log_fork, philo);
 }
