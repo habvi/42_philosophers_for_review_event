@@ -100,7 +100,6 @@ bool			wait_start(t_philo *philo);
 /* philo_action */
 int64_t			is_simulation_over(t_philo *philo);
 bool			is_simulation_over_atomic(t_philo *philo);
-int64_t			philo_action(t_philo *philo, int64_t (*action)(t_philo *));
 
 /* philo_simulate */
 t_result		simulate_philos_cycle(t_philo *philos, \
