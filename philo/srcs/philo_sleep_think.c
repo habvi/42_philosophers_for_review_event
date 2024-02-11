@@ -1,5 +1,4 @@
 #include "philo.h"
-#include "utils.h"
 
 // The required philo->current_time within put_log() is
 // set inside is_simulation_over(), thus preserving the order.
@@ -28,12 +27,11 @@ void	sleeping(t_philo *philo)
 
 // The required philo->current_time within put_log() is
 // set inside is_simulation_over(), thus preserving the order.
-static int64_t	put_log_thinking(t_philo *philo)
+static void	put_log_thinking(t_philo *philo)
 {
 	if (is_simulation_over(philo))
-		return (FAILURE);
+		return ;
 	put_log(philo, MSG_THINK);
-	return (SUCCESS);
 }
 
 void	thinking(t_philo *philo)
@@ -41,5 +39,7 @@ void	thinking(t_philo *philo)
 	pthread_mutex_t	*shared;
 
 	shared = &philo->shared->shared;
-	call_atomic(shared, put_log_thinking, philo);
+	pthread_mutex_lock(shared);
+	put_log_thinking(philo);
+	pthread_mutex_unlock(shared);
 }
