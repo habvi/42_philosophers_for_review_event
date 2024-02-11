@@ -1,5 +1,4 @@
 #include "philo.h"
-#include "utils.h"
 
 static void	set_start_cycle_time(t_philo *philo, const int64_t current_time)
 {
@@ -17,7 +16,7 @@ static t_result	put_log_eating(t_philo *philo)
 	return (SUCCESS);
 }
 
-static int64_t	count_eat_times(t_philo *philo)
+static void	count_eat_times(t_philo *philo)
 {
 	const unsigned int	must_eat = \
 						(unsigned int)philo->rule.num_of_each_philo_must_eat;
@@ -25,7 +24,6 @@ static int64_t	count_eat_times(t_philo *philo)
 	philo->eat_count++;
 	if (philo->eat_count == must_eat)
 		philo->shared->num_of_finish_eat++;
-	return (SUCCESS);
 }
 
 void	eating(t_philo *philo)
@@ -43,5 +41,9 @@ void	eating(t_philo *philo)
 		return ;
 	usleep_gradual(time_to_eat, philo);
 	if (must_eat != NOT_SET)
-		call_atomic(shared, count_eat_times, philo);
+	{
+		pthread_mutex_lock(shared);
+		count_eat_times(philo);
+		pthread_mutex_unlock(shared);
+	}
 }
