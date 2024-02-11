@@ -31,7 +31,7 @@ t_deque_node	*create_thread_node(pthread_t new_thread)
 	return (node);
 }
 
-static int64_t	get_error(t_philo *philo)
+static bool	get_error(t_philo *philo)
 {
 	return (philo->shared->is_thread_error);
 }
@@ -39,7 +39,11 @@ static int64_t	get_error(t_philo *philo)
 bool	wait_start(t_philo *philo)
 {
 	pthread_mutex_t	*shared;
+	bool			is_thread_error;
 
 	shared = &philo->shared->shared;
-	return (call_atomic(shared, get_error, philo));
+	pthread_mutex_lock(shared);
+	is_thread_error = get_error(philo);
+	pthread_mutex_unlock(shared);
+	return (is_thread_error);
 }
