@@ -98,7 +98,7 @@ t_deque_node	*create_thread_node(pthread_t new_thread);
 bool			wait_start(t_philo *philo);
 
 /* philo_check_simulation_over */
-int64_t			is_simulation_over(t_philo *philo);
+bool			is_simulation_over(t_philo *philo);
 bool			is_simulation_over_atomic(t_philo *philo);
 
 /* philo_simulate */
