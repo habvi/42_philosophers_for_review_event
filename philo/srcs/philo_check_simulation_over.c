@@ -13,10 +13,10 @@ static bool	is_starved(t_philo *philo)
 static bool	set_simulation_end(t_philo *philo)
 {
 	philo->shared->is_any_philo_dead = true;
-	return (SUCCESS);
+	return (true);
 }
 
-int64_t	is_simulation_over(t_philo *philo)
+bool	is_simulation_over(t_philo *philo)
 {
 	const t_shared	*shared = philo->shared;
 	const int64_t	must_eat = philo->rule.num_of_each_philo_must_eat;
@@ -43,7 +43,11 @@ int64_t	is_simulation_over(t_philo *philo)
 bool	is_simulation_over_atomic(t_philo *philo)
 {
 	pthread_mutex_t	*shared;
+	bool			is_over;
 
 	shared = &philo->shared->shared;
-	return (call_atomic(shared, is_simulation_over, philo));
+	pthread_mutex_lock(shared);
+	is_over = is_simulation_over(philo);
+	pthread_mutex_unlock(shared);
+	return (is_over);
 }
