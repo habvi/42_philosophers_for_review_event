@@ -118,6 +118,10 @@ sani	:
 norm	:
 	python3 ../test/norm.py
 
+.PHONY	: test
+test	: all
+	python3 ../test/test.py
+
 #--------------------------------------------
 
 -include $(DEPS)
